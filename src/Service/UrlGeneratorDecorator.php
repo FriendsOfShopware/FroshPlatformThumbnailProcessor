@@ -8,6 +8,7 @@ use Shopware\Core\Content\Media\Exception\EmptyMediaIdException;
 use Shopware\Core\Content\Media\MediaEntity;
 use Shopware\Core\Content\Media\Pathname\PathnameStrategy\PathnameStrategyInterface;
 use Shopware\Core\Content\Media\Pathname\UrlGeneratorInterface;
+use Shopware\Core\System\SystemConfig\SystemConfigService;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 class UrlGeneratorDecorator implements UrlGeneratorInterface
@@ -32,18 +33,31 @@ class UrlGeneratorDecorator implements UrlGeneratorInterface
      * @var UrlGeneratorInterface
      */
     private $decoratedService;
+    /**
+     * @var SystemConfigService
+     */
+    private $systemConfigService;
+
+    /**
+     * @var string|null
+     */
+    private $thumbnailPattern;
 
     public function __construct(
         UrlGeneratorInterface $decoratedService,
+        SystemConfigService $systemConfigService,
         PathnameStrategyInterface $pathnameStrategy,
         RequestStack $requestStack,
         ?string $baseUrl = null
-    ) {
+    )
+    {
         $this->decoratedService = $decoratedService;
         $this->pathnameStrategy = $pathnameStrategy;
         $this->requestStack = $requestStack;
 
         $this->baseUrl = $this->normalizeBaseUrl($baseUrl);
+        $this->systemConfigService = $systemConfigService;
+        $this->thumbnailPattern = $this->systemConfigService->get('FroshPlatformThumbnailProcessor.config.ThumbnailPattern');
     }
 
     public function getAbsoluteMediaUrl(MediaEntity $media): string
@@ -60,31 +74,20 @@ class UrlGeneratorDecorator implements UrlGeneratorInterface
      * @param MediaEntity $media
      * @param MediaThumbnailEntity $thumbnail
      * @return string
-     * @throws EmptyMediaFilenameException
-     * @throws EmptyMediaIdException
      */
     public function getAbsoluteThumbnailUrl(MediaEntity $media, MediaThumbnailEntity $thumbnail): string
     {
-        return $this->getBaseUrl() . '/' . $this->getRelativeThumbnailUrl($media, $thumbnail);
+        return $this->getUrl($this->getRelativeMediaUrl($media), $thumbnail->getWidth(), $thumbnail->getHeight());
     }
 
     /**
      * @param MediaEntity $media
      * @param MediaThumbnailEntity $thumbnail
      * @return string
-     * @throws EmptyMediaFilenameException
-     * @throws EmptyMediaIdException
      */
     public function getRelativeThumbnailUrl(MediaEntity $media, MediaThumbnailEntity $thumbnail): string
     {
-        $this->validateMedia($media);
-
-        return $this->toPathString([
-            'media',
-            $this->pathnameStrategy->generatePathHash($media),
-            $this->pathnameStrategy->generatePathCacheBuster($media),
-            $this->pathnameStrategy->generatePhysicalFilename($media) . '?width='.$thumbnail->getWidth() . '&height='.$thumbnail->getHeight(),
-        ]);
+        return $this->decoratedService->getRelativeThumbnailUrl($media, $thumbnail);
     }
 
     private function normalizeBaseUrl(?string $baseUrl)
@@ -96,25 +99,13 @@ class UrlGeneratorDecorator implements UrlGeneratorInterface
         return rtrim($baseUrl, '/');
     }
 
-    /**
-     * @param MediaEntity $media
-     * @throws EmptyMediaFilenameException
-     * @throws EmptyMediaIdException
-     */
-    private function validateMedia(MediaEntity $media): void
+    public function getUrl($mediaPath, $width, $height)
     {
-        if (empty($media->getId())) {
-            throw new EmptyMediaIdException();
-        }
-
-        if (empty($media->getFileName())) {
-            throw new EmptyMediaFilenameException();
-        }
-    }
-
-    private function toPathString(array $parts): string
-    {
-        return implode('/', array_filter($parts));
+        $result = $this->thumbnailPattern;
+        $result = str_replace(
+            ['{mediaUrl}', '{mediaPath}', '{width}', '{height}'],
+            [$this->getBaseUrl(), $mediaPath, $width, $height], $result);
+        return $result;
     }
 
     private function getBaseUrl()

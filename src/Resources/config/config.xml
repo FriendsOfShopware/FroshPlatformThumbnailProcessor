@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/shopware/platform/master/src/Core/System/SystemConfig/Schema/config.xsd">
+
+    <card>
+        <title>Configuration</title>
+        <input-field type="text">
+            <name>ThumbnailPattern</name>
+            <label>Thumbnail-Pattern</label>
+            <placeholder>{mediaUrl}/{mediaPath}?width={width}&amp;height={height}</placeholder>
+            <defaultValue>{mediaUrl}/{mediaPath}?width={width}&amp;height={height}</defaultValue>
+        </input-field>
+    </card>
+</config>
