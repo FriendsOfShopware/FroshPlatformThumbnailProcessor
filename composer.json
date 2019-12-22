@@ -1,0 +1,32 @@
+{
+    "name": "frosh/platform-thumbnail-processor",
+    "description": "",
+    "version": "v1.0.0",
+    "type": "shopware-platform-plugin",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "FriendsOfShopware",
+            "homepage": "https://friendsofshopware.de"
+        }
+    ],
+    "require": {
+        "shopware/core": "*"
+    },
+    "extra": {
+        "shopware-plugin-class": "Frosh\\ThumbnailProcessor\\FroshPlatformThumbnailProcessor",
+        "label": {
+            "de-DE": "ThumbnailProcessor Plugin",
+            "en-GB": "ThumbnailProcessor Plugin"
+        },
+        "description": {
+            "de-DE": "Deutsche Beschreibung des Plugins",
+            "en-GB": "English description of the plugin"
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Frosh\\ThumbnailProcessor\\": "src/"
+        }
+    }
+}
