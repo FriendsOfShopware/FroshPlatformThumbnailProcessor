@@ -15,33 +15,42 @@ While active, this will access all thumbnails variable from original image. The 
 
 ````
 f.e.:
-https://cdn.example.de/thumbnail/01/82/69/sasse_200x200.png
+https://www.example.com/thumbnail/01/82/69/sasse_200x200.png
  becomes:
-https://cdn.example.de/media/01/82/69/sasse.png?width=200&height=200
+https://www.example.com/media/01/82/69/sasse.png?width=200&height=200
 ````
 You can edit the thumbnail-template within the plugin-config. Defaults `{mediaUrl}/{mediaPath}?width={width}&height={height}`.
 Available variables with examples:
-* {mediaUrl}: https://cdn.test.de/
-* {mediaPath}: media/5b/6d/16/tea.png
+* {mediaUrl}: https://www.example.com/
+* {mediaPath}: media/01/82/69/sasse.png
 * {width}: 800
 * {height}: 800
 
-### Removing unneeded thumbnails
-ToDo...
+ Feel free to decorate `ThumbnailUrlTemplateInterface` to add more individual functions like [signed imgproxy](https://docs.imgproxy.net/#/configuration?id=url-signature)
+
+## Removing unneeded thumbnails
+You may want to delete folder `thumbnails` within folder `public`
 
 ## Tested Supports
 
 ### imgproxy [Link](https://imgproxy.net/)
 
-Tested with insecure environment for internal test-shops. Template example: `http://localhost:8080/x/fit/{width}/{height}/sm/0/plain/{mediaUrl}/{mediaPath}`.
+Tested with insecure environment for internal test-shops.  
+Template example: `http://localhost:8080/x/fit/{width}/{height}/sm/0/plain/{mediaUrl}/{mediaPath}`  
+will become `http://localhost:8080/x/fit/800/800/sm/0/plain/https://www.example.com/media/01/82/69/sasse.png`
 
 ### BunnyCDN [Link](https://bunnycdn.com/)
 
-You would have to active `Bunny Optimizer` and `Manipulation Engine` in your Zone in BunnyCDN.
+You would have to active `Bunny Optimizer` and `Manipulation Engine` in your Zone in BunnyCDN.  
+Template example: `{mediaUrl}/{mediaPath}?width={width}&height={height}` (default)  
+ ill become `https://www.example.com/media/01/82/69/sasse.png?width=800&height=800`
 
 ### Images.weserv.nl [Link](https://images.weserv.nl/)
 
-An image cache & resize service. Manipulate images on-the-fly with a worldwide cache. Template example: `https://images.weserv.nl/?url={mediaUrl}/{mediaPath}&w={width}&h={height}`.
+An image cache & resize service. Manipulate images on-the-fly with a worldwide cache.  
+Template example: `https://images.weserv.nl/?url={mediaUrl}/{mediaPath}&w={width}&h={height}`  
+will become `https://images.weserv.nl/?url=https://www.example.com/media/01/82/69/sasse.png&w=800&h=800`
+
 
 ## License
 
