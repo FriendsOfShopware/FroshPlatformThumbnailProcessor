@@ -64,6 +64,9 @@ class ThumbnailServiceDecorator extends ThumbnailService
         return $this->createThumbnailsForSizes($media, $config, $config->getMediaThumbnailSizes(), $context);
     }
 
+    /*
+     * we don't creating thumbnail-files, just updating Repository
+     */
     public function updateThumbnails(MediaEntity $media, Context $context): int
     {
         if (!$this->checkMediaCanHaveThumbnails($media, $context)) {
@@ -112,6 +115,10 @@ class ThumbnailServiceDecorator extends ThumbnailService
         return true;
     }
 
+
+    /*
+     * we don't creating thumbnail-files, just updating Repository
+     */
     private function createThumbnailsForSizes(
         MediaEntity $media,
         MediaFolderConfigurationEntity $config,
