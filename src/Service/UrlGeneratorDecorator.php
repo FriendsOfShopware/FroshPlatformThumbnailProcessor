@@ -16,7 +16,7 @@ class UrlGeneratorDecorator implements UrlGeneratorInterface
     private $requestStack;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $baseUrl;
 
@@ -41,8 +41,7 @@ class UrlGeneratorDecorator implements UrlGeneratorInterface
         PathnameStrategyInterface $pathnameStrategy,
         RequestStack $requestStack,
         ?string $baseUrl = null
-    )
-    {
+    ) {
         $this->decoratedService = $decoratedService;
         $this->pathnameStrategy = $pathnameStrategy;
         $this->requestStack = $requestStack;
@@ -72,7 +71,7 @@ class UrlGeneratorDecorator implements UrlGeneratorInterface
         return $this->getAbsoluteThumbnailUrl($media, $thumbnail);
     }
 
-    private function normalizeBaseUrl(?string $baseUrl)
+    private function normalizeBaseUrl($baseUrl): ?string
     {
         if (!$baseUrl) {
             return null;
@@ -81,7 +80,7 @@ class UrlGeneratorDecorator implements UrlGeneratorInterface
         return rtrim($baseUrl, '/');
     }
 
-    private function getBaseUrl()
+    private function getBaseUrl(): string
     {
         if (!$this->baseUrl) {
             $this->baseUrl = $this->createFallbackUrl();
@@ -90,7 +89,7 @@ class UrlGeneratorDecorator implements UrlGeneratorInterface
         return $this->baseUrl;
     }
 
-    private function createFallbackUrl()
+    private function createFallbackUrl(): string
     {
         $request = $this->requestStack->getMasterRequest();
         if ($request) {

@@ -2,12 +2,13 @@
 
 namespace Frosh\ThumbnailProcessor\Service;
 
+use League\Flysystem\FilesystemInterface;
 use Shopware\Core\Content\Media\Aggregate\MediaFolder\MediaFolderEntity;
-use Shopware\Core\Content\Media\Aggregate\MediaFolderConfiguration\MediaFolderConfigurationEntity;
 use Shopware\Core\Content\Media\Aggregate\MediaThumbnail\MediaThumbnailCollection;
 use Shopware\Core\Content\Media\Aggregate\MediaThumbnailSize\MediaThumbnailSizeCollection;
 use Shopware\Core\Content\Media\MediaEntity;
 use Shopware\Core\Content\Media\MediaType\ImageType;
+use Shopware\Core\Content\Media\Pathname\UrlGeneratorInterface;
 use Shopware\Core\Content\Media\Thumbnail\ThumbnailService;
 use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
@@ -26,6 +27,21 @@ class ThumbnailServiceDecorator extends ThumbnailService
     private $thumbnailRepository;
 
     /**
+     * @var FilesystemInterface
+     */
+    private $filesystemPublic;
+
+    /**
+     * @var FilesystemInterface
+     */
+    private $filesystemPrivate;
+
+    /**
+     * @var UrlGeneratorInterface
+     */
+    private $urlGenerator;
+
+    /**
      * @var EntityRepositoryInterface
      */
     private $mediaFolderRepository;
@@ -33,12 +49,25 @@ class ThumbnailServiceDecorator extends ThumbnailService
     public function __construct(
         EntityRepositoryInterface $mediaRepository,
         EntityRepositoryInterface $thumbnailRepository,
+        FilesystemInterface $fileSystemPublic,
+        FilesystemInterface $fileSystemPrivate,
+        UrlGeneratorInterface $urlGenerator,
         EntityRepositoryInterface $mediaFolderRepository
-    )
-    {
+    ) {
         $this->mediaRepository = $mediaRepository;
         $this->thumbnailRepository = $thumbnailRepository;
+        $this->filesystemPublic = $fileSystemPublic;
+        $this->filesystemPrivate = $fileSystemPrivate;
+        $this->urlGenerator = $urlGenerator;
         $this->mediaFolderRepository = $mediaFolderRepository;
+        parent::__construct(
+            $this->mediaFolderRepository,
+            $this->thumbnailRepository,
+            $this->filesystemPublic,
+            $this->filesystemPrivate,
+            $this->urlGenerator,
+            $this->mediaFolderRepository
+        );
     }
 
     public function generateThumbnails(MediaEntity $media, Context $context): int
@@ -57,11 +86,16 @@ class ThumbnailServiceDecorator extends ThumbnailService
             return 0;
         }
 
+        $mediaThumbnailSizes = $config->getMediaThumbnailSizes();
+        if ($mediaThumbnailSizes === null) {
+            return 0;
+        }
+
         /** @var MediaThumbnailCollection $toBeDeletedThumbnails */
         $toBeDeletedThumbnails = $media->getThumbnails();
         $this->thumbnailRepository->delete($toBeDeletedThumbnails->getIds(), $context);
 
-        return $this->createThumbnailsForSizes($media, $config, $config->getMediaThumbnailSizes(), $context);
+        return $this->createThumbnailsForSizes($media, $mediaThumbnailSizes, $context);
     }
 
     /*
@@ -83,8 +117,18 @@ class ThumbnailServiceDecorator extends ThumbnailService
             return 0;
         }
 
-        $tobBeCreatedSizes = new MediaThumbnailSizeCollection($config->getMediaThumbnailSizes()->getElements());
-        $toBeDeletedThumbnails = new MediaThumbnailCollection($media->getThumbnails()->getElements());
+        $mediaThumbnailSizes = $config->getMediaThumbnailSizes();
+        if ($mediaThumbnailSizes === null) {
+            return 0;
+        }
+
+        $thumbnails = $media->getThumbnails();
+        if ($thumbnails === null) {
+            return 0;
+        }
+
+        $tobBeCreatedSizes = new MediaThumbnailSizeCollection($mediaThumbnailSizes->getElements());
+        $toBeDeletedThumbnails = new MediaThumbnailCollection($thumbnails->getElements());
 
         foreach ($tobBeCreatedSizes as $thumbnailSize) {
             foreach ($toBeDeletedThumbnails as $thumbnail) {
@@ -115,17 +159,14 @@ class ThumbnailServiceDecorator extends ThumbnailService
         return true;
     }
 
-
     /*
      * we don't creating thumbnail-files, just updating Repository
      */
     private function createThumbnailsForSizes(
         MediaEntity $media,
-        MediaFolderConfigurationEntity $config,
         MediaThumbnailSizeCollection $thumbnailSizes,
         Context $context
-    ): int
-    {
+    ): int {
         if ($thumbnailSizes->count() === 0) {
             return 0;
         }
@@ -145,7 +186,7 @@ class ThumbnailServiceDecorator extends ThumbnailService
                 'thumbnails' => $savedThumbnails,
             ];
 
-            $context->scope(Context::SYSTEM_SCOPE, function ($context) use ($mediaData): void {
+            $context->scope(Context::SYSTEM_SCOPE, function (Context $context) use ($mediaData): void {
                 $this->mediaRepository->update([$mediaData], $context);
             });
 
@@ -200,7 +241,12 @@ class ThumbnailServiceDecorator extends ThumbnailService
 
     private function deleteAssociatedThumbnails(MediaEntity $media, Context $context): void
     {
-        $associatedThumbnails = $media->getThumbnails()->getIds();
+        $thumbnails = $media->getThumbnails();
+        if ($thumbnails === null) {
+            return;
+        }
+
+        $associatedThumbnails = $thumbnails->getIds();
         $this->thumbnailRepository->delete($associatedThumbnails, $context);
     }
 }
