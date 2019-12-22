@@ -4,5 +4,5 @@ namespace Frosh\ThumbnailProcessor\Service;
 
 interface ThumbnailUrlTemplateInterface
 {
-    public function getUrl($mediaUrl, $mediaPath, $width, $height);
+    public function getUrl($mediaUrl, $mediaPath, $width, $height): string;
 }
