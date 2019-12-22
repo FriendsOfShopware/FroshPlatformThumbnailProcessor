@@ -9,6 +9,12 @@
             <label>Thumbnail-Pattern</label>
             <placeholder>{mediaUrl}/{mediaPath}?width={width}&amp;height={height}</placeholder>
             <defaultValue>{mediaUrl}/{mediaPath}?width={width}&amp;height={height}</defaultValue>
+            <helpText>available variables:
+                {mediaUrl}: https://cdn.test.de/
+                {mediaPath}: media/image/5b/6d/16/tea.png
+                {width}: 800
+                {height}: 800
+            </helpText>
         </input-field>
     </card>
 </config>

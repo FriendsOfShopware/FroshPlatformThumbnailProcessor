@@ -34,18 +34,13 @@ class UrlGeneratorDecorator implements UrlGeneratorInterface
      */
     private $decoratedService;
     /**
-     * @var SystemConfigService
+     * @var ThumbnailUrlTemplateInterface
      */
-    private $systemConfigService;
-
-    /**
-     * @var string|null
-     */
-    private $thumbnailPattern;
+    private $thumbnailUrlTemplate;
 
     public function __construct(
         UrlGeneratorInterface $decoratedService,
-        SystemConfigService $systemConfigService,
+        ThumbnailUrlTemplateInterface $thumbnailUrlTemplate,
         PathnameStrategyInterface $pathnameStrategy,
         RequestStack $requestStack,
         ?string $baseUrl = null
@@ -56,8 +51,8 @@ class UrlGeneratorDecorator implements UrlGeneratorInterface
         $this->requestStack = $requestStack;
 
         $this->baseUrl = $this->normalizeBaseUrl($baseUrl);
-        $this->systemConfigService = $systemConfigService;
-        $this->thumbnailPattern = $this->systemConfigService->get('FroshPlatformThumbnailProcessor.config.ThumbnailPattern');
+
+        $this->thumbnailUrlTemplate = $thumbnailUrlTemplate;
     }
 
     public function getAbsoluteMediaUrl(MediaEntity $media): string
@@ -77,7 +72,7 @@ class UrlGeneratorDecorator implements UrlGeneratorInterface
      */
     public function getAbsoluteThumbnailUrl(MediaEntity $media, MediaThumbnailEntity $thumbnail): string
     {
-        return $this->getUrl($this->getRelativeMediaUrl($media), $thumbnail->getWidth(), $thumbnail->getHeight());
+        return $this->thumbnailUrlTemplate->getUrl($this->getBaseUrl(), $this->getRelativeMediaUrl($media), $thumbnail->getWidth(), $thumbnail->getHeight());
     }
 
     /**
@@ -87,7 +82,7 @@ class UrlGeneratorDecorator implements UrlGeneratorInterface
      */
     public function getRelativeThumbnailUrl(MediaEntity $media, MediaThumbnailEntity $thumbnail): string
     {
-        return $this->decoratedService->getRelativeThumbnailUrl($media, $thumbnail);
+        return $this->getAbsoluteThumbnailUrl($media, $thumbnail);
     }
 
     private function normalizeBaseUrl(?string $baseUrl)
@@ -97,15 +92,6 @@ class UrlGeneratorDecorator implements UrlGeneratorInterface
         }
 
         return rtrim($baseUrl, '/');
-    }
-
-    public function getUrl($mediaPath, $width, $height)
-    {
-        $result = $this->thumbnailPattern;
-        $result = str_replace(
-            ['{mediaUrl}', '{mediaPath}', '{width}', '{height}'],
-            [$this->getBaseUrl(), $mediaPath, $width, $height], $result);
-        return $result;
     }
 
     private function getBaseUrl()
