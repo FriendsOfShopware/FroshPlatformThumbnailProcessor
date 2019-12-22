@@ -20,5 +20,13 @@
                  class="Frosh\ThumbnailProcessor\Service\ThumbnailUrlTemplate">
             <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService"/>
         </service>
+
+        <service id="Frosh\ThumbnailProcessor\Service\ThumbnailServiceDecorator"
+                 decorates="Shopware\Core\Content\Media\Thumbnail\ThumbnailService">
+            <argument type="service" id="media.repository"/>
+            <argument type="service" id="media_thumbnail.repository"/>
+            <argument type="service" id="media_folder.repository"/>
+        </service>
+
     </services>
 </container>
