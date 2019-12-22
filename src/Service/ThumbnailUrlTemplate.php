@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Frosh\ThumbnailProcessor\Service;
 
@@ -24,11 +24,11 @@ class ThumbnailUrlTemplate implements ThumbnailUrlTemplateInterface
      */
     public function getUrl($mediaUrl, $mediaPath, $width, $height)
     {
-
         $result = $this->pattern;
         $result = str_replace(
             ['{mediaUrl}', '{mediaPath}', '{width}', '{height}'],
             [$mediaUrl, $mediaPath, $width, $height], $result);
+
         return $result;
     }
 }

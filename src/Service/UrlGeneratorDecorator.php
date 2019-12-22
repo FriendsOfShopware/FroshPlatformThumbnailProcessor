@@ -1,19 +1,15 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Frosh\ThumbnailProcessor\Service;
 
 use Shopware\Core\Content\Media\Aggregate\MediaThumbnail\MediaThumbnailEntity;
-use Shopware\Core\Content\Media\Exception\EmptyMediaFilenameException;
-use Shopware\Core\Content\Media\Exception\EmptyMediaIdException;
 use Shopware\Core\Content\Media\MediaEntity;
 use Shopware\Core\Content\Media\Pathname\PathnameStrategy\PathnameStrategyInterface;
 use Shopware\Core\Content\Media\Pathname\UrlGeneratorInterface;
-use Shopware\Core\System\SystemConfig\SystemConfigService;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 class UrlGeneratorDecorator implements UrlGeneratorInterface
 {
-
     /**
      * @var RequestStack
      */
@@ -33,6 +29,7 @@ class UrlGeneratorDecorator implements UrlGeneratorInterface
      * @var UrlGeneratorInterface
      */
     private $decoratedService;
+
     /**
      * @var ThumbnailUrlTemplateInterface
      */
@@ -65,21 +62,11 @@ class UrlGeneratorDecorator implements UrlGeneratorInterface
         return $this->decoratedService->getRelativeMediaUrl($media);
     }
 
-    /**
-     * @param MediaEntity $media
-     * @param MediaThumbnailEntity $thumbnail
-     * @return string
-     */
     public function getAbsoluteThumbnailUrl(MediaEntity $media, MediaThumbnailEntity $thumbnail): string
     {
         return $this->thumbnailUrlTemplate->getUrl($this->getBaseUrl(), $this->getRelativeMediaUrl($media), $thumbnail->getWidth(), $thumbnail->getHeight());
     }
 
-    /**
-     * @param MediaEntity $media
-     * @param MediaThumbnailEntity $thumbnail
-     * @return string
-     */
     public function getRelativeThumbnailUrl(MediaEntity $media, MediaThumbnailEntity $thumbnail): string
     {
         return $this->getAbsoluteThumbnailUrl($media, $thumbnail);
