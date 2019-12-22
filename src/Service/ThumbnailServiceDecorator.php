@@ -27,21 +27,6 @@ class ThumbnailServiceDecorator extends ThumbnailService
     private $thumbnailRepository;
 
     /**
-     * @var FilesystemInterface
-     */
-    private $filesystemPublic;
-
-    /**
-     * @var FilesystemInterface
-     */
-    private $filesystemPrivate;
-
-    /**
-     * @var UrlGeneratorInterface
-     */
-    private $urlGenerator;
-
-    /**
      * @var EntityRepositoryInterface
      */
     private $mediaFolderRepository;
@@ -49,25 +34,11 @@ class ThumbnailServiceDecorator extends ThumbnailService
     public function __construct(
         EntityRepositoryInterface $mediaRepository,
         EntityRepositoryInterface $thumbnailRepository,
-        FilesystemInterface $fileSystemPublic,
-        FilesystemInterface $fileSystemPrivate,
-        UrlGeneratorInterface $urlGenerator,
         EntityRepositoryInterface $mediaFolderRepository
     ) {
         $this->mediaRepository = $mediaRepository;
         $this->thumbnailRepository = $thumbnailRepository;
-        $this->filesystemPublic = $fileSystemPublic;
-        $this->filesystemPrivate = $fileSystemPrivate;
-        $this->urlGenerator = $urlGenerator;
         $this->mediaFolderRepository = $mediaFolderRepository;
-        parent::__construct(
-            $this->mediaFolderRepository,
-            $this->thumbnailRepository,
-            $this->filesystemPublic,
-            $this->filesystemPrivate,
-            $this->urlGenerator,
-            $this->mediaFolderRepository
-        );
     }
 
     public function generateThumbnails(MediaEntity $media, Context $context): int
