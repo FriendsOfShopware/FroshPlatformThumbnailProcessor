@@ -1,6 +1,16 @@
 {
     "name": "frosh/platform-thumbnail-processor",
-    "description": "",
+    "keywords": [
+        "shopware",
+        "backend",
+        "admin",
+        "media",
+        "media manager",
+        "cdn",
+        "storage",
+        "thumbnail"
+    ],
+    "description": "This plugins allows you to use variable thumbnails, without having them on storage.",
     "version": "v1.0.0",
     "type": "shopware-platform-plugin",
     "license": "MIT",

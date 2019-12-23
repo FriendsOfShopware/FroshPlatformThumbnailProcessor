@@ -2,7 +2,7 @@
 
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
 
-This plugins allows you to use variable thumbnails, if your filesystem (or storage-adapter) supports.
+This plugins allows you to use variable thumbnails, if your filesystem (or storage-adapter) supports it.
 It will add parameters to original image paths.
 So you are able to save storage and add new thumbnails on the fly.
 
