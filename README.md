@@ -26,7 +26,7 @@ Available variables with examples:
 * {width}: 800
 * {height}: 800
 
- Feel free to decorate `ThumbnailUrlTemplateInterface` to add more individual functions like [signed imgproxy](https://docs.imgproxy.net/#/configuration?id=url-signature)
+ Feel free to decorate `ThumbnailUrlTemplateInterface` to add more individual functions like [signed imgproxy](https://github.com/FriendsOfShopware/FroshPlatformThumbnailProcessorImgProxy)
 
 ## Removing unneeded thumbnails
 You may want to delete folder `thumbnails` within folder `public`
