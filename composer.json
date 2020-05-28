@@ -21,7 +21,7 @@
         }
     ],
     "require": {
-        "shopware/core": "*"
+        "shopware/core": "~6.2"
     },
     "extra": {
         "shopware-plugin-class": "Frosh\\ThumbnailProcessor\\FroshPlatformThumbnailProcessor",

@@ -3,6 +3,7 @@
 namespace Frosh\ThumbnailProcessor\Service;
 
 use Shopware\Core\Content\Media\Aggregate\MediaFolder\MediaFolderEntity;
+use Shopware\Core\Content\Media\Aggregate\MediaFolderConfiguration\MediaFolderConfigurationEntity;
 use Shopware\Core\Content\Media\Aggregate\MediaThumbnail\MediaThumbnailCollection;
 use Shopware\Core\Content\Media\Aggregate\MediaThumbnailSize\MediaThumbnailSizeCollection;
 use Shopware\Core\Content\Media\MediaEntity;
@@ -64,7 +65,7 @@ class ThumbnailServiceDecorator extends ThumbnailService
         $toBeDeletedThumbnails = $media->getThumbnails();
         $this->thumbnailRepository->delete($toBeDeletedThumbnails->getIds(), $context);
 
-        return $this->createThumbnailsForSizes($media, $mediaThumbnailSizes, $context);
+        return $this->createThumbnailsForSizes($media, $config,$mediaThumbnailSizes, $context);
     }
 
     /*
@@ -114,7 +115,7 @@ class ThumbnailServiceDecorator extends ThumbnailService
 
         $this->thumbnailRepository->delete($toBeDeletedThumbnails->getIds(), $context);
 
-        return count($tobBeCreatedSizes);
+        return $this->createThumbnailsForSizes($media, $config, $tobBeCreatedSizes, $context);
     }
 
     private function checkMediaCanHaveThumbnails($media, $context): bool
@@ -133,6 +134,7 @@ class ThumbnailServiceDecorator extends ThumbnailService
      */
     private function createThumbnailsForSizes(
         MediaEntity $media,
+        MediaFolderConfigurationEntity $config,
         MediaThumbnailSizeCollection $thumbnailSizes,
         Context $context
     ): int {
