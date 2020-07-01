@@ -41,21 +41,21 @@ will become `http://localhost:8080/x/fit/800/800/sm/0/plain/https://www.example.
 
 ### BunnyCDN [Link](https://bunnycdn.com/)
 
-`Opinion: not cheap with 9,5$/m per zone, but fast and including webp`
+`Opinion: not cheap with 9,5$/m per zone, but fast and including webp`  
 You would have to active `Bunny Optimizer` and `Manipulation Engine` in your Zone in BunnyCDN.  
 Template example: `{mediaUrl}/{mediaPath}?width={width}&height={height}` (default)  
 will become `https://www.example.com/media/01/82/69/sasse.png?width=800&height=800`
 
 ### Images.weserv.nl [Link](https://images.weserv.nl/)
 
-`Opinion: free, but slow and without webp`
+`Opinion: free, but slow and without webp`  
 An image cache & resize service. Manipulate images on-the-fly with a worldwide cache.  
 Template example: `https://images.weserv.nl/?url={mediaUrl}/{mediaPath}&w={width}&h={height}`  
 will become `https://images.weserv.nl/?url=https://www.example.com/media/01/82/69/sasse.png&w=800&h=800`
 
 ### cloudimage [Link](https://www.cloudimage.io/en/home)
 
-`Opinion: has free plan, fast and including webp`
+`Opinion: has free plan, fast and including webp`  
 An image cache & resize service. Manipulate images on-the-fly with a worldwide cache.  
 Template example: `https://token.cloudimg.io/v7/{mediaUrl}/{mediaPath}&w={width}&h={height}`  
 will become `https://token.cloudimg.io/v7/https://www.example.com/media/01/82/69/sasse.png&w=800&h=800`
