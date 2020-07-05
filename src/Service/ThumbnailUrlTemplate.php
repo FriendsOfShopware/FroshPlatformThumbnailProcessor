@@ -14,12 +14,6 @@ class ThumbnailUrlTemplate implements ThumbnailUrlTemplateInterface
         $this->pattern = $systemConfigService->get('FroshPlatformThumbnailProcessor.config.ThumbnailPattern') ?: '{mediaUrl}/{mediaPath}?width={width}&height={height}';
     }
 
-    /**
-     * @param string $mediaUrl
-     * @param string $mediaPath
-     * @param string $width
-     * @param string $height
-     */
     public function getUrl($mediaUrl, $mediaPath, $width, $height): string
     {
         $result = $this->pattern;

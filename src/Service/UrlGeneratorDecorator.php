@@ -63,7 +63,12 @@ class UrlGeneratorDecorator implements UrlGeneratorInterface
 
     public function getAbsoluteThumbnailUrl(MediaEntity $media, MediaThumbnailEntity $thumbnail): string
     {
-        return $this->thumbnailUrlTemplate->getUrl($this->getBaseUrl(), $this->getRelativeMediaUrl($media), $thumbnail->getWidth(), $thumbnail->getHeight());
+        return $this->thumbnailUrlTemplate->getUrl(
+            $this->getBaseUrl(),
+            $this->getRelativeMediaUrl($media),
+            (string) $thumbnail->getWidth(),
+            (string) $thumbnail->getHeight()
+        );
     }
 
     public function getRelativeThumbnailUrl(MediaEntity $media, MediaThumbnailEntity $thumbnail): string
@@ -71,6 +76,12 @@ class UrlGeneratorDecorator implements UrlGeneratorInterface
         return $this->getAbsoluteThumbnailUrl($media, $thumbnail);
     }
 
+    /**
+     * Not sure if we can use ?string as typehint
+     * or if there will be some problem
+     *
+     * @param string $baseUrl
+     */
     private function normalizeBaseUrl($baseUrl): ?string
     {
         if (!$baseUrl) {
