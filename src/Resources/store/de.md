@@ -24,7 +24,7 @@ Wir haben schon Erfahrung mit folgenden Diensten gemacht.
 - [cloudimage](https://www.cloudimage.io/en/home) (kostenloser Plan verfügbar inkl. Webp)  
   Template-Beispiel: https://token.cloudimg.io/v7/{mediaUrl}/{mediaPath}&w={width}&h={height}
 
-Jegliche Dienstleister, die per Url-Parameter Bildergrö0en ändern, sollten aber auch kompatibel sein.
+Jegliche Dienstleister, die per Url-Parameter Bildergrößen ändern, sollten aber auch kompatibel sein.
 
 Dieses Plugin wird von [@FriendsOfShopware](https://store.shopware.com/friends-of-shopware.html) entwickelt.  
 Maintainer dieses Plugins ist: [Sebastian König (tinect)](https://github.com/tinect)
