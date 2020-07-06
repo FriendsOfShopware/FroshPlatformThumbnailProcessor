@@ -76,13 +76,7 @@ class UrlGeneratorDecorator implements UrlGeneratorInterface
         return $this->getAbsoluteThumbnailUrl($media, $thumbnail);
     }
 
-    /**
-     * Not sure if we can use ?string as typehint
-     * or if there will be some problem
-     *
-     * @param string $baseUrl
-     */
-    private function normalizeBaseUrl($baseUrl): ?string
+    private function normalizeBaseUrl(?string $baseUrl): ?string
     {
         if (!$baseUrl) {
             return null;
