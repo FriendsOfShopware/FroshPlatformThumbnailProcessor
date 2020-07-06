@@ -21,6 +21,8 @@ Wir haben schon Erfahrung mit folgenden Diensten gemacht.
   Template-Beispiel: http://localhost:8080/insecure/fit/{width}/{height}/sm/0/plain/{mediaUrl}/{mediaPath}
 - [images.weserv.nl](https://images.weserv.nl/) (kostenlos)  
   Template-Beispiel: https://images.weserv.nl/?url={mediaUrl}/{mediaPath}&w={width}&h={height}
+- [cloudimage](https://www.cloudimage.io/en/home) (kostenloser Plan verfügbar)  
+  Template-Beispiel: https://token.cloudimg.io/v7/{mediaUrl}/{mediaPath}&w={width}&h={height}
 
 Jegliche Dienstleister, die per Url-Parameter Bildergrö0en ändern, sollten aber auch kompatibel sein.
 

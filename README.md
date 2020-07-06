@@ -59,7 +59,7 @@ will become `https://images.weserv.nl/?url=https://www.example.com/media/01/82/6
 An image cache & resize service. Manipulate images on-the-fly with a worldwide cache.  
 Template example: `https://token.cloudimg.io/v7/{mediaUrl}/{mediaPath}&w={width}&h={height}`  
 will become `https://token.cloudimg.io/v7/https://www.example.com/media/01/82/69/sasse.png&w=800&h=800`
-https://adftuuysfo.cloudimg.io/v7/https://cdn.reflects.com/media/image/d1/ba/2a/10001_1573516804.jpg?w=300
+https://token.cloudimg.io/v7/https://cdn.reflects.com/media/image/d1/ba/2a/10001_1573516804.jpg?w=300
 
 ## License
 
