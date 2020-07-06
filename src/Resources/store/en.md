@@ -12,15 +12,15 @@ The thumbnails are then generated and delivered by an external service in real t
 
 ## Which service do I now use for the thumbnails:
 We have already had experience with the following services.
-- [BunnyCDN](https://bunnycdn.com) (paid)  
+- [BunnyCDN](https://bunnycdn.com) (paid, incl. Webp)  
   Template example: {mediaUrl}/{mediaPath}?width={width}&height={height}
-- [keycdn](https://www.keycdn.com/support/image-processing) (paid)  
+- [keycdn](https://www.keycdn.com/support/image-processing) (paid, incl. Webp)  
   Template example: {mediaUrl}/{mediaPath}?width={width}&height={height}
-- [imgproxy](https://imgproxy.net/) (free, self hosted)  
+- [imgproxy](https://imgproxy.net/) (free, self hosted, incl. Webp)  
   Template example: http://localhost:8080/insecure/fit/{width}/{height}/sm/0/plain/{mediaUrl}/{mediaPath}
-- [images.weserv.nl](https://images.weserv.nl/) (free)  
+- [images.weserv.nl](https://images.weserv.nl/) (free, no Webp)  
   Template example: https://images.weserv.nl/?url={mediaUrl}/{mediaPath}&w={width}&h={height}
-- [cloudimage](https://www.cloudimage.io/en/home) (free plan available)  
+- [cloudimage](https://www.cloudimage.io/en/home) (free plan available, incl. Webp)  
   Template example: https://token.cloudimg.io/v7/{mediaUrl}/{mediaPath}&w={width}&h={height}
 
 Any service provider that changes image sizes using the url parameter should also be compatible.

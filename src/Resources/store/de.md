@@ -13,15 +13,15 @@ Die Thumbnails werden dann in Echtzeit beim Besuch durch einen externen Dienst e
 
 ## Welchen Dienst verwende ich nun für die Thumbnails:
 Wir haben schon Erfahrung mit folgenden Diensten gemacht.
-- [BunnyCDN](https://bunnycdn.com) (kostenpflichtig)  
+- [BunnyCDN](https://bunnycdn.com) (kostenpflichtig, inkl. Webp)  
   Template-Beispiel: {mediaUrl}/{mediaPath}?width={width}&height={height}
-- [keycdn](https://www.keycdn.com/support/image-processing) (kostenpflichtig)  
+- [keycdn](https://www.keycdn.com/support/image-processing) (kostenpflichtig, inkl. Webp)  
   Template-Beispiel: {mediaUrl}/{mediaPath}?width={width}&height={height}
-- [imgproxy](https://imgproxy.net/) (kostenlos, selbst gehosted)  
+- [imgproxy](https://imgproxy.net/) (kostenlos, selbst gehosted, inkl. Webp)  
   Template-Beispiel: http://localhost:8080/insecure/fit/{width}/{height}/sm/0/plain/{mediaUrl}/{mediaPath}
-- [images.weserv.nl](https://images.weserv.nl/) (kostenlos)  
+- [images.weserv.nl](https://images.weserv.nl/) (kostenlos, kein Webp)  
   Template-Beispiel: https://images.weserv.nl/?url={mediaUrl}/{mediaPath}&w={width}&h={height}
-- [cloudimage](https://www.cloudimage.io/en/home) (kostenloser Plan verfügbar)  
+- [cloudimage](https://www.cloudimage.io/en/home) (kostenloser Plan verfügbar inkl. Webp)  
   Template-Beispiel: https://token.cloudimg.io/v7/{mediaUrl}/{mediaPath}&w={width}&h={height}
 
 Jegliche Dienstleister, die per Url-Parameter Bildergrö0en ändern, sollten aber auch kompatibel sein.
