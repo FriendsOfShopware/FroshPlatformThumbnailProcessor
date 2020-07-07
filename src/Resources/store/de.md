@@ -26,6 +26,8 @@ Wir haben schon Erfahrung mit folgenden Diensten gemacht.
 
 Jegliche Dienstleister, die per Url-Parameter Bildergrößen ändern, sollten aber auch kompatibel sein.
 
+Nach der Einrichtung und Prüfung im DeveloperTools deines Browsers, kannst du auch den vorhandenen thumbnail-Ordner sichern und löschen.  
+
 Dieses Plugin wird von [@FriendsOfShopware](https://store.shopware.com/friends-of-shopware.html) entwickelt.  
 Maintainer dieses Plugins ist: [Sebastian König (tinect)](https://github.com/tinect)
 

@@ -25,6 +25,8 @@ We have already had experience with the following services.
 
 Any service provider that changes image sizes using the url parameter should also be compatible.
 
+After setting up and checking in the developer tools of your browser, you can also backup and delete the existing thumbnail folder.
+
 This plugin is part of [@FriendsOfShopware](https://store.shopware.com/en/friends-of-shopware.html).  
 Maintainer from the plugin is: [Sebastian König (tinect)](https://github.com/tinect)
 
