@@ -20,15 +20,15 @@ Es gibt vier Paramter, die Dir optional zur Erstellung des Links zur Verfügung 
 
 Wir haben schon Erfahrung mit folgenden Diensten gemacht.
 - [BunnyCDN](https://bunnycdn.com) (kostenpflichtig, inkl. Webp)  
-  Template-Beispiel: {mediaUrl}/{mediaPath}?width={width}&height={height}
+  Template-Beispiel: `{mediaUrl}/{mediaPath}?width={width}&height={height}`
 - [keycdn](https://www.keycdn.com/support/image-processing) (kostenpflichtig, inkl. Webp)  
-  Template-Beispiel: {mediaUrl}/{mediaPath}?width={width}&height={height}
+  Template-Beispiel: `{mediaUrl}/{mediaPath}?width={width}&height={height}`
 - [imgproxy](https://imgproxy.net/) (kostenlos, selbst gehosted, inkl. Webp)  
-  Template-Beispiel: http://localhost:8080/insecure/fit/{width}/{height}/sm/0/plain/{mediaUrl}/{mediaPath}
+  Template-Beispiel: `http://localhost:8080/insecure/fit/{width}/{height}/sm/0/plain/{mediaUrl}/{mediaPath}`
 - [images.weserv.nl](https://images.weserv.nl/) (kostenlos, kein Webp)  
-  Template-Beispiel: https://images.weserv.nl/?url={mediaUrl}/{mediaPath}&w={width}&h={height}
+  Template-Beispiel: `https://images.weserv.nl/?url={mediaUrl}/{mediaPath}&w={width}&h={height}`
 - [cloudimage](https://www.cloudimage.io/en/home) (kostenloser Plan verfügbar inkl. Webp)  
-  Template-Beispiel: https://token.cloudimg.io/v7/{mediaUrl}/{mediaPath}&w={width}&h={height}
+  Template-Beispiel: `https://token.cloudimg.io/v7/{mediaUrl}/{mediaPath}&w={width}&h={height}`
 
 Jegliche Dienstleister, die per Url-Parameter Bildergrößen ändern, sollten aber auch kompatibel sein.
 
