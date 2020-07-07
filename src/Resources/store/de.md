@@ -12,6 +12,12 @@ Die Thumbnails werden dann in Echtzeit beim Besuch durch einen externen Dienst e
 - Schnellere Backups durch weniger Dateien
 
 ## Welchen Dienst verwende ich nun für die Thumbnails:
+Es gibt vier Paramter, die Dir optional zur Erstellung des Links zur Verfügung stehen:  
+{mediaUrl}: Primär deine Config shopware.cdn.url, alternativ Shop-Url  
+{mediaPath}: Der relative Pfad zu dem Originalbild  
+{width}: Die Breite des Thumbnails  
+{height}: Die Höhe des Thumbnails  
+
 Wir haben schon Erfahrung mit folgenden Diensten gemacht.
 - [BunnyCDN](https://bunnycdn.com) (kostenpflichtig, inkl. Webp)  
   Template-Beispiel: {mediaUrl}/{mediaPath}?width={width}&height={height}

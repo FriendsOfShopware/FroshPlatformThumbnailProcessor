@@ -11,6 +11,12 @@ The thumbnails are then generated and delivered by an external service in real t
 - Faster backups with fewer files
 
 ## Which service do I now use for the thumbnails:
+There are four parameters that are optionally available for creating the link:  
+{mediaUrl}: Primarily your config shopware.cdn.url, alternatively shop url  
+{mediaPath}: The relative path to the original image  
+{width}: The width of the thumbnail  
+{height}: The height of the thumbnail  
+
 We have already had experience with the following services.
 - [BunnyCDN](https://bunnycdn.com) (paid, incl. Webp)  
   Template example: {mediaUrl}/{mediaPath}?width={width}&height={height}
