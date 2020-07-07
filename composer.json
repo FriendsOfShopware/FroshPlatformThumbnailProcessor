@@ -30,8 +30,8 @@
             "en-GB": "ThumbnailProcessor Plugin"
         },
         "description": {
-            "de-DE": "Die Thumbnails in Echtzeit beim Besuch durch einen externen Dienst erzeugen und ausgeliefern lassen.",
-            "en-GB": "Generate and deliver the thumbnails in real time when visiting by an external service."
+            "de-DE": "Verschwende keine Rechenleistung und keinen Speicherplatz mit Thumbnails! Lass diese in Echtzeit beim Besuch durch einen externen Dienst erzeugen und ausliefern.",
+            "en-GB": "Don't waste the computing power and space with thumbnails! Have the thumbnails generated and delivered in real time when you visit an external service."
         }
     },
     "autoload": {
