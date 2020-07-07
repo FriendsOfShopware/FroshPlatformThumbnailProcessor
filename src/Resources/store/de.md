@@ -12,8 +12,8 @@ Die Thumbnails werden dann in Echtzeit beim Besuch durch einen externen Dienst e
 - Schnellere Backups durch weniger Dateien
 
 ## Welchen Dienst verwende ich nun für die Thumbnails:
-Es gibt vier Paramter, die Dir optional zur Erstellung des Links zur Verfügung stehen:  
-{mediaUrl}: Primär deine Config shopware.cdn.url, alternativ Shop-Url  
+Es gibt vier Paramter, die Ihnen optional zur Erstellung des Links zur Verfügung stehen:  
+{mediaUrl}: Primär die Config shopware.cdn.url, alternativ Shop-Url  
 {mediaPath}: Der relative Pfad zu dem Originalbild  
 {width}: Die Breite des Thumbnails  
 {height}: Die Höhe des Thumbnails  
@@ -32,7 +32,7 @@ Wir haben schon Erfahrung mit folgenden Diensten gemacht.
 
 Jegliche Dienstleister, die per Url-Parameter Bildergrößen ändern, sollten aber auch kompatibel sein.
 
-Nach der Einrichtung und Prüfung im DeveloperTools deines Browsers, kannst du auch den vorhandenen thumbnail-Ordner sichern und löschen.  
+Nach der Einrichtung und Prüfung im DeveloperTools Ihres Browsers, können Sie auch den vorhandenen thumbnail-Ordner sichern und löschen.  
 
 Dieses Plugin wird von [@FriendsOfShopware](https://store.shopware.com/friends-of-shopware.html) entwickelt.  
 Maintainer dieses Plugins ist: [Sebastian König (tinect)](https://github.com/tinect)
