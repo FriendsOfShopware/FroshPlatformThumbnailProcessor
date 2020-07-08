@@ -1,4 +1,4 @@
-Mit diesem Plugin können Sie auf dynamische Thumbnails zurückgreifen.  
+Verschwende keine Rechenleistung und keinen Speicherplatz mit Thumbnails! Mit diesem Plugin können Sie auf dynamische Thumbnails zurückgreifen.  
 Jeder Artikel, jedes Bild in der Einkaufswelten hat berechtigterweise Thumbnails. Diese werden standardmäßig
 automatisch beim Upload erzeugt und gespeichert.  
 An diesem Punkt greift dieses Plugin ein und stellt die Funktion zur Verfügung, dass keine Thumbnails mehr erstellt
