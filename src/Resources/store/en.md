@@ -11,6 +11,9 @@ The thumbnails are then generated and delivered by an external service in real t
 - Faster backups with fewer files
 
 ## Which service do I now use for the thumbnails:
+Please note that this plugin only provides the function for delivering the thumbnail urls.  
+This plugin does not create thumbnails! The corresponding services are used for this.
+
 There are four parameters that are optionally available for creating the link:  
 {mediaUrl}: Primarily your config shopware.cdn.url, alternatively shop url  
 {mediaPath}: The relative path to the original image  

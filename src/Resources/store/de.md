@@ -12,6 +12,9 @@ Die Thumbnails werden dann in Echtzeit beim Besuch durch einen externen Dienst e
 - Schnellere Backups durch weniger Dateien
 
 ## Welchen Dienst verwende ich nun für die Thumbnails:
+Beachten Sie, dass dieses Plugin nur die Funktion zum Ausliefern der Thumbnail-Urls bereitstellt.  
+Dieses Plugin erstellt keine Thumbnails! Dazu werden die entsprechenden Dienste verwendet.
+
 Es gibt vier Paramter, die Ihnen optional zur Erstellung des Links zur Verfügung stehen:  
 {mediaUrl}: Primär die Config shopware.cdn.url, alternativ Shop-Url  
 {mediaPath}: Der relative Pfad zu dem Originalbild  
