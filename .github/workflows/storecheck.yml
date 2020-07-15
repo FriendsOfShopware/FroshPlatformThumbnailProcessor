@@ -22,7 +22,7 @@ jobs:
                     path: ${{ env.PLUGIN_NAME }}
 
             -   name: getPluginUploader
-                run: wget 'https://github.com/FriendsOfShopware/FroshPluginUploader/releases/download/0.3.0/frosh-plugin-upload.phar' -O frosh-plugin-upload.phar
+                run: wget 'https://github.com/FriendsOfShopware/FroshPluginUploader/releases/download/0.3.1/frosh-plugin-upload.phar' -O frosh-plugin-upload.phar
 
             -   name: Build Zip
                 run: php frosh-plugin-upload.phar ext:zip ${PLUGIN_NAME}
@@ -41,7 +41,7 @@ jobs:
                     path: ${{ env.PLUGIN_NAME }}
 
             -   name: getPluginUploader
-                run: wget 'https://github.com/FriendsOfShopware/FroshPluginUploader/releases/download/0.3.0/frosh-plugin-upload.phar' -O frosh-plugin-upload.phar
+                run: wget 'https://github.com/FriendsOfShopware/FroshPluginUploader/releases/download/0.3.1/frosh-plugin-upload.phar' -O frosh-plugin-upload.phar
 
             -   name: StoreUpdate
                 run: php frosh-plugin-upload.phar ext:update $(pwd)/${{ env.PLUGIN_NAME }}/
@@ -63,7 +63,7 @@ jobs:
             #              run: composer install --prefer-dist --no-progress --no-suggest
 
             -   name: getPluginUploader
-                run: wget 'https://github.com/FriendsOfShopware/FroshPluginUploader/releases/download/0.3.0/frosh-plugin-upload.phar' -O frosh-plugin-upload.phar
+                run: wget 'https://github.com/FriendsOfShopware/FroshPluginUploader/releases/download/0.3.1/frosh-plugin-upload.phar' -O frosh-plugin-upload.phar
 
             -   name: Build Zip
                 run: php frosh-plugin-upload.phar ext:zip ${PLUGIN_NAME}
