@@ -14,24 +14,23 @@
         <h4 class="supports-headline"><a href="https://imgproxy.net/" target="_blank">imgproxy</a> hosted by
             FriendsOfShopware</h4>
         <p class="supports-description">
-            Template example:
-            <code>https://img.fos.gg/x/fit/{width}/{height}/sm/0/plain/{mediaUrl}/{mediaPath}</code><br>
+            <sw-text-field label="Template example" size="small" copyable="true" value="https://img.fos.gg/x/fit/{width}/{height}/sm/0/plain/{mediaUrl}/{mediaPath}"/>
             will become <code>https://img.fos.gg/x/fit/800/800/sm/0/plain/https://www.example.com/media/01/82/69/sasse.png</code>
         </p>
 
         <h4 class="supports-headline"><a href="https://bunnycdn.com/" target="_blank">BunnyCDN</a></h4>
         <blockquote>Opinion: not cheap with 9,5$/m per zone, but fast and including webp</blockquote>
         <p class="supports-description">
-            You would have to active "Bunny Optimizer" and "Manipulation Engine" in your Zone in BunnyCDN.<br>
-            Template example: <code>{mediaUrl}/{mediaPath}?width={width}&height={height}</code> (default)<br>
+            You would have to active "Bunny Optimizer" and "Manipulation Engine" in your Zone in BunnyCDN.<br><br>
+            <sw-text-field label="Template example" size="small" copyable="true" value="{mediaUrl}/{mediaPath}?width={width}&height={height}"/>
             will become <code>https://www.example.com/media/01/82/69/sasse.png?width=800&height=800</code>
         </p>
 
         <h4 class="supports-headline"><a href="https://images.weserv.nl/" target="_blank">Images.weserv.nl</a></h4>
         <blockquote>Opinion: free, but slow and without webp</blockquote>
         <p class="supports-description">
-            An image cache & resize service. Manipulate images on-the-fly with a worldwide cache.<br>
-            Template example: <code>https://images.weserv.nl/?url={mediaUrl}/{mediaPath}&w={width}&h={height}</code><br>
+            An image cache & resize service. Manipulate images on-the-fly with a worldwide cache.<br><br>
+            <sw-text-field label="Template example" size="small" copyable="true" value="https://images.weserv.nl/?url={mediaUrl}/{mediaPath}&w={width}&h={height}"/>
             will become
             <code>https://images.weserv.nl/?url=https://www.example.com/media/01/82/69/sasse.png&w=800&h=800</code>
         </p>
@@ -39,8 +38,8 @@
         <h4 class="supports-headline"><a href="https://www.cloudimage.io/en/home" target="_blank">cloudimage</a></h4>
         <blockquote>Opinion: has free plan, fast and including webp</blockquote>
         <p class="supports-description">
-            An image cache & resize service. Manipulate images on-the-fly with a worldwide cache.<br>
-            Template example: <code>https://token.cloudimg.io/v7/{mediaUrl}/{mediaPath}&w={width}&h={height}</code><br>
+            An image cache & resize service. Manipulate images on-the-fly with a worldwide cache.<br><br>
+            <sw-text-field label="Template example" size="small" copyable="true" value="https://token.cloudimg.io/v7/{mediaUrl}/{mediaPath}&w={width}&h={height}"/>
             will become
             <code>https://token.cloudimg.io/v7/https://www.example.com/media/01/82/69/sasse.png&w=800&h=800</code>
         </p>
