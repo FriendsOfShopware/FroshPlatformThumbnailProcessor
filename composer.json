@@ -39,7 +39,7 @@
         },
         "supportLink": {
             "de-DE": "https://github.com/FriendsOfShopware/FroshPlatformThumbnailProcessor/issues",
-            "en-GB": "Dhttps://github.com/FriendsOfShopware/FroshPlatformThumbnailProcessor/issues"
+            "en-GB": "https://github.com/FriendsOfShopware/FroshPlatformThumbnailProcessor/issues"
         }
     },
     "autoload": {
