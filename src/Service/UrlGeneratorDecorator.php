@@ -4,8 +4,8 @@ namespace Frosh\ThumbnailProcessor\Service;
 
 use Shopware\Core\Content\Media\Aggregate\MediaThumbnail\MediaThumbnailEntity;
 use Shopware\Core\Content\Media\MediaEntity;
-use Shopware\Core\Content\Media\Pathname\PathnameStrategy\PathnameStrategyInterface;
 use Shopware\Core\Content\Media\Pathname\UrlGeneratorInterface;
+use Shopware\Core\System\SystemConfig\SystemConfigService;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 class UrlGeneratorDecorator implements UrlGeneratorInterface
@@ -21,11 +21,6 @@ class UrlGeneratorDecorator implements UrlGeneratorInterface
     private $baseUrl;
 
     /**
-     * @var PathnameStrategyInterface
-     */
-    private $pathnameStrategy;
-
-    /**
      * @var UrlGeneratorInterface
      */
     private $decoratedService;
@@ -35,35 +30,72 @@ class UrlGeneratorDecorator implements UrlGeneratorInterface
      */
     private $thumbnailUrlTemplate;
 
+    /**
+     * @var SystemConfigService
+     */
+    private $systemConfigService;
+    /**
+     * @var bool
+     */
+    private $processSVG;
+    /**
+     * @var bool
+     */
+    private $processOriginalImages;
+
     public function __construct(
         UrlGeneratorInterface $decoratedService,
         ThumbnailUrlTemplateInterface $thumbnailUrlTemplate,
-        PathnameStrategyInterface $pathnameStrategy,
         RequestStack $requestStack,
+        SystemConfigService $systemConfigService,
         ?string $baseUrl = null
-    ) {
+    )
+    {
         $this->decoratedService = $decoratedService;
-        $this->pathnameStrategy = $pathnameStrategy;
         $this->requestStack = $requestStack;
 
         $this->baseUrl = $this->normalizeBaseUrl($baseUrl);
 
         $this->thumbnailUrlTemplate = $thumbnailUrlTemplate;
+        $this->systemConfigService = $systemConfigService;
+        $this->processSVG = (bool)$this->systemConfigService->get('FroshPlatformThumbnailProcessor.config.ProcessSVG');
+        $this->processOriginalImages = (bool)$this->systemConfigService->get('FroshPlatformThumbnailProcessor.config.ProcessOriginalImages');
     }
 
     public function getAbsoluteMediaUrl(MediaEntity $media): string
     {
-        return $this->decoratedService->getAbsoluteMediaUrl($media);
+        if (!$this->processOriginalImages) {
+            return $this->decoratedService->getAbsoluteMediaUrl($media);
+        }
+
+        if (!$this->processSVG && $media->getFileExtension() === 'svg') {
+            return $this->decoratedService->getAbsoluteMediaUrl($media);
+        }
+
+        return $this->thumbnailUrlTemplate->getUrl(
+            $this->getBaseUrl(),
+            $this->decoratedService->getRelativeMediaUrl($media),
+            3000,
+            3000
+        );
     }
 
     public function getRelativeMediaUrl(MediaEntity $media): string
     {
-        return $this->decoratedService->getRelativeMediaUrl($media);
+        return $this->getAbsoluteMediaUrl($media);
     }
 
     public function getAbsoluteThumbnailUrl(MediaEntity $media, MediaThumbnailEntity $thumbnail): string
     {
-        return $this->thumbnailUrlTemplate->getUrl($this->getBaseUrl(), $this->getRelativeMediaUrl($media), $thumbnail->getWidth(), $thumbnail->getHeight());
+        if (!$this->processSVG && $media->getFileExtension() === 'svg') {
+            return $this->decoratedService->getAbsoluteMediaUrl($media);
+        }
+
+        return $this->thumbnailUrlTemplate->getUrl(
+            $this->getBaseUrl(),
+            $this->decoratedService->getRelativeMediaUrl($media),
+            $thumbnail->getWidth(),
+            $thumbnail->getHeight());
     }
 
     public function getRelativeThumbnailUrl(MediaEntity $media, MediaThumbnailEntity $thumbnail): string

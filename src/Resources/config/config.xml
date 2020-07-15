@@ -16,5 +16,24 @@
                 {height}: 800
             </helpText>
         </input-field>
+
+        <input-field type="bool">
+            <name>ProcessOriginalImages</name>
+            <label>Process Original Images</label>
+            <defaultValue>1</defaultValue>
+        </input-field>
+        <input-field type="bool">
+            <name>ProcessSVG</name>
+            <label>Process SVG files</label>
+            <defaultValue>0</defaultValue>
+            <helpText>
+                Some services will convert SVG files into jpg or webp which results in much bigger files.
+                Just activate, if your service can manage and compress SVG files.
+            </helpText>
+        </input-field>
+
+        <component name="frosh-thumbnail-processor-info-texts">
+            <name>froshthumbnailprocessorinfotexts</name>
+        </component>
     </card>
 </config>
