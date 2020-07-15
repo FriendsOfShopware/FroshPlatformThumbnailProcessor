@@ -13,7 +13,7 @@
     "description": "This plugins allows you to use variable thumbnails, without having them on storage.",
     "version": "1.0.2",
     "type": "shopware-platform-plugin",
-    "license": "open_source",
+    "license": "mit",
     "authors": [
         {
             "name": "FriendsOfShopware",
@@ -32,6 +32,14 @@
         "description": {
             "de-DE": "Verschwende keine Rechenleistung und keinen Speicherplatz mit Thumbnails! Lass diese in Echtzeit beim Besuch durch einen externen Dienst erzeugen und ausliefern.",
             "en-GB": "Don't waste the computing power and space with thumbnails! Have the thumbnails generated and delivered in real time when you visit an external service."
+        },
+        "manufacturerLink": {
+            "de-DE": "https://github.com/FriendsOfShopware/FroshPlatformThumbnailProcessor",
+            "en-GB": "https://github.com/FriendsOfShopware/FroshPlatformThumbnailProcessor"
+        },
+        "supportLink": {
+            "de-DE": "https://github.com/FriendsOfShopware/FroshPlatformThumbnailProcessor/issues",
+            "en-GB": "Dhttps://github.com/FriendsOfShopware/FroshPlatformThumbnailProcessor/issues"
         }
     },
     "autoload": {
