@@ -4,6 +4,7 @@ namespace Frosh\ThumbnailProcessor\Service;
 
 use Shopware\Core\Content\Media\Aggregate\MediaThumbnail\MediaThumbnailEntity;
 use Shopware\Core\Content\Media\MediaEntity;
+use Shopware\Core\Content\Media\MediaType\ImageType;
 use Shopware\Core\Content\Media\Pathname\UrlGeneratorInterface;
 use Shopware\Core\System\SystemConfig\SystemConfigService;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -31,13 +32,10 @@ class UrlGeneratorDecorator implements UrlGeneratorInterface
     private $thumbnailUrlTemplate;
 
     /**
-     * @var SystemConfigService
-     */
-    private $systemConfigService;
-    /**
      * @var bool
      */
     private $processSVG;
+
     /**
      * @var bool
      */
@@ -57,13 +55,16 @@ class UrlGeneratorDecorator implements UrlGeneratorInterface
         $this->baseUrl = $this->normalizeBaseUrl($baseUrl);
 
         $this->thumbnailUrlTemplate = $thumbnailUrlTemplate;
-        $this->systemConfigService = $systemConfigService;
-        $this->processSVG = (bool)$this->systemConfigService->get('FroshPlatformThumbnailProcessor.config.ProcessSVG');
-        $this->processOriginalImages = (bool)$this->systemConfigService->get('FroshPlatformThumbnailProcessor.config.ProcessOriginalImages');
+        $this->processSVG = (bool)$systemConfigService->get('FroshPlatformThumbnailProcessor.config.ProcessSVG');
+        $this->processOriginalImages = (bool)$systemConfigService->get('FroshPlatformThumbnailProcessor.config.ProcessOriginalImages');
     }
 
     public function getAbsoluteMediaUrl(MediaEntity $media): string
     {
+        if (!($media->getMediaType() instanceof ImageType)) {
+            return $this->decoratedService->getAbsoluteMediaUrl($media);
+        }
+
         if (!$this->processOriginalImages) {
             return $this->decoratedService->getAbsoluteMediaUrl($media);
         }
@@ -74,7 +75,7 @@ class UrlGeneratorDecorator implements UrlGeneratorInterface
 
         return $this->thumbnailUrlTemplate->getUrl(
             $this->getBaseUrl(),
-            $this->decoratedService->getRelativeMediaUrl($media),
+            $this->getRelativeMediaUrl($media),
             3000,
             3000
         );
@@ -82,7 +83,7 @@ class UrlGeneratorDecorator implements UrlGeneratorInterface
 
     public function getRelativeMediaUrl(MediaEntity $media): string
     {
-        return $this->getAbsoluteMediaUrl($media);
+        return $this->decoratedService->getRelativeMediaUrl($media);
     }
 
     public function getAbsoluteThumbnailUrl(MediaEntity $media, MediaThumbnailEntity $thumbnail): string
