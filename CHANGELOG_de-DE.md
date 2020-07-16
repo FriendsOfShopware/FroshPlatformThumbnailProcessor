@@ -1,3 +1,7 @@
+# 1.0.3
+
+* Fix fehlerhaftes Hochladen von Dateien
+
 # 1.0.2
 
 * Option zum Verarbeiten von Originalbildern durch den Processor

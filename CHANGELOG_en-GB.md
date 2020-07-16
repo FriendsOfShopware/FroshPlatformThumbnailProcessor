@@ -1,3 +1,7 @@
+# 1.0.3
+
+* Fix wrong uploading of files
+
 # 1.0.2
 
 * Option to process original images
