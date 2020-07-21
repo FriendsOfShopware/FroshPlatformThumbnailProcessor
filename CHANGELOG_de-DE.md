@@ -1,3 +1,7 @@
+# 1.0.4
+
+* Option zum Verbessern der Standard Thumbnail-Auslieferung in Listings
+
 # 1.0.3
 
 * Fix fehlerhaftes Hochladen von Dateien

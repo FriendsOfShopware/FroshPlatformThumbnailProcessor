@@ -1,3 +1,7 @@
+# 1.0.4
+
+* Option to improve thumbnail display in listings
+
 # 1.0.3
 
 * Fix wrong uploading of files
