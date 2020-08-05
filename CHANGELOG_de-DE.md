@@ -1,3 +1,7 @@
+# 1.0.5
+
+* Kompatibilität zu 6.3.0.0
+
 # 1.0.4
 
 * Option zum Verbessern der Standard Thumbnail-Auslieferung in Listings
