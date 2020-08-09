@@ -12,7 +12,7 @@
             <argument type="service" id="Frosh\ThumbnailProcessor\Service\ThumbnailUrlTemplateInterface"/>
             <argument type="service" id="request_stack"/>
             <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService"/>
-            <argument>%shopware.cdn.url%</argument>
+            <argument>%shopware.filesystem.public.url%</argument>
         </service>
 
         <service id="Frosh\ThumbnailProcessor\Service\ThumbnailUrlTemplateInterface"
