@@ -1,3 +1,7 @@
+# 1.0.6
+
+* Fix mediaUrl in 6.3.0.0
+
 # 1.0.5
 
 * Kompatibilität zu 6.3.0.0
