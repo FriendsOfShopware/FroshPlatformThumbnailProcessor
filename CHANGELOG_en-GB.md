@@ -1,5 +1,9 @@
 # 1.0.6
 
+* FEATURE Thumbnails that are larger than the original image are no longer displayed, requested and delivered
+ 
+# 1.0.6
+
 * Fix mediaUrl in 6.3.0.0
 
 # 1.0.5

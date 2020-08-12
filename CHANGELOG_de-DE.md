@@ -1,3 +1,7 @@
+# 1.0.7
+
+* FEATURE Es werden keine Thumbnails mehr im Template ausgespielt, die größer als das Originalbild sind.
+
 # 1.0.6
 
 * Fix mediaUrl in 6.3.0.0
