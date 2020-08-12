@@ -43,6 +43,16 @@
             </helpText>
         </input-field>
 
+        <input-field type="bool">
+            <name>FixDetailGalleryThumbnailSizes</name>
+            <label>Fix ThumbnailSizes in DetailGallery</label>
+            <defaultValue>1</defaultValue>
+            <helpText>
+                There is some problem with thumbnail-sizes in the gallery of the product page.
+                This can help you delivering better matching sizes to the visitor.
+            </helpText>
+        </input-field>
+
         <component name="frosh-thumbnail-processor-info-texts">
             <name>froshthumbnailprocessorinfotexts</name>
         </component>
