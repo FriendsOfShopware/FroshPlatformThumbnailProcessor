@@ -1,4 +1,4 @@
-# 1.0.6
+# 1.0.7
 
 * FEATURE Thumbnails that are larger than the original image are no longer displayed, requested and delivered
  
