@@ -1,3 +1,7 @@
+# 1.0.8
+
+* FEATURE Added Option to fix ThumbnailSizes for the gallery on product page
+ 
 # 1.0.7
 
 * FEATURE Thumbnails that are larger than the original image are no longer displayed, requested and delivered

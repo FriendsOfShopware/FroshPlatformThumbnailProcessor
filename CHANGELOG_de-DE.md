@@ -1,3 +1,7 @@
+# 1.0.8
+
+* FEATURE Option zum Verbessern der Standard Gallery auf der Produktseite hinzugefügt
+ 
 # 1.0.7
 
 * FEATURE Es werden keine Thumbnails mehr im Template ausgespielt, die größer als das Originalbild sind.
