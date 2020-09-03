@@ -6,6 +6,11 @@ This plugins allows you to use variable thumbnails, if your filesystem (or stora
 It will add parameters to original image paths.
 So you are able to save storage and add new thumbnails on the fly.
 
+| Version 	| Requirements               	
+|---------	|----------------------------	
+| 1.0 - 1.5     	| Min. Shopware 6.0	
+| 1.6 - *     	| Min. Shopware 6.3
+
 ## Install
 
 Download the plugin from the release page and enable it in shopware.
