@@ -1,3 +1,7 @@
+# 1.0.9
+
+* BUGFIX Behebe Problem mit thumbnail-variable, wenn kein Thumbnail existiert
+ 
 # 1.0.8
 
 * FEATURE Option zum Verbessern der Standard Gallery auf der Produktseite hinzugefügt

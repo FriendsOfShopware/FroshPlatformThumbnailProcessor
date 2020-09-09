@@ -1,3 +1,7 @@
+# 1.0.9
+
+* BUGFIX Fix thumbnail-variable, which occurs, when no thumbnail exists
+ 
 # 1.0.8
 
 * FEATURE Added Option to fix ThumbnailSizes for the gallery on product page
