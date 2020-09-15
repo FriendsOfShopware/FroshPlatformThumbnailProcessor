@@ -1,0 +1,10 @@
+{
+  "name": "froshplatformthumbnailprocessor-storefront-packages",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "lazysizes": "^5.2.1"
+  },
+  "author": "Sebastian König (@tinect)",
+  "license": "MIT"
+}

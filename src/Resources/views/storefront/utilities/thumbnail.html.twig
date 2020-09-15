@@ -49,16 +49,38 @@
         {% for key, value in shopware.theme.breakpoint|reverse %}(min-width: {{ value }}px) {{ sizes[key] }}{% if not loop.last %}, {% endif %}{% endfor %}, {{ sizeFallback }}vw
     {% endapply %}{% endset %}
 {% endif %}
-<img {% if load %}src="{{ media|sw_encode_media_url }}" {% else %}data-src="{{ media|sw_encode_media_url }}" {% endif %}
-    {% if media.thumbnails|length > 0 %}
-        {% if load %}srcset="{{ srcsetValue }}" {% else %}data-srcset="{{ srcsetValue }}" {% endif %}
-        {% if sizes['default'] %}
-        sizes="{{ sizes['default'] }}"
-        {% elseif sizes|length > 0 %}
-        sizes="{{ sizesValue }}"
-        {% endif %}
+
+{% if load is same as(true) %}
+    {% if attributes.class %}
+        {% set attributes = attributes|merge({'class': 'lazyload ' ~ attributes.class}) %}
+    {% else %}
+        {% set attributes = attributes|merge({'class': 'lazyload'}) %}
     {% endif %}
-    {% for key, value in attributes %}{% if value != '' %} {{ key }}="{{ value }}"{% endif %}{% endfor %}
-/>
+
+    <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+        data-src="{{ media|sw_encode_media_url }}"
+        {% if media.thumbnails|length > 0 %}
+            data-srcset="{{ srcsetValue }}"
+            {% if sizes['default'] %}
+            data-sizes="{{ sizes['default'] }}"
+            {% elseif sizes|length > 0 %}
+            data-sizes="{{ sizesValue }}"
+            {% endif %}
+        {% endif %}
+        {% for key, value in attributes %}{% if value != '' %} {{ key }}="{{ value }}"{% endif %}{% endfor %}
+    />
+{% else %}
+    <img data-src="{{ media|sw_encode_media_url }}"
+        {% if media.thumbnails|length > 0 %}
+            data-srcset="{{ srcsetValue }}"
+            {% if sizes['default'] %}
+            sizes="{{ sizes['default'] }}"
+            {% elseif sizes|length > 0 %}
+            sizes="{{ sizesValue }}"
+            {% endif %}
+        {% endif %}
+        {% for key, value in attributes %}{% if value != '' %} {{ key }}="{{ value }}"{% endif %}{% endfor %}
+    />
+{% endif %}
 
 {% endif %}
