@@ -3,8 +3,10 @@
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md) [![Shopware Store](https://img.shields.io/badge/shopware-store-blue.svg?style=flat-square)](https://store.shopware.com/en/frosh69611263569f/thumbnailprocessor-plugin.html)
 
 
-This plugins allows you to use variable thumbnails, if your filesystem (or storage-adapter) supports it.
-It will add parameters to original image paths.
+This plugins allows you to use variable thumbnails, if your filesystem (or storage-adapter) supports it.  
+Additionally it has built-in Lazyloading.  
+You can use this, if you don't want thumbnails to be created on you development-system, too.  
+It will add parameters to original image paths.  
 So you are able to save storage and add new thumbnails on the fly.
 
 | Version 	| Requirements               	
@@ -15,6 +17,10 @@ So you are able to save storage and add new thumbnails on the fly.
 ## Install
 
 Download the plugin from the release page and enable it in shopware.
+
+### From source
+
+Run `npm install` in `src/Resources/app/storefront` within the plugin directory
 
 ## Usage
 While active, this will access all thumbnails variable from original image. The thumbnail-files won't be needed anymore.
