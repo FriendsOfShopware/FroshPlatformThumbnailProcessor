@@ -1,7 +1,6 @@
 {% if not shopware.config.FroshPlatformThumbnailProcessor.config.FixListingThumbnailSizes %}
     {{ include('@Storefront/storefront/utilities/thumbnail.html.twig') }}
 {% else %}
-{# FROSH: we are just removing max-width here, nothing more #}
 
 {# activate load per default. If it is not activated only a data-src is set instead of the src tag. #}
 {% if load is not defined %}
