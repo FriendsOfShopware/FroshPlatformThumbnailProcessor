@@ -1,3 +1,7 @@
+# 1.0.10
+
+* FEATURE Thumbnails werden nun erst geladen, sobald der Besucher auch in der Nähe ist
+
 # 1.0.9
 
 * BUGFIX Behebe Problem mit thumbnail-variable, wenn kein Thumbnail existiert
