@@ -1,3 +1,7 @@
+# 1.0.10
+
+* FEATURE Thumbnails will be lazy loaded
+
 # 1.0.9
 
 * BUGFIX Fix thumbnail-variable, which occurs, when no thumbnail exists

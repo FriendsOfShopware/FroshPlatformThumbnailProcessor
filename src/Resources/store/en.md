@@ -1,4 +1,5 @@
 Don't waste the computing power and space with thumbnails! With this plugin you can access dynamic thumbnails.  
+This plugin also provides the LazyLoading function for thumbnails.  
 Every product, every picture in the shopping worlds legitimately has thumbnails. These become standard
 generated and saved automatically during upload.  
 At this point this plugin intervenes and provides the function that no more thumbnails are created have to be created.  
