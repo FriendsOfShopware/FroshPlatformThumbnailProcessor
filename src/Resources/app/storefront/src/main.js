@@ -7,6 +7,8 @@ import 'lazysizes/plugins/object-fit/ls.object-fit';
 
 document.addEventListener('lazyloaded', Debouncer.debounce(function(event){
     if(event.target.classList.contains('tns-complete')) {
-        window.dispatchEvent(new Event('resize'));
+        const resizeEvent = window.document.createEvent('UIEvents');
+        resizeEvent.initUIEvent('resize', true, false, window, 0);
+        window.dispatchEvent(resizeEvent);
     }
 }, 400));
