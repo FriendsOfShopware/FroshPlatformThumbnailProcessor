@@ -1,3 +1,7 @@
+# 1.0.11
+
+* FEATURE Berücksichtige nicht gesetzte Attributvariablen
+
 # 1.0.10
 
 * FEATURE Thumbnails werden nun erst geladen, sobald der Besucher auch in der Nähe ist

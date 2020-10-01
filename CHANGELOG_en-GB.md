@@ -1,3 +1,7 @@
+# 1.0.11
+
+* FEATURE Respect not given attributes in thumbnails
+
 # 1.0.10
 
 * FEATURE Thumbnails will be lazy loaded
