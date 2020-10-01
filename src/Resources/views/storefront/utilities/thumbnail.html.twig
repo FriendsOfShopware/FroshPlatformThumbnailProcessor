@@ -52,6 +52,8 @@
 {% if load is same as(true) %}
     {% if attributes.class %}
         {% set attributes = attributes|merge({'class': 'lazyload ' ~ attributes.class}) %}
+    {% elseif attributes is not defined %}
+        {% set attributes = {'class': 'lazyload'} %}
     {% else %}
         {% set attributes = attributes|merge({'class': 'lazyload'}) %}
     {% endif %}
