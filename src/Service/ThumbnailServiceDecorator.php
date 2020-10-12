@@ -2,12 +2,14 @@
 
 namespace Frosh\ThumbnailProcessor\Service;
 
+use League\Flysystem\FilesystemInterface;
 use Shopware\Core\Content\Media\Aggregate\MediaFolder\MediaFolderEntity;
 use Shopware\Core\Content\Media\Aggregate\MediaFolderConfiguration\MediaFolderConfigurationEntity;
 use Shopware\Core\Content\Media\Aggregate\MediaThumbnail\MediaThumbnailCollection;
 use Shopware\Core\Content\Media\Aggregate\MediaThumbnailSize\MediaThumbnailSizeCollection;
 use Shopware\Core\Content\Media\MediaEntity;
 use Shopware\Core\Content\Media\MediaType\ImageType;
+use Shopware\Core\Content\Media\Pathname\UrlGeneratorInterface;
 use Shopware\Core\Content\Media\Thumbnail\ThumbnailService;
 use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
@@ -33,8 +35,20 @@ class ThumbnailServiceDecorator extends ThumbnailService
     public function __construct(
         EntityRepositoryInterface $mediaRepository,
         EntityRepositoryInterface $thumbnailRepository,
+        FilesystemInterface $fileSystemPublic,
+        FilesystemInterface $fileSystemPrivate,
+        UrlGeneratorInterface $urlGenerator,
         EntityRepositoryInterface $mediaFolderRepository
     ) {
+        parent::__construct(
+            $mediaRepository,
+            $thumbnailRepository,
+            $fileSystemPublic,
+            $fileSystemPrivate,
+            $urlGenerator,
+            $mediaFolderRepository
+        );
+
         $this->mediaRepository = $mediaRepository;
         $this->thumbnailRepository = $thumbnailRepository;
         $this->mediaFolderRepository = $mediaFolderRepository;
