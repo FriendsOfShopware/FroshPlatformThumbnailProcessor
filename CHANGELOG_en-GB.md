@@ -1,3 +1,7 @@
+# 1.0.12
+
+* BUGFIX Fix error when replacing media
+
 # 1.0.11
 
 * FEATURE Respect not given attributes in thumbnails

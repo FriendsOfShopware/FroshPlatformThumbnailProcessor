@@ -11,7 +11,7 @@
         "thumbnail"
     ],
     "description": "This plugins allows you to use variable thumbnails, without having them on storage.",
-    "version": "1.0.11",
+    "version": "1.0.12",
     "type": "shopware-platform-plugin",
     "license": "mit",
     "authors": [

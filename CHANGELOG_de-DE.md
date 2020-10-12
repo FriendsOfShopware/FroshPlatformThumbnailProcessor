@@ -1,3 +1,7 @@
+# 1.0.12
+
+* BUGFIX Behebe Problem beim Ersetzen von Medien
+
 # 1.0.11
 
 * FEATURE Berücksichtige nicht gesetzte Attributvariablen
