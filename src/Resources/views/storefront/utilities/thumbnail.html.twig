@@ -24,7 +24,12 @@
             {% set container = 100 %}
             {% set sizes = sizes|merge({ 'xl': (container / columns)|round(0, 'ceil') ~'vw'}) %}
         {% else %}
-            {% set container = 1360 %}
+            {% set defaultContainerMaxSize = shopware.config.FroshPlatformThumbnailProcessor.config.DefaultContainerMaxSize %}
+            {% if defaultContainerMaxSize is defined %}
+                {% set container = defaultContainerMaxSize %}
+            {% else %}
+                {% set container = 1360 %}
+            {% endif %}
             {% set sizes = sizes|merge({ 'xl': (container / columns)|round(0, 'ceil') ~'px'}) %}
         {% endif %}
     {% endif %}

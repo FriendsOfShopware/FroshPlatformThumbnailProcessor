@@ -38,7 +38,7 @@
             <label>Fix Listing ThumbnailSizes</label>
             <defaultValue>1</defaultValue>
             <helpText>
-                There is some problem with thumbnail-sizes in storefront.
+                There are problems with thumbnail-sizes in storefront.
                 This can help you delivering better matching sizes to the visitor.
             </helpText>
         </input-field>
@@ -48,8 +48,17 @@
             <label>Fix ThumbnailSizes in DetailGallery</label>
             <defaultValue>1</defaultValue>
             <helpText>
-                There is some problem with thumbnail-sizes in the gallery of the product page.
+                There are problems with thumbnail-sizes in the gallery of the product page.
                 This can help you delivering better matching sizes to the visitor.
+            </helpText>
+        </input-field>
+
+        <input-field type="int">
+            <name>DefaultContainerMaxSize</name>
+            <label>Specific max width of container</label>
+            <defaultValue>1360</defaultValue>
+            <helpText>
+                There may be reasons you modified the container max size. So you can adjust this here for thumbnails. If you don't know, keep it at 1360.
             </helpText>
         </input-field>
 

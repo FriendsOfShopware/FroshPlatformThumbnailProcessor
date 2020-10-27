@@ -1,3 +1,7 @@
+# 1.0.13
+
+* FEATURE Option hinzugefügt, um die maximale Containergröße zu definieren
+
 # 1.0.12
 
 * BUGFIX Behebe Problem beim Ersetzen von Medien

@@ -1,3 +1,7 @@
+# 1.0.13
+
+* FEATURE Added Option to set max width of container
+
 # 1.0.12
 
 * BUGFIX Fix error when replacing media
