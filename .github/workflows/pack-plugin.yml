@@ -28,7 +28,7 @@ jobs:
 
             -   name: Build & create zip
                 run: |
-                    npm install --prefix ./${PLUGIN_NAME}/src/Resources/ --unsafe-perm
+                    npm install --prefix src/Resources/ --unsafe-perm
                     cp -r "./${PLUGIN_NAME}" "/plugins/${PLUGIN_NAME}"
                     start-mysql
                     pack-plugin "${PLUGIN_NAME}"
