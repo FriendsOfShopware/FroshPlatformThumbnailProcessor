@@ -28,7 +28,7 @@ jobs:
 
             -   name: Build & create zip
                 run: |
-                    npm install --prefix src/Resources/ --unsafe-perm
+                    npm install --prefix "./${PLUGIN_NAME}/src/Resources/app/storefront/"
                     cp -r "./${PLUGIN_NAME}" "/plugins/${PLUGIN_NAME}"
                     start-mysql
                     pack-plugin "${PLUGIN_NAME}"
@@ -36,7 +36,7 @@ jobs:
             -   name: Upload Artefact
                 uses: actions/upload-artifact@v2
                 with:
-                    name: Plugin-Artefact
+                    name: ${{ env.PLUGIN_NAME }}
                     path: ${{ env.PLUGIN_NAME }}.zip
 
             -   name: getPluginUploader
@@ -45,8 +45,12 @@ jobs:
             -   name: Validate Zip
                 run: php frosh-plugin-upload.phar ext:validate $(pwd)/${PLUGIN_NAME}.zip
 
-            -   name: StoreUpdate
+            -   name: Update store informations
                 run: php frosh-plugin-upload.phar ext:update $(pwd)/${PLUGIN_NAME}/
+
+            -   name: Upload to store
+                if: startsWith(github.ref, 'refs/tags/')
+                run: php frosh-plugin-upload.phar ext:upload $(pwd)/${PLUGIN_NAME}.zip
 
             -   name: Create Release in github
                 if: startsWith(github.ref, 'refs/tags/')
@@ -60,7 +64,7 @@ jobs:
                     draft: false
                     prerelease: false
 
-            -   name: Upload Release Asset
+            -   name: Upload Release Asset to github
                 if: startsWith(github.ref, 'refs/tags/')
                 id: upload_release_asset
                 uses: actions/upload-release-asset@v1.0.2
