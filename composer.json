@@ -26,8 +26,8 @@
     "extra": {
         "shopware-plugin-class": "Frosh\\ThumbnailProcessor\\FroshPlatformThumbnailProcessor",
         "label": {
-            "de-DE": "ThumbnailProcessor Plugin",
-            "en-GB": "ThumbnailProcessor Plugin"
+            "de-DE": "ThumbnailProcessor mit Lazy Loading",
+            "en-GB": "ThumbnailProcessor incl. Lazy Loading"
         },
         "description": {
             "de-DE": "Verschwende keine Rechenleistung und keinen Speicherplatz mit Thumbnails! Lass diese in Echtzeit beim Besuch durch einen externen Dienst erzeugen und ausliefern.",
