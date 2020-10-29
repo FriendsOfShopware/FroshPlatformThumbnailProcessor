@@ -1,6 +1,3 @@
-{% if not shopware.config.FroshPlatformThumbnailProcessor.config.FixListingThumbnailSizes %}
-    {{ include('@Storefront/storefront/utilities/thumbnail.html.twig') }}
-{% else %}
 
 {# activate load per default. If it is not activated only a data-src is set instead of the src tag. #}
 {% if load is not defined %}
@@ -67,11 +64,7 @@
         data-src="{{ media|sw_encode_media_url }}"
         {% if media.thumbnails|length > 0 %}
             data-srcset="{{ srcsetValue }}"
-            {% if sizes['default'] %}
-            data-sizes="{{ sizes['default'] }}"
-            {% elseif sizes|length > 0 %}
-            data-sizes="{{ sizesValue }}"
-            {% endif %}
+            data-sizes="auto"
         {% endif %}
         {% for key, value in attributes %}{% if value != '' %} {{ key }}="{{ value }}"{% endif %}{% endfor %}
     />
@@ -87,6 +80,4 @@
         {% endif %}
         {% for key, value in attributes %}{% if value != '' %} {{ key }}="{{ value }}"{% endif %}{% endfor %}
     />
-{% endif %}
-
 {% endif %}
