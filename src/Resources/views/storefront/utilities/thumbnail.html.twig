@@ -1,3 +1,6 @@
+{% if attributes is not defined %}
+    {% set attributes = {} %}
+{% endif %}
 
 {# activate load per default. If it is not activated only a data-src is set instead of the src tag. #}
 {% if load is not defined %}
@@ -52,9 +55,7 @@
 {% endif %}
 
 {% if load is same as(true) %}
-    {% if attributes is not defined %}
-        {% set attributes = {'class': 'lazyload'} %}
-    {% elseif attributes.class %}
+    {% if attributes.class %}
         {% set attributes = attributes|merge({'class': 'lazyload ' ~ attributes.class}) %}
     {% else %}
         {% set attributes = attributes|merge({'class': 'lazyload'}) %}
@@ -66,7 +67,7 @@
             data-srcset="{{ srcsetValue }}"
             data-sizes="auto"
         {% endif %}
-        {% for key, value in attributes %}{% if value != '' %} {{ key }}="{{ value }}"{% endif %}{% endfor %}
+        {% for key, value in attributes %} {{ key }}="{{ value }}"{% endfor %}
     />
 {% else %}
     <img data-src="{{ media|sw_encode_media_url }}"
@@ -78,6 +79,6 @@
             sizes="{{ sizesValue }}"
             {% endif %}
         {% endif %}
-        {% for key, value in attributes %}{% if value != '' %} {{ key }}="{{ value }}"{% endif %}{% endfor %}
+        {% for key, value in attributes %} {{ key }}="{{ value }}"{% endfor %}
     />
 {% endif %}
