@@ -61,7 +61,7 @@
         {% set attributes = attributes|merge({'class': 'lazyload'}) %}
     {% endif %}
 
-    <img src="{{ asset('bundles/froshplatformthumbnailprocessor/storefront/loader.svg')}}"
+    <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
         data-src="{{ media|sw_encode_media_url }}"
         {% if media.thumbnails|length > 0 %}
             data-srcset="{{ srcsetValue }}"
