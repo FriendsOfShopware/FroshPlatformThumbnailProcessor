@@ -1,3 +1,8 @@
+# 1.0.14
+
+* FEATURE Verwende automatische Erzeugung der Sizes für die Thumbnails
+* FEATURE SEO Gebe auch leere attribute aus
+
 # 1.0.13
 
 * FEATURE Added Option to set max width of container

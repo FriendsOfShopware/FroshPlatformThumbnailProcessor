@@ -1,3 +1,8 @@
+# 1.0.14
+
+* FEATURE Use dynamic sizes for thumbnails
+* FEATURE SEO Output empty attributes
+
 # 1.0.13
 
 * FEATURE Option hinzugefügt, um die maximale Containergröße zu definieren
