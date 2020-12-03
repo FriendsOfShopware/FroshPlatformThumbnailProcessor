@@ -1,3 +1,7 @@
+# 1.0.15
+
+*BUGFIX UIEvent.initUIEvent is deprecated and hat do be replaced with UIEvent(typeArg [, UIEventInit])
+
 # 1.0.14
 
 * FEATURE Verwende automatische Erzeugung der Sizes für die Thumbnails

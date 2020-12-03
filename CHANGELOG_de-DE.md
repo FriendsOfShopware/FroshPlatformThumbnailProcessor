@@ -1,3 +1,7 @@
+# 1.0.15
+
+*BUGFIX UIEvent.initUIEvent ist deprecated und wurde ersetzt durch new UIEvent(typeArg [, UIEventInit])
+
 # 1.0.14
 
 * FEATURE Use dynamic sizes for thumbnails

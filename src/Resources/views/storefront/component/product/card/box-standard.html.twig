@@ -15,6 +15,9 @@
                 {% set displayMode = 'cover' %}
             {% endif %}
 
+            {{ dump(layout) }}
+            {{ dump(sizes) }}
+
             <a href="{{ seoUrl('frontend.detail.page', {'productId': id}) }}"
                title="{{ name }}"
                class="product-image-link is-{{ displayMode }}">

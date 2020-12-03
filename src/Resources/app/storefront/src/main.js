@@ -6,9 +6,13 @@ import 'lazysizes/plugins/parent-fit/ls.parent-fit';
 import 'lazysizes/plugins/object-fit/ls.object-fit';
 
 document.addEventListener('lazyloaded', Debouncer.debounce(function(event){
+
     if(event.target.classList.contains('tns-complete')) {
-        const resizeEvent = window.document.createEvent('UIEvents');
-        resizeEvent.initUIEvent('resize', true, false, window, 0);
+        const resizeEvent = new UIEvent('resize', {
+            "view": window,
+            "bubbles": true,
+            "cancelable": false
+        });
         window.dispatchEvent(resizeEvent);
     }
 }, 400));
