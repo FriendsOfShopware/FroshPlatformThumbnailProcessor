@@ -95,8 +95,8 @@ class UrlGeneratorDecorator implements UrlGeneratorInterface
         return $this->thumbnailUrlTemplate->getUrl(
             $this->getBaseUrl(),
             $this->decoratedService->getRelativeMediaUrl($media),
-            $thumbnail->getWidth(),
-            $thumbnail->getHeight());
+            (string) $thumbnail->getWidth(),
+            (string) $thumbnail->getHeight());
     }
 
     public function getRelativeThumbnailUrl(MediaEntity $media, MediaThumbnailEntity $thumbnail): string
@@ -104,7 +104,7 @@ class UrlGeneratorDecorator implements UrlGeneratorInterface
         return $this->getAbsoluteThumbnailUrl($media, $thumbnail);
     }
 
-    private function normalizeBaseUrl($baseUrl): ?string
+    private function normalizeBaseUrl(?string $baseUrl): ?string
     {
         if (!$baseUrl) {
             return null;

@@ -79,7 +79,7 @@ class ThumbnailServiceDecorator extends ThumbnailService
         $toBeDeletedThumbnails = $media->getThumbnails();
         $this->thumbnailRepository->delete($toBeDeletedThumbnails->getIds(), $context);
 
-        return $this->createThumbnailsForSizes($media, $config,$mediaThumbnailSizes, $context);
+        return $this->createThumbnailsForSizes($media, $config, $mediaThumbnailSizes, $context);
     }
 
     /*
@@ -132,7 +132,7 @@ class ThumbnailServiceDecorator extends ThumbnailService
         return $this->createThumbnailsForSizes($media, $config, $tobBeCreatedSizes, $context);
     }
 
-    private function checkMediaCanHaveThumbnails($media, $context): bool
+    private function checkMediaCanHaveThumbnails(MediaEntity $media, Context $context): bool
     {
         if (!$this->mediaCanHaveThumbnails($media, $context)) {
             $this->deleteAssociatedThumbnails($media, $context);
