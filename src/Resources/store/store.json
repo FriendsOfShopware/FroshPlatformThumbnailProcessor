@@ -1,0 +1,29 @@
+{
+    "storeAvailabilities": [
+        "International",
+        "German"
+    ],
+    "standardLocale": "en_GB",
+    "localizations": [
+        "en_GB",
+        "de_DE"
+    ],
+    "categories": [
+        "SEOOptimierung",
+        "ConversionOptimierung"
+    ],
+    "productType": "extension",
+    "responsive": true,
+    "tags": {
+        "en": [
+            "thumbnail",
+            "performance",
+            "space"
+        ],
+        "de": [
+            "thumbnail",
+            "performance",
+            "space"
+        ]
+    }
+}

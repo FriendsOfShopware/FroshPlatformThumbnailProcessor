@@ -1,14 +1,26 @@
 # Thumbnail Processor for Shopware 6
 
-[![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
+[![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md) [![Shopware Store](https://img.shields.io/badge/shopware-store-blue.svg?style=flat-square)](https://store.shopware.com/en/frosh69611263569f/thumbnailprocessor-plugin.html)
 
-This plugins allows you to use variable thumbnails, if your filesystem (or storage-adapter) supports it.
-It will add parameters to original image paths.
+
+This plugins allows you to use variable thumbnails, if your filesystem (or storage-adapter) supports it.  
+Additionally it has built-in Lazyloading.  
+You can use this, if you don't want thumbnails to be created on you development-system, too.  
+It will add parameters to original image paths.  
 So you are able to save storage and add new thumbnails on the fly.
+
+| Version 	| Requirements               	
+|---------	|----------------------------	
+| 1.0.0 - 1.0.5     	| Min. Shopware 6.0	
+| 1.0.6 - *     	| Min. Shopware 6.3
 
 ## Install
 
 Download the plugin from the release page and enable it in shopware.
+
+### From source
+
+Run `npm install` in `src/Resources/app/storefront` within the plugin directory
 
 ## Usage
 While active, this will access all thumbnails variable from original image. The thumbnail-files won't be needed anymore.
@@ -59,7 +71,6 @@ will become `https://images.weserv.nl/?url=https://www.example.com/media/01/82/6
 An image cache & resize service. Manipulate images on-the-fly with a worldwide cache.  
 Template example: `https://token.cloudimg.io/v7/{mediaUrl}/{mediaPath}&w={width}&h={height}`  
 will become `https://token.cloudimg.io/v7/https://www.example.com/media/01/82/69/sasse.png&w=800&h=800`
-https://adftuuysfo.cloudimg.io/v7/https://cdn.reflects.com/media/image/d1/ba/2a/10001_1573516804.jpg?w=300
 
 ## License
 

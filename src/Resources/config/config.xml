@@ -16,5 +16,54 @@
                 {height}: 800
             </helpText>
         </input-field>
+
+        <input-field type="bool">
+            <name>ProcessOriginalImages</name>
+            <label>Process Original Images</label>
+            <defaultValue>1</defaultValue>
+        </input-field>
+
+        <input-field type="bool">
+            <name>ProcessSVG</name>
+            <label>Process SVG files</label>
+            <defaultValue>0</defaultValue>
+            <helpText>
+                Some services will convert SVG files into jpg or webp which results in much bigger files.
+                Just activate, if your service can manage and compress SVG files.
+            </helpText>
+        </input-field>
+
+        <input-field type="bool">
+            <name>FixListingThumbnailSizes</name>
+            <label>Fix Listing ThumbnailSizes</label>
+            <defaultValue>1</defaultValue>
+            <helpText>
+                There are problems with thumbnail-sizes in storefront.
+                This can help you delivering better matching sizes to the visitor.
+            </helpText>
+        </input-field>
+
+        <input-field type="bool">
+            <name>FixDetailGalleryThumbnailSizes</name>
+            <label>Fix ThumbnailSizes in DetailGallery</label>
+            <defaultValue>1</defaultValue>
+            <helpText>
+                There are problems with thumbnail-sizes in the gallery of the product page.
+                This can help you delivering better matching sizes to the visitor.
+            </helpText>
+        </input-field>
+
+        <input-field type="int">
+            <name>DefaultContainerMaxSize</name>
+            <label>Specific max width of container</label>
+            <defaultValue>1360</defaultValue>
+            <helpText>
+                There may be reasons you modified the container max size. So you can adjust this here for thumbnails. If you don't know, keep it at 1360.
+            </helpText>
+        </input-field>
+
+        <component name="frosh-thumbnail-processor-info-texts">
+            <name>froshthumbnailprocessorinfotexts</name>
+        </component>
     </card>
 </config>

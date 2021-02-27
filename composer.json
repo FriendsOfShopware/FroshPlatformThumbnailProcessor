@@ -11,9 +11,9 @@
         "thumbnail"
     ],
     "description": "This plugins allows you to use variable thumbnails, without having them on storage.",
-    "version": "v1.0.0",
+    "version": "1.0.14",
     "type": "shopware-platform-plugin",
-    "license": "MIT",
+    "license": "mit",
     "authors": [
         {
             "name": "FriendsOfShopware",
@@ -21,17 +21,25 @@
         }
     ],
     "require": {
-        "shopware/core": "~6.2"
+        "shopware/core": "~6.3"
     },
     "extra": {
         "shopware-plugin-class": "Frosh\\ThumbnailProcessor\\FroshPlatformThumbnailProcessor",
         "label": {
-            "de-DE": "ThumbnailProcessor Plugin",
-            "en-GB": "ThumbnailProcessor Plugin"
+            "de-DE": "ThumbnailProcessor mit Lazy Loading",
+            "en-GB": "ThumbnailProcessor incl. Lazy Loading"
         },
         "description": {
-            "de-DE": "Deutsche Beschreibung des Plugins",
-            "en-GB": "English description of the plugin"
+            "de-DE": "Verschwende keine Rechenleistung und keinen Speicherplatz mit Thumbnails! Lass diese in Echtzeit beim Besuch durch einen externen Dienst erzeugen und ausliefern.",
+            "en-GB": "Don't waste the computing power and space with thumbnails! Have the thumbnails generated and delivered in real time when you visit an external service."
+        },
+        "manufacturerLink": {
+            "de-DE": "https://github.com/FriendsOfShopware/FroshPlatformThumbnailProcessor",
+            "en-GB": "https://github.com/FriendsOfShopware/FroshPlatformThumbnailProcessor"
+        },
+        "supportLink": {
+            "de-DE": "https://github.com/FriendsOfShopware/FroshPlatformThumbnailProcessor/issues",
+            "en-GB": "https://github.com/FriendsOfShopware/FroshPlatformThumbnailProcessor/issues"
         }
     },
     "autoload": {
