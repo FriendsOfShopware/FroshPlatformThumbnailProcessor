@@ -76,8 +76,8 @@ class UrlGeneratorDecorator implements UrlGeneratorInterface
         return $this->thumbnailUrlTemplate->getUrl(
             $this->getBaseUrl(),
             $this->getRelativeMediaUrl($media),
-            3000,
-            3000
+            "3000",
+            "3000"
         );
     }
 
