@@ -63,7 +63,7 @@
 
     <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
         data-src="{{ media|sw_encode_media_url }}"
-        {% if media.thumbnails|length > 0 %}
+        {% if media.thumbnails|length > 1 %}
             data-srcset="{{ srcsetValue }}"
             data-sizes="auto"
         {% endif %}
@@ -71,7 +71,7 @@
     />
 {% else %}
     <img data-src="{{ media|sw_encode_media_url }}"
-        {% if media.thumbnails|length > 0 %}
+        {% if media.thumbnails|length > 1 %}
             data-srcset="{{ srcsetValue }}"
             {% if sizes['default'] %}
             sizes="{{ sizes['default'] }}"
