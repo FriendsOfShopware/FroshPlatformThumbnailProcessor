@@ -1,84 +1,48 @@
-{% if attributes is not defined %}
-    {% set attributes = {} %}
-{% endif %}
-
-{# activate load per default. If it is not activated only a data-src is set instead of the src tag. #}
-{% if load is not defined %}
-    {% set load = true %}
-{% endif %}
-
-{# uses cms block column count and all available thumbnails to determine the correct image size for the current viewport #}
-{% if media.thumbnails|length > 0 %}
-
-    {% if columns and sizes is not defined %}
-        {# set image size for every viewport #}
-        {% set sizes = {
-            'xs': (shopware.theme.breakpoint.sm - 1) ~'px',
-            'sm': (shopware.theme.breakpoint.md - 1) ~'px',
-            'md': ((shopware.theme.breakpoint.lg - 1) / columns)|round(0, 'ceil') ~'px',
-            'lg': ((shopware.theme.breakpoint.xl - 1) / columns)|round(0, 'ceil') ~'px'
-        } %}
-
-        {# set image size for largest viewport depending on the cms block sizing mode (boxed or full-width) #}
-        {% if layout == 'full-width' %}
-            {% set container = 100 %}
-            {% set sizes = sizes|merge({ 'xl': (container / columns)|round(0, 'ceil') ~'vw'}) %}
-        {% else %}
-            {% set defaultContainerMaxSize = config('FroshPlatformThumbnailProcessor.config.DefaultContainerMaxSize') %}
-            {% if defaultContainerMaxSize is defined %}
-                {% set container = defaultContainerMaxSize %}
-            {% else %}
-                {% set container = 1360 %}
-            {% endif %}
-            {% set sizes = sizes|merge({ 'xl': (container / columns)|round(0, 'ceil') ~'px'}) %}
-        {% endif %}
+{% block thumbnail_utility %}{% apply spaceless %}
+    {% if attributes is not defined %}
+        {% set attributes = {} %}
     {% endif %}
 
-    {% set thumbnails = media.thumbnails|filter((v) => v.width <= media.metaData.width and v.height <= media.metaData.height)|sort|reverse %}
-
-    {# generate srcset with all available thumbnails #}
-    {% set srcsetValue %}{% apply spaceless %}
-        {{ media|sw_encode_media_url }} {{ thumbnails|first.width + 1 }}w, {% for thumbnail in thumbnails %}{{ thumbnail.url | sw_encode_url }} {{ thumbnail.width }}w{% if not loop.last %}, {% endif %}{% endfor %}
-    {% endapply %}{% endset %}
-
-    {# generate sizes #}
-    {% set sizesValue %}{% apply spaceless %}
-        {% set sizeFallback = 100 %}
-
-        {# set largest size depending on column count of cms block #}
-        {% if columns %}
-            {% set sizeFallback = (sizeFallback / columns)|round(0, 'ceil') %}
-        {% endif %}
-
-        {% for key, value in shopware.theme.breakpoint|reverse %}(min-width: {{ value }}px) {{ sizes[key] }}{% if not loop.last %}, {% endif %}{% endfor %}, {{ sizeFallback }}vw
-    {% endapply %}{% endset %}
-{% endif %}
-
-{% if load is same as(true) %}
     {% if attributes.class %}
         {% set attributes = attributes|merge({'class': 'lazyload ' ~ attributes.class}) %}
     {% else %}
         {% set attributes = attributes|merge({'class': 'lazyload'}) %}
     {% endif %}
 
-    <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-        data-src="{{ media|sw_encode_media_url }}"
-        {% if media.thumbnails|length > 1 %}
-            data-srcset="{{ srcsetValue }}"
-            data-sizes="auto"
+    {% if media.thumbnails|length > 0 %}
+        {% set thumbnails = media.thumbnails|filter((v) => v.width <= media.metaData.width and v.height <= media.metaData.height)|sort|reverse %}
+
+        {# generate srcset with all available thumbnails #}
+        {% set srcsetValue %}{% apply spaceless %}
+            {{ media|sw_encode_media_url }} {{ thumbnails|first.width + 1 }}w, {% for thumbnail in thumbnails %}{{ thumbnail.url | sw_encode_url }} {{ thumbnail.width }}w{% if not loop.last %}, {% endif %}{% endfor %}
+        {% endapply %}{% endset %}
+    {% endif %}
+
+    {% set metaProportion = media.metaData %}
+    {% set ratio = (metaProportion.width / metaProportion.height)|round(2, 'floor') %}
+
+    {% if layout == 'full-width' %}
+        {% if ratio >= 1  %}
+            {% set inlineStyle = "width: 100vw; height: " ~ (100 / ratio)|round(3) ~ "vw" %}
+        {% else %}
+            {% set inlineStyle = "width: " ~ (100 * ratio)|round(3)~ "vw; height: 100vw" %}
         {% endif %}
-        {% for key, value in attributes %} {{ key }}="{{ value }}"{% endfor %}
-    />
-{% else %}
-    <img data-src="{{ media|sw_encode_media_url }}"
-        {% if media.thumbnails|length > 1 %}
-            data-srcset="{{ srcsetValue }}"
-            {% if sizes['default'] %}
-            sizes="{{ sizes['default'] }}"
-            {% elseif sizes|length > 0 %}
-            sizes="{{ sizesValue }}"
+    {% endif %}
+
+    {% block thumbnail_utility_img %}
+        <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+            data-src="{{ media|sw_encode_media_url }}"
+            {% if media.thumbnails|length > 1 %}
+                data-srcset="{{ srcsetValue }}"
+                data-sizes="auto"
+                data-aspectratio="{{ ratio }}"
+                data-parent-fit="contain"
             {% endif %}
-        {% endif %}
-        {% for key, value in attributes %} {{ key }}="{{ value }}"{% endfor %}
-    />
-{% endif %}
+            {% for key, value in attributes %} {{ key }}="{{ value }}"{% endfor %}
+            {% if inlineStyle is defined %}
+                style="{{ inlineStyle }}"
+            {% endif %}
+        />
+
+    {% endblock %}
+{% endapply %}{% endblock %}
