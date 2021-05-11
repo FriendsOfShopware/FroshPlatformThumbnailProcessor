@@ -1,3 +1,7 @@
+# 1.0.15
+
+* FEATURE Add support for SW6.4
+
 # 1.0.14
 
 * FEATURE Verwende automatische Erzeugung der Sizes für die Thumbnails
