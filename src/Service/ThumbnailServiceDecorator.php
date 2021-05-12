@@ -38,28 +38,15 @@ class ThumbnailServiceDecorator extends ThumbnailService
         FilesystemInterface $fileSystemPublic,
         FilesystemInterface $fileSystemPrivate,
         UrlGeneratorInterface $urlGenerator,
-        EntityRepositoryInterface $mediaFolderRepository,
-        string $version
+        EntityRepositoryInterface $mediaFolderRepository
     ) {
-
-        if (version_compare($version, '6.4.0.0', '<')) {
-            parent::__construct(
-                $mediaRepository,
-                $thumbnailRepository,
-                $fileSystemPublic,
-                $fileSystemPrivate,
-                $urlGenerator,
-                $mediaFolderRepository
-            );
-        } else {
-            parent::__construct(
-                $thumbnailRepository,
-                $fileSystemPublic,
-                $fileSystemPrivate,
-                $urlGenerator,
-                $mediaFolderRepository
-            );
-        }
+        parent::__construct(
+            $thumbnailRepository,
+            $fileSystemPublic,
+            $fileSystemPrivate,
+            $urlGenerator,
+            $mediaFolderRepository
+        );
 
         $this->mediaRepository = $mediaRepository;
         $this->thumbnailRepository = $thumbnailRepository;

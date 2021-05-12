@@ -1,3 +1,7 @@
+# 1.0.16
+
+* FEATURE Support für SW6.4
+
 # 1.0.15
 
 * FEATURE Support für SW6.4

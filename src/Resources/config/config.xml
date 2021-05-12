@@ -33,26 +33,6 @@
             </helpText>
         </input-field>
 
-        <input-field type="bool">
-            <name>FixListingThumbnailSizes</name>
-            <label>Fix Listing ThumbnailSizes</label>
-            <defaultValue>1</defaultValue>
-            <helpText>
-                There are problems with thumbnail-sizes in storefront.
-                This can help you delivering better matching sizes to the visitor.
-            </helpText>
-        </input-field>
-
-        <input-field type="bool">
-            <name>FixDetailGalleryThumbnailSizes</name>
-            <label>Fix ThumbnailSizes in DetailGallery</label>
-            <defaultValue>1</defaultValue>
-            <helpText>
-                There are problems with thumbnail-sizes in the gallery of the product page.
-                This can help you delivering better matching sizes to the visitor.
-            </helpText>
-        </input-field>
-
         <input-field type="int">
             <name>DefaultContainerMaxSize</name>
             <label>Specific max width of container</label>
