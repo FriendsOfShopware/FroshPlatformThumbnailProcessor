@@ -12,7 +12,8 @@ So you are able to save storage and add new thumbnails on the fly.
 | Version 	| Requirements               	
 |---------	|----------------------------	
 | 1.0.0 - 1.0.5     	| Min. Shopware 6.0	
-| 1.0.6 - *     	| Min. Shopware 6.3
+| 1.0.6 - 1.0.15     	| Min. Shopware 6.3	
+| 1.0.16 - *     	| Min. Shopware 6.4	
 
 ## Install
 
