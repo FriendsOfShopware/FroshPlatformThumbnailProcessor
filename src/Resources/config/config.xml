@@ -33,15 +33,6 @@
             </helpText>
         </input-field>
 
-        <input-field type="int">
-            <name>DefaultContainerMaxSize</name>
-            <label>Specific max width of container</label>
-            <defaultValue>1360</defaultValue>
-            <helpText>
-                There may be reasons you modified the container max size. So you can adjust this here for thumbnails. If you don't know, keep it at 1360.
-            </helpText>
-        </input-field>
-
         <component name="frosh-thumbnail-processor-info-texts">
             <name>froshthumbnailprocessorinfotexts</name>
         </component>

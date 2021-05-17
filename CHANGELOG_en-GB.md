@@ -1,3 +1,10 @@
+# 1.0.17
+
+* Cleanup code
+* Define blocks: thumbnail_utility and thumbnail_utility_img
+* Reserve room in fullwidth cms elements to optimize CLS
+* Fix thumbnail generation to not create files
+
 # 1.0.16
 
 * FEATURE Better support for SW6.4

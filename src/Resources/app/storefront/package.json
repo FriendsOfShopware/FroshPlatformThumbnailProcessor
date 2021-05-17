@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
-    "lazysizes": "^5.2.1"
+    "lazysizes": "^5.3.2"
   },
   "author": "Sebastian König (@tinect)",
   "license": "MIT"

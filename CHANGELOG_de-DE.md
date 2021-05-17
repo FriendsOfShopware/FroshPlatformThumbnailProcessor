@@ -1,3 +1,10 @@
+# 1.0.17
+
+* Code bereinigt
+* Neue Blöcke definiert: thumbnail_utility und thumbnail_utility_img
+* Reserviert Platz in CMS-Elementen mit voller Breite, um CLS zu optimieren
+* Die Generierung von Thumbnails wurde korrigiert, um keine Dateien zu erstellen
+
 # 1.0.16
 
 * FEATURE Support für SW6.4
