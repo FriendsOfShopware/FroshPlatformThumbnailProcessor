@@ -18,12 +18,14 @@
         "en": [
             "thumbnail",
             "performance",
-            "space"
+            "storage",
+            "webp"
         ],
         "de": [
             "thumbnail",
             "performance",
-            "space"
+            "storage",
+            "webp"
         ]
     }
 }
