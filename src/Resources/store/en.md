@@ -11,6 +11,11 @@ The thumbnails are then generated and delivered by an external service in real t
 - Relief of the server
 - Faster backups with fewer files
 
+## Adding more thumbnail sizes:
+- Save new size in the folder of the media management
+- then run the command `bin/console media:generate-thumbnails` on the console to update the thumbnails for all images in the database
+- Clear shop cache
+
 ## Which service do I now use for the thumbnails:
 Please note that this plugin only provides the function for delivering the thumbnail urls.  
 This plugin does not create thumbnails! The corresponding services are used for this.

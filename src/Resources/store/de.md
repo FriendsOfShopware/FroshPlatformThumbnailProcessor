@@ -12,6 +12,11 @@ Die Thumbnails werden dann in Echtzeit beim Besuch durch einen externen Dienst e
 - Entlastung des Servers
 - Schnellere Backups durch weniger Dateien
 
+## Hinzufügen weiterer Thumbnail-Größen:
+- im Order der Medienverwaltung neue Größe hinterlegen
+- dann den Befehl `bin/console media:generate-thumbnails` auf der Konsole ausführen, damit die Thumbnails für alle Bilder in der Datenbank aktualisiert werden
+- Shop-Cache leeren
+
 ## Welchen Dienst verwende ich nun für die Thumbnails:
 Beachten Sie, dass dieses Plugin nur die Funktion zum Ausliefern der Thumbnail-Urls bereitstellt.  
 Dieses Plugin erstellt keine Thumbnails! Dazu werden die entsprechenden Dienste verwendet.
