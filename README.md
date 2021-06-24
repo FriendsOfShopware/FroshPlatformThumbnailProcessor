@@ -79,10 +79,10 @@ will become `https://token.cloudimg.io/v7/https://www.example.com/media/01/82/69
 
 ### cloudflare [Link](https://www.cloudflare.com)
 
-`Has a lossless image optimization and big hosters have their NFS connected in their contracts directly to cloudflare`  
+`Has a lossless image optimization and big hosters have their NFS connected in their contracts directly to cloudflare (only for business and enterprise)`  
 An image cache & resize service. Manipulate images on-the-fly with a worldwide cache.  
-Template example: `{mediaUrl}/cdn-cgi/image/width={width},height={height}quality=75/{mediaPath}`  
-will become `https://yourshop.com/cdn-cgi/image/width%3D3000%2Cheight%3D3000quality%3D75/media/64/fd/98/1624446656/ff310899329c4d94855a096a26b02d5e.jpg`
+Template example: `{mediaUrl}/cdn-cgi/image/width={width},height={height},quality=85,format=webp/{mediaPath}`  
+will become `https://yourshop.com/cdn-cgi/image/width%3D3000%2Cheight%3D3000quality%3D85/media/64/fd/98/1624446656/ff310899329c4d94855a096a26b02d5e.jpg`
 
 
 ## License
