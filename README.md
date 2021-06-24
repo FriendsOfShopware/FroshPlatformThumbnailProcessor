@@ -77,7 +77,7 @@ An image cache & resize service. Manipulate images on-the-fly with a worldwide c
 Template example: `https://token.cloudimg.io/v7/{mediaUrl}/{mediaPath}&w={width}&h={height}`  
 will become `https://token.cloudimg.io/v7/https://www.example.com/media/01/82/69/sasse.png&w=800&h=800`
 
-### cloudflare [Link](https://www.cloudflare.com)
+### Cloudflare Image Resizing [Link](https://developers.cloudflare.com/images/)
 
 `Has a lossless image optimization and big hosters have their NFS connected in their contracts directly to cloudflare (only for business and enterprise)`  
 An image cache & resize service. Manipulate images on-the-fly with a worldwide cache.  
