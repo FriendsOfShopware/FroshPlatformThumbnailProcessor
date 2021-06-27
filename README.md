@@ -79,8 +79,8 @@ will become `https://token.cloudimg.io/v7/https://www.example.com/media/01/82/69
 
 ### Cloudflare Image Resizing [Link](https://developers.cloudflare.com/images/)
 
-`Has a lossless image optimization and big hosters have their NFS connected in their contracts directly to cloudflare (only for business and enterprise)`  
-An image cache & resize service. Manipulate images on-the-fly with a worldwide cache.  
+`Opinion: many options but only for business and enterprise customers. Has no auto detection of supported formats of visitor. So you are pinned to jpeg, webp or avif.`  
+Has a lossless image optimization and big hosters have their NFS connected in their contracts directly to cloudflare 
 Template example: `{mediaUrl}/cdn-cgi/image/width={width},height={height},quality=85,format=webp/{mediaPath}`  
 will become `https://yourshop.com/cdn-cgi/image/width%3D3000%2Cheight%3D3000quality%3D85/media/64/fd/98/1624446656/ff310899329c4d94855a096a26b02d5e.jpg`
 
