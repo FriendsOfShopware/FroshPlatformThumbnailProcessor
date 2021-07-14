@@ -1,3 +1,7 @@
+# 1.0.18
+
+* Behebe Fehler bei Bildern ohne Maße
+
 # 1.0.17
 
 * Code bereinigt

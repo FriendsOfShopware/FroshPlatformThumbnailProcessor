@@ -1,3 +1,7 @@
+# 1.0.18
+
+* Fix error with images without dimensions
+
 # 1.0.17
 
 * Cleanup code
