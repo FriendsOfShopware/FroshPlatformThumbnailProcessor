@@ -46,5 +46,15 @@
             will become
             <code>https://token.cloudimg.io/v7/https://www.example.com/media/01/82/69/sasse.png&w=800&h=800</code>
         </p>
+
+        <h4 class="supports-headline"><a href="https://www.cloudflare.com" target="_blank">cloudflare</a></h4>
+        <blockquote>Opinion: many options but only for business and enterprise customers.</blockquote>
+        <p class="supports-description">
+            Has a lossless image optimization and big hosters have their NFS connected in their contracts directly to cloudflare<br><br>
+            <sw-text-field label="Template example" size="small" :copyable="true"
+                           value="{mediaUrl}/cdn-cgi/image/width={width},height={height},quality=85,format=auto/{mediaPath}"/>
+            will become
+            <code>https://yourshop.com/cdn-cgi/image/width%3D3000%2Cheight%3D3000%2Cquality%3D85%2Cformat%3Dauto/media/db/f4/18/1624437000/334c0cd2b7dd465c9a35a806e8052643.jpg</code>
+        </p>
     </div>
 {% endblock %}

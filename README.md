@@ -9,10 +9,10 @@ It will add parameters to original image paths.
 So you are able to save storage and add new thumbnails on the fly.
 
 | Version 	| Requirements               	
-|---------	|----------------------------	
-| 1.0.0 - 1.0.5     	| Min. Shopware 6.0	
-| 1.0.6 - 1.0.15     	| Min. Shopware 6.3	
-| 1.0.16 - *     	| Min. Shopware 6.4	
+|---------	|----------------------------
+| 1.0.0 - 1.0.5     	| Min. Shopware 6.0
+| 1.0.6 - 1.0.15     	| Min. Shopware 6.3
+| 1.0.16 - *     	| Min. Shopware 6.4
 
 ## Install
 
@@ -76,6 +76,14 @@ will become `https://images.weserv.nl/?url=https://www.example.com/media/01/82/6
 An image cache & resize service. Manipulate images on-the-fly with a worldwide cache.  
 Template example: `https://token.cloudimg.io/v7/{mediaUrl}/{mediaPath}&w={width}&h={height}`  
 will become `https://token.cloudimg.io/v7/https://www.example.com/media/01/82/69/sasse.png&w=800&h=800`
+
+### Cloudflare Image Resizing [Link](https://developers.cloudflare.com/images/)
+
+`Opinion: many options but only for business and enterprise customers.`  
+Has a lossless image optimization and big hosters have their NFS connected in their contracts directly to cloudflare
+Template example: `{mediaUrl}/cdn-cgi/image/width={width},height={height},quality=85,format=auto/{mediaPath}`  
+will become `https://yourshop.com/cdn-cgi/image/width%3D3000%2Cheight%3D3000%2Cquality%3D85%2Cformat%3Dauto/media/db/f4/18/1624437000/334c0cd2b7dd465c9a35a806e8052643.jpg`
+
 
 ## License
 
