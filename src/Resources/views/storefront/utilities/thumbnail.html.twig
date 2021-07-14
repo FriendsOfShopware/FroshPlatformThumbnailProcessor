@@ -19,7 +19,9 @@
     {% endif %}
 
     {% set metaProportion = media.metaData %}
-    {% set ratio = (metaProportion.width / metaProportion.height)|round(2, 'floor') %}
+    {% if metaProportion > 0 %}
+        {% set ratio = (metaProportion.width / metaProportion.height)|round(2, 'floor') %}
+    {% endif %}
 
     {% if layout == 'full-width' %}
         {% if ratio >= 1  %}
