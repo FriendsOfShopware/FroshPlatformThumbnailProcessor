@@ -46,5 +46,13 @@
         "psr-4": {
             "Frosh\\ThumbnailProcessor\\": "src/"
         }
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "[ $COMPOSER_DEV_MODE -eq 0 ] || (cd src/Resources/app/storefront && npm install);"
+        ],
+        "post-update-cmd": [
+            "[ $COMPOSER_DEV_MODE -eq 0 ] || (cd src/Resources/app/storefront && npm install);"
+        ]
     }
 }
