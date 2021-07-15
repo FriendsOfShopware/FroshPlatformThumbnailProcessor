@@ -18,6 +18,15 @@
             will become <code>http://localhost:8080/x/fit/800/800/sm/0/plain/https://www.example.com/media/01/82/69/sasse.png</code>
         </p>
 
+        <h4 class="supports-headline"><a href="https://imgix.com/" target="_blank">imgix</a></h4>
+        <blockquote>Opinion: has free plan, fast & including webp, a lot of resizing & filtering options</blockquote>
+        <p class="supports-description">
+            You would have to create a Web Folder source and point it to your domain.<br><br>
+            <sw-text-field label="Template example" size="small" :copyable="true"
+                           value="https://<your-subdomain>.imgix.net/{mediaPath}?w={width}&h={height}&fit=clip&fill=solid&fill-color=ffffff&lossless=1&auto=compress"/>
+            will become <code>https://<your-subdomain>.imgix.net/{mediaPath}?w=800&h=800&fit=clip&fill=solid&fill-color=ffffff&lossless=1&auto=compress</code>
+        </p>
+
         <h4 class="supports-headline"><a href="https://bunnycdn.com/" target="_blank">BunnyCDN</a></h4>
         <blockquote>Opinion: not cheap with 9,5$/m per zone, but fast and including webp</blockquote>
         <p class="supports-description">
