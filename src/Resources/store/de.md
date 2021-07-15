@@ -28,6 +28,8 @@ Es gibt vier Paramter, die Ihnen optional zur Erstellung des Links zur Verfügun
 {height}: Die Höhe des Thumbnails  
 
 Wir haben schon Erfahrung mit folgenden Diensten gemacht.
+- [imgix](https://imgix.com) (kostenpflichtig, inkl. Webp)  
+  Template-Beispiel: `https://<your-subdomain>.imgix.net/{mediaPath}?w={width}&h={height}`
 - [BunnyCDN](https://bunnycdn.com) (kostenpflichtig, inkl. Webp)  
   Template-Beispiel: `{mediaUrl}/{mediaPath}?width={width}&height={height}`
 - [keycdn](https://www.keycdn.com/support/image-processing) (kostenpflichtig, inkl. Webp)  
