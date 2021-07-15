@@ -56,6 +56,13 @@ Tested with insecure environment for internal test-shops.
 Template example: `http://localhost:8080/x/fit/{width}/{height}/sm/0/plain/{mediaUrl}/{mediaPath}`  
 will become `http://localhost:8080/x/fit/800/800/sm/0/plain/https://www.example.com/media/01/82/69/sasse.png`
 
+### imgix [Link](https://imgix.com)
+
+`Opinion: has free plan, fast & including webp, a lot of resizing & filtering options`  
+You will have to create a Web Folder source and point it to your domain.  
+Template example: `https://<your-subdomain>.imgix.net/{mediaPath}?w={width}&h={height}&fit=clip&fill=solid&fill-color=ffffff&lossless=1&auto=compress`  
+will become `https://<your-subdomain>.imgix.net/{mediaPath}?w=800&h=800&fit=clip&fill=solid&fill-color=ffffff&lossless=1&auto=compress`  
+
 ### BunnyCDN [Link](https://bunnycdn.com/)
 
 `Opinion: not cheap with 9,5$/m per zone, but fast and including webp`  
