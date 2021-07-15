@@ -27,6 +27,8 @@ There are four parameters that are optionally available for creating the link:
 {height}: The height of the thumbnail  
 
 We have already had experience with the following services.
+- [imgix](https://imgix.com) (paid, incl. Webp)  
+  Template example: `https://<your-subdomain>.imgix.net/{mediaPath}?w={width}&h={height}`
 - [BunnyCDN](https://bunnycdn.com) (paid, incl. Webp)  
   Template example: `{mediaUrl}/{mediaPath}?width={width}&height={height}`
 - [keycdn](https://www.keycdn.com/support/image-processing) (paid, incl. Webp)  
