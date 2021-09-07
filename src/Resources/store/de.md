@@ -28,8 +28,6 @@ Es gibt vier Paramter, die Ihnen optional zur Erstellung des Links zur Verfügun
 {height}: Die Höhe des Thumbnails  
 
 Wir haben schon Erfahrung mit folgenden Diensten gemacht.
-- [imgix](https://imgix.com) (kostenpflichtig, inkl. Webp)  
-  Template-Beispiel: `https://<your-subdomain>.imgix.net/{mediaPath}?w={width}&h={height}`
 - [BunnyCDN](https://bunnycdn.com) (kostenpflichtig, inkl. Webp)  
   Template-Beispiel: `{mediaUrl}/{mediaPath}?width={width}&height={height}`
 - [keycdn](https://www.keycdn.com/support/image-processing) (kostenpflichtig, inkl. Webp)  
@@ -40,6 +38,8 @@ Wir haben schon Erfahrung mit folgenden Diensten gemacht.
   Template-Beispiel: `https://images.weserv.nl/?url={mediaUrl}/{mediaPath}&w={width}&h={height}`
 - [cloudimage](https://www.cloudimage.io/en/home) (kostenloser Plan verfügbar inkl. Webp)  
   Template-Beispiel: `https://token.cloudimg.io/v7/{mediaUrl}/{mediaPath}&w={width}&h={height}`
+- [imgix](https://imgix.com) (kostenpflichtig, inkl. Webp)  
+  Template-Beispiel: `https://<your-subdomain>.imgix.net/{mediaPath}?w={width}&h={height}`
 
 Jegliche Dienstleister, die per Url-Parameter Bildergrößen ändern, sollten aber auch kompatibel sein.
 
