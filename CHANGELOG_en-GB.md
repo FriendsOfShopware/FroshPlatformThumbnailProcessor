@@ -1,3 +1,7 @@
+# 1.0.19
+
+* Remove automatic room reservation due to compatibility problems. Usable now per variable fullWidth per sw_thumbnail.
+
 # 1.0.18
 
 * Fix error with images without dimensions

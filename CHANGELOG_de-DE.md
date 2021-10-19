@@ -1,3 +1,7 @@
+# 1.0.19
+
+* Entferne automatische Platzreservierung wegen Kompatibilitätsproblemen. Nutzbar nun per Variable fullWidth per sw_thumbnail.
+
 # 1.0.18
 
 * Behebe Fehler bei Bildern ohne Maße

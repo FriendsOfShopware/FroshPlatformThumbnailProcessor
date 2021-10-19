@@ -21,7 +21,7 @@
     {% set metaProportion = media.metaData %}
     {% set ratio = (metaProportion.width / max(metaProportion.height, 1))|round(2, 'floor') %}
 
-    {% if layout == 'full-width' %}
+    {% if fullWidth %}
         {% if ratio >= 1  %}
             {% set inlineStyle = "width: 100vw; height: " ~ (100 / ratio)|round(3) ~ "vw" %}
         {% else %}
