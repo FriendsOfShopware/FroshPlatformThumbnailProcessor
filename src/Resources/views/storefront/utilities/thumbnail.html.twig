@@ -9,6 +9,14 @@
         {% set attributes = attributes|merge({'class': 'lazyload'}) %}
     {% endif %}
 
+    {% if attributes.alt is not defined and media.translated.alt is defined %}
+        {% set attributes = attributes|merge({'alt': media.translated.alt}) %}
+    {% endif %}
+
+    {% if attributes.title is not defined and media.translated.title is defined %}
+        {% set attributes = attributes|merge({'title': media.translated.title}) %}
+    {% endif %}
+
     {% if media.thumbnails|length > 0 %}
         {% set thumbnails = media.thumbnails|filter((v) => v.width <= media.metaData.width and v.height <= media.metaData.height)|sort|reverse %}
 
