@@ -18,7 +18,7 @@
     {% endif %}
 
     {% if media.thumbnails|length > 0 %}
-        {% set thumbnails = media.thumbnails|filter((v) => v.width <= media.metaData.width and v.height <= media.metaData.height)|sort|reverse %}
+        {% set thumbnails = media.thumbnails|filter((v) => max(v.width,v.height) <= max(metaProportion.width,metaProportion.height))|sort|reverse %}
 
         {# generate srcset with all available thumbnails #}
         {% set srcsetValue %}{% apply spaceless %}
