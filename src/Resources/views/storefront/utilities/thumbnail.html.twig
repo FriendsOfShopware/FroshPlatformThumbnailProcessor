@@ -27,7 +27,16 @@
     {% endif %}
 
     {% set metaProportion = media.metaData %}
-    {% set ratio = (metaProportion.width / max(metaProportion.height, 1))|round(2, 'floor') %}
+    {% set ratio = 1 %}
+    {% set ratioText = '' %}
+
+    {% if metaProportion.width is defined and metaProportion.height is defined %}
+        {% set ratio = (metaProportion.width / max(metaProportion.height, 1))|round(2, 'floor') %}
+        {% set ratioText = ratio %}
+        {% if ratio < 1 %}
+            {% set ratioText = metaProportion.width ~ '/' ~  metaProportion.height %}
+        {% endif %}
+    {% endif %}
 
     {% if fullWidth %}
         {% if ratio >= 1  %}
@@ -43,7 +52,7 @@
             {% if media.thumbnails|length > 1 %}
                 data-srcset="{{ srcsetValue }}"
                 data-sizes="auto"
-                data-aspectratio="{{ ratio }}"
+                data-aspectratio="{{ ratioText }}"
                 data-parent-fit="contain"
             {% endif %}
             {% for key, value in attributes %} {{ key }}="{{ value }}"{% endfor %}
