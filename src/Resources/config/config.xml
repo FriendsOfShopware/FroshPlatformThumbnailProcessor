@@ -7,13 +7,12 @@
         <input-field type="text">
             <name>ThumbnailPattern</name>
             <label>Thumbnail-Pattern</label>
-            <placeholder>{mediaUrl}/{mediaPath}?width={width}&amp;height={height}</placeholder>
-            <defaultValue>{mediaUrl}/{mediaPath}?width={width}&amp;height={height}</defaultValue>
+            <placeholder>{mediaUrl}/{mediaPath}?width={width}</placeholder>
+            <defaultValue>{mediaUrl}/{mediaPath}?width={width}</defaultValue>
             <helpText>available variables:
                 {mediaUrl}: https://cdn.test.de/
                 {mediaPath}: media/image/5b/6d/16/tea.png
                 {width}: 800
-                {height}: 800
             </helpText>
         </input-field>
 

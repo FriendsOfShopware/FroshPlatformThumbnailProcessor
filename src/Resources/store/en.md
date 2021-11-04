@@ -24,19 +24,18 @@ There are four parameters that are optionally available for creating the link:
 {mediaUrl}: Primarily your config shopware.cdn.url, alternatively shop url  
 {mediaPath}: The relative path to the original image  
 {width}: The width of the thumbnail  
-{height}: The height of the thumbnail  
 
 We have already had experience with the following services.
 - [BunnyCDN](https://bunnycdn.com) (paid, incl. Webp)  
-  Template example: `{mediaUrl}/{mediaPath}?width={width}&height={height}`
+  Template example: `{mediaUrl}/{mediaPath}?width={width}`
 - [keycdn](https://www.keycdn.com/support/image-processing) (paid, incl. Webp)  
-  Template example: `{mediaUrl}/{mediaPath}?width={width}&height={height}`
+  Template example: `{mediaUrl}/{mediaPath}?width={width}`
 - [imgproxy](https://imgproxy.net/) (free, self hosted, incl. Webp)  
-  Template example: `http://localhost:8080/insecure/fit/{width}/{height}/sm/0/plain/{mediaUrl}/{mediaPath}`
+  Template example: `http://localhost:8080/insecure/fit/{width}/0/sm/0/plain/{mediaUrl}/{mediaPath}`
 - [images.weserv.nl](https://images.weserv.nl/) (free, no Webp)  
-  Template example: `https://images.weserv.nl/?url={mediaUrl}/{mediaPath}&w={width}&h={height}`
+  Template example: `https://images.weserv.nl/?url={mediaUrl}/{mediaPath}&w={width}`
 - [cloudimage](https://www.cloudimage.io/en/home) (free plan available, incl. Webp)  
-  Template example: `https://token.cloudimg.io/v7/{mediaUrl}/{mediaPath}&w={width}&h={height}`
+  Template example: `https://token.cloudimg.io/v7/{mediaUrl}/{mediaPath}&w={width}`
 
 Any service provider that changes image sizes using the url parameter should also be compatible.
 

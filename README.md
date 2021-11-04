@@ -29,14 +29,13 @@ While active, this will access all thumbnails variable from original image. The 
 f.e.:
 https://www.example.com/thumbnail/01/82/69/sasse_200x200.png
  becomes:
-https://www.example.com/media/01/82/69/sasse.png?width=200&height=200
+https://www.example.com/media/01/82/69/sasse.png?width=200
 ````
-You can edit the thumbnail-template within the plugin-config. Defaults `{mediaUrl}/{mediaPath}?width={width}&height={height}`.
+You can edit the thumbnail-template within the plugin-config. Defaults `{mediaUrl}/{mediaPath}?width={width}`.
 Available variables with examples:
 * {mediaUrl}: https://www.example.com/
 * {mediaPath}: media/01/82/69/sasse.png
 * {width}: 800
-* {height}: 800
 
  Feel free to decorate `ThumbnailUrlTemplateInterface` to add more individual functions like [signed imgproxy](https://github.com/FriendsOfShopware/FroshPlatformThumbnailProcessorImgProxy)
 
@@ -53,36 +52,36 @@ You may want to delete folder `thumbnails` within folder `public`
 ### imgproxy [Link](https://imgproxy.net/)
 
 Tested with insecure environment for internal test-shops.  
-Template example: `http://localhost:8080/x/fit/{width}/{height}/sm/0/plain/{mediaUrl}/{mediaPath}`  
-will become `http://localhost:8080/x/fit/800/800/sm/0/plain/https://www.example.com/media/01/82/69/sasse.png`
+Template example: `http://localhost:8080/x/fit/{width}/0/sm/0/plain/{mediaUrl}/{mediaPath}`  
+will become `http://localhost:8080/x/fit/800/0/sm/0/plain/https://www.example.com/media/01/82/69/sasse.png`
 
 ### BunnyCDN [Link](https://bunnycdn.com/)
 
 `Opinion: not cheap with 9,5$/m per zone, but fast and including webp`  
 You would have to active `Bunny Optimizer` and `Manipulation Engine` in your Zone in BunnyCDN.  
-Template example: `{mediaUrl}/{mediaPath}?width={width}&height={height}` (default)  
-will become `https://www.example.com/media/01/82/69/sasse.png?width=800&height=800`
+Template example: `{mediaUrl}/{mediaPath}?width={width}` (default)  
+will become `https://www.example.com/media/01/82/69/sasse.png?width=800`
 
 ### Images.weserv.nl [Link](https://images.weserv.nl/)
 
 `Opinion: free, but slow and without webp`  
 An image cache & resize service. Manipulate images on-the-fly with a worldwide cache.  
-Template example: `https://images.weserv.nl/?url={mediaUrl}/{mediaPath}&w={width}&h={height}`  
-will become `https://images.weserv.nl/?url=https://www.example.com/media/01/82/69/sasse.png&w=800&h=800`
+Template example: `https://images.weserv.nl/?url={mediaUrl}/{mediaPath}&w={width}`  
+will become `https://images.weserv.nl/?url=https://www.example.com/media/01/82/69/sasse.png&w=800`
 
 ### cloudimage [Link](https://www.cloudimage.io/en/home)
 
 `Opinion: has free plan, fast and including webp`  
 An image cache & resize service. Manipulate images on-the-fly with a worldwide cache.  
-Template example: `https://token.cloudimg.io/v7/{mediaUrl}/{mediaPath}&w={width}&h={height}`  
-will become `https://token.cloudimg.io/v7/https://www.example.com/media/01/82/69/sasse.png&w=800&h=800`
+Template example: `https://token.cloudimg.io/v7/{mediaUrl}/{mediaPath}&w={width}`  
+will become `https://token.cloudimg.io/v7/https://www.example.com/media/01/82/69/sasse.png&w=800`
 
 ### Cloudflare Image Resizing [Link](https://developers.cloudflare.com/images/)
 
 `Opinion: many options but only for business and enterprise customers.`  
 Has a lossless image optimization and big hosters have their NFS connected in their contracts directly to cloudflare
-Template example: `{mediaUrl}/cdn-cgi/image/width={width},height={height},quality=85,format=auto/{mediaPath}`  
-will become `https://yourshop.com/cdn-cgi/image/width%3D3000%2Cheight%3D3000%2Cquality%3D85%2Cformat%3Dauto/media/db/f4/18/1624437000/334c0cd2b7dd465c9a35a806e8052643.jpg`
+Template example: `{mediaUrl}/cdn-cgi/image/width={width},quality=85,format=auto/{mediaPath}`  
+will become `https://yourshop.com/cdn-cgi/image/width%3D3000%2Cquality%3D85%2Cformat%3Dauto/media/db/f4/18/1624437000/334c0cd2b7dd465c9a35a806e8052643.jpg`
 
 
 ## License

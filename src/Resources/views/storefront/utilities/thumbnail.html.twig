@@ -19,7 +19,7 @@
 
     {% set metaProportion = media.metaData %}
     {% if media.thumbnails|length > 0 %}
-        {% set thumbnails = media.thumbnails|filter((v) => max(v.width,v.height) <= max(metaProportion.width,metaProportion.height))|sort|reverse %}
+        {% set thumbnails = media.thumbnails|filter((v) => v.width <= metaProportion.width)|sort|reverse %}
 
         {# generate srcset with all available thumbnails #}
         {% set srcsetValue %}{% apply spaceless %}
