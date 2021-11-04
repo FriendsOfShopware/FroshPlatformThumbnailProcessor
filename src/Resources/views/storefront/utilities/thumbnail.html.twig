@@ -26,7 +26,7 @@
             {{ media|sw_encode_media_url }} {{ thumbnails|first.width + 1 }}w, {% for thumbnail in thumbnails %}{{ thumbnail.url | sw_encode_url }} {{ thumbnail.width }}w{% if not loop.last %}, {% endif %}{% endfor %}
         {% endapply %}{% endset %}
     {% endif %}
-    {% set ratio = (metaProportion.width / max(metaProportion.height, 1))|round(2, 'floor') %}
+    {% set ratio = (metaProportion.width / max(metaProportion.height, 1))|round(3, 'floor') %}
 
     {% if fullWidth %}
         {% if ratio >= 1  %}

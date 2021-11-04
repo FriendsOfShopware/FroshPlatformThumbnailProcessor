@@ -3,6 +3,7 @@
 * Output alt and title attributes for thumbnails if they were saved with the image in media
 * Remove the use of height from the thumbnail sizes, as the automatic calculation of the necessary size does not make any direct reference to it
     * Please remove the height from your template in the plugin settings
+* Increase the calculated ratio to three digits
 
 # 1.0.19
 
