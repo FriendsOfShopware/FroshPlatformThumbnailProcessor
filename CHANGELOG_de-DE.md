@@ -1,3 +1,9 @@
+# 1.0.20
+
+* Gebe alt- und title-Attribute bei Thumbnails aus, wenn diese beim Bild gespeichert wurden
+* Entferne Nutzung von Höhe bei den Thumbnailgrößen, da die automatische Berechnung der notwendigen Größe darauf keinen direkten Bezug nimmt
+  * Bitte entfernen Sie die Höhe aus Ihrem Template in den Plugin-Einstellungen
+
 # 1.0.19
 
 * Entferne automatische Platzreservierung wegen Kompatibilitätsproblemen. Nutzbar nun per Variable fullWidth per sw_thumbnail.
