@@ -17,6 +17,7 @@
         {% set attributes = attributes|merge({'title': media.translated.title}) %}
     {% endif %}
 
+    {% set metaProportion = media.metaData %}
     {% if media.thumbnails|length > 0 %}
         {% set thumbnails = media.thumbnails|filter((v) => max(v.width,v.height) <= max(metaProportion.width,metaProportion.height))|sort|reverse %}
 
@@ -25,8 +26,6 @@
             {{ media|sw_encode_media_url }} {{ thumbnails|first.width + 1 }}w, {% for thumbnail in thumbnails %}{{ thumbnail.url | sw_encode_url }} {{ thumbnail.width }}w{% if not loop.last %}, {% endif %}{% endfor %}
         {% endapply %}{% endset %}
     {% endif %}
-
-    {% set metaProportion = media.metaData %}
     {% set ratio = (metaProportion.width / max(metaProportion.height, 1))|round(2, 'floor') %}
 
     {% if fullWidth %}
