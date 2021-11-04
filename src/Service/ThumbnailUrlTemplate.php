@@ -20,12 +20,12 @@ class ThumbnailUrlTemplate implements ThumbnailUrlTemplateInterface
         }
     }
 
-    public function getUrl(string $mediaUrl, string $mediaPath, string $width, string $height): string
+    public function getUrl(string $mediaUrl, string $mediaPath, string $width, string $height = ''): string
     {
         $result = $this->pattern;
         return str_replace(
             ['{mediaUrl}', '{mediaPath}', '{width}', '{height}'],
-            [$mediaUrl, $mediaPath, $width, $height],
+            [$mediaUrl, $mediaPath, $width, ''],
             $result
         );
     }

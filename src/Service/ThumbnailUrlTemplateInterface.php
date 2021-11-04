@@ -4,5 +4,8 @@ namespace Frosh\ThumbnailProcessor\Service;
 
 interface ThumbnailUrlTemplateInterface
 {
-    public function getUrl(string $mediaUrl, string $mediaPath, string $width, string $height): string;
+    /**
+     * @deprecated parameter height will be removed with next version
+     */
+    public function getUrl(string $mediaUrl, string $mediaPath, string $width, string $height = ''): string;
 }
