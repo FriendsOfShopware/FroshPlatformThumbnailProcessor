@@ -43,7 +43,9 @@
         <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
             data-src="{{ media|sw_encode_media_url }}"
             {% if media.thumbnails|length > 1 %}
-                data-srcset="{{ srcsetValue }}"
+                {% if srcsetValue %}
+                    data-srcset="{{ srcsetValue }}"
+                {% endif %}
                 data-sizes="auto"
                 data-aspectratio="{{ ratio }}"
                 data-parent-fit="contain"
