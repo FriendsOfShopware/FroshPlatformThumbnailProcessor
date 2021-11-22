@@ -1,3 +1,4 @@
+import 'lazysizes/plugins/rias/ls.rias';
 import 'lazysizes';
 import 'lazysizes/plugins/native-loading/ls.native-loading';
 import 'lazysizes/plugins/attrchange/ls.attrchange';

@@ -37,8 +37,6 @@ Available variables with examples:
 * {mediaPath}: media/01/82/69/sasse.png
 * {width}: 800
 
- Feel free to decorate `ThumbnailUrlTemplateInterface` to add more individual functions like [signed imgproxy](https://github.com/FriendsOfShopware/FroshPlatformThumbnailProcessorImgProxy)
-
 ## Removing unneeded thumbnails
 You may want to delete folder `thumbnails` within folder `public`
 

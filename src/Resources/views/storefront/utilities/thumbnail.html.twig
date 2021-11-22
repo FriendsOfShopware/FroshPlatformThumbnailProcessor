@@ -1,4 +1,5 @@
 {% block thumbnail_utility %}{% apply spaceless %}
+
     {% if attributes is not defined %}
         {% set attributes = {} %}
     {% endif %}
@@ -18,14 +19,16 @@
     {% endif %}
 
     {% set metaProportion = media.metaData %}
+    {% set widths = [metaProportion.width] %}
     {% if media.thumbnails|length > 0 %}
         {% set thumbnails = media.thumbnails|filter((v) => v.width <= metaProportion.width)|sort|reverse %}
 
         {% if thumbnails %}
-            {# generate srcset with all available thumbnails #}
-            {% set srcsetValue %}{% apply spaceless %}
-                {{ media|sw_encode_media_url }} {{ thumbnails|first.width + 1 }}w, {% for thumbnail in thumbnails %}{{ thumbnail.url | sw_encode_url }} {{ thumbnail.width }}w{% if not loop.last %}, {% endif %}{% endfor %}
-            {% endapply %}{% endset %}
+            {% for thumbnail in thumbnails %}
+                {% if thumbnail.width not in widths %}
+                    {% set widths = widths|merge([thumbnail.width]) %}
+                {% endif %}
+            {% endfor %}
         {% endif %}
     {% endif %}
 
@@ -39,19 +42,23 @@
         {% endif %}
     {% endif %}
 
+    {% set splittedPath = media.url|split('/media/') %}
+    {% set mediaUrl = splittedPath[0] %}
+    {% set mediaPath = "media/" ~ splittedPath[1] | sw_encode_url  %}
+
     {% block thumbnail_utility_img %}
         <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-            data-src="{{ media|sw_encode_media_url }}"
-            {% if srcsetValue %}
-                data-srcset="{{ srcsetValue }}"
-                data-sizes="auto"
-                data-aspectratio="{{ ratio }}"
-                data-parent-fit="contain"
-            {% endif %}
-            {% for key, value in attributes %} {{ key }}="{{ value }}"{% endfor %}
-            {% if inlineStyle is defined %}
-                style="{{ inlineStyle }}"
-            {% endif %}
+             data-src="{{ config('FroshPlatformThumbnailProcessor.config.ThumbnailPattern')|replace(
+                 {'{mediaUrl}' : mediaUrl,'{mediaPath}' : mediaPath}
+             ) }}"
+             data-widths="[{{ widths|join(',') }}]"
+             data-sizes="auto"
+             data-aspectratio="{{ ratio }}"
+             data-parent-fit="contain"
+        {% for key, value in attributes %} {{ key }}="{{ value }}"{% endfor %}
+        {% if inlineStyle is defined %}
+            style="{{ inlineStyle }}"
+        {% endif %}
         />
 
     {% endblock %}
