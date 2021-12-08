@@ -32,14 +32,19 @@ class UrlGeneratorDecorator implements UrlGeneratorInterface
     private $thumbnailUrlTemplate;
 
     /**
-     * @var bool
+     * @var bool|null
      */
     private $processSVG;
 
     /**
-     * @var bool
+     * @var bool|null
      */
     private $processOriginalImages;
+
+    /**
+     * @var SystemConfigService
+     */
+    private $systemConfigService;
 
     public function __construct(
         UrlGeneratorInterface $decoratedService,
@@ -55,8 +60,7 @@ class UrlGeneratorDecorator implements UrlGeneratorInterface
         $this->baseUrl = $this->normalizeBaseUrl($baseUrl);
 
         $this->thumbnailUrlTemplate = $thumbnailUrlTemplate;
-        $this->processSVG = (bool)$systemConfigService->get('FroshPlatformThumbnailProcessor.config.ProcessSVG');
-        $this->processOriginalImages = (bool)$systemConfigService->get('FroshPlatformThumbnailProcessor.config.ProcessOriginalImages');
+        $this->systemConfigService = $systemConfigService;
     }
 
     public function getAbsoluteMediaUrl(MediaEntity $media): string
@@ -65,11 +69,11 @@ class UrlGeneratorDecorator implements UrlGeneratorInterface
             return $this->decoratedService->getAbsoluteMediaUrl($media);
         }
 
-        if (!$this->processOriginalImages) {
+        if (!$this->canProcessOriginalImages()) {
             return $this->decoratedService->getAbsoluteMediaUrl($media);
         }
 
-        if (!$this->processSVG && $media->getFileExtension() === 'svg') {
+        if (!$this->canProcessSVG() && $media->getFileExtension() === 'svg') {
             return $this->decoratedService->getAbsoluteMediaUrl($media);
         }
 
@@ -88,7 +92,7 @@ class UrlGeneratorDecorator implements UrlGeneratorInterface
 
     public function getAbsoluteThumbnailUrl(MediaEntity $media, MediaThumbnailEntity $thumbnail): string
     {
-        if (!$this->processSVG && $media->getFileExtension() === 'svg') {
+        if (!$this->canProcessSVG() && $media->getFileExtension() === 'svg') {
             return $this->decoratedService->getAbsoluteMediaUrl($media);
         }
 
@@ -132,5 +136,25 @@ class UrlGeneratorDecorator implements UrlGeneratorInterface
         }
 
         return '';
+    }
+
+    private function canProcessSVG(): bool
+    {
+        if ($this->processSVG !== null) {
+            return $this->processSVG;
+        }
+
+        $this->processSVG = (bool)$this->systemConfigService->get('FroshPlatformThumbnailProcessor.config.ProcessSVG');
+        return $this->processSVG;
+    }
+
+    private function canProcessOriginalImages(): bool
+    {
+        if ($this->processOriginalImages !== null) {
+            return $this->processOriginalImages;
+        }
+
+        $this->processOriginalImages = (bool)$this->systemConfigService->get('FroshPlatformThumbnailProcessor.config.ProcessOriginalImages');
+        return $this->processOriginalImages;
     }
 }
