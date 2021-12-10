@@ -26,19 +26,8 @@ Es gibt vier Paramter, die Ihnen optional zur Erstellung des Links zur Verfügun
 {mediaPath}: Der relative Pfad zu dem Originalbild  
 {width}: Die Breite des Thumbnails  
 
-Wir haben schon Erfahrung mit folgenden Diensten gemacht.
-- [BunnyCDN](https://bunnycdn.com) (kostenpflichtig, inkl. Webp)  
-  Template-Beispiel: `{mediaUrl}/{mediaPath}?width={width}`
-- [keycdn](https://www.keycdn.com/support/image-processing) (kostenpflichtig, inkl. Webp)  
-  Template-Beispiel: `{mediaUrl}/{mediaPath}?width={width}`
-- [imgproxy](https://imgproxy.net/) (kostenlos, selbst gehosted, inkl. Webp)  
-  Template-Beispiel: `http://localhost:8080/insecure/fit/{width}/0/sm/0/plain/{mediaUrl}/{mediaPath}`
-- [images.weserv.nl](https://images.weserv.nl/) (kostenlos, kein Webp)  
-  Template-Beispiel: `https://images.weserv.nl/?url={mediaUrl}/{mediaPath}&w={width}`
-- [cloudimage](https://www.cloudimage.io/en/home) (kostenloser Plan verfügbar inkl. Webp)  
-  Template-Beispiel: `https://token.cloudimg.io/v7/{mediaUrl}/{mediaPath}&w={width}`
-
-Jegliche Dienstleister, die per Url-Parameter Bildergrößen ändern, sollten aber auch kompatibel sein.
+Finde fertige Template auf github:  
+[Github Category Patterns](https://github.com/FriendsOfShopware/FroshPlatformThumbnailProcessor/discussions/categories/patterns).
 
 Nach der Einrichtung und Prüfung im DeveloperTools Ihres Browsers, können Sie auch den vorhandenen thumbnail-Ordner sichern und löschen.  
 
