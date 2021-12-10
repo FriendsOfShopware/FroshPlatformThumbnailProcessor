@@ -1,34 +1,12 @@
 .sw-system-config {
     .frosh-thumbnail-processor-info-texts {
-        blockquote {
-            background: #f9f9f9;
-            border-left: 8px solid #ccc;
-            margin: 8px 10px;
-            padding: 8px 10px;
-        }
-
-        h2, h3, h4, h5, h6 {
-            margin-top: 20px;
-        }
-
         a, a:visited {
             text-decoration: none;
             color: #189eff;
         }
 
-        code {
-            padding: 3px 6px;
-            font-size: 85%;
-            background-color: #f9f9f9;
-        }
-
-        .supports-headline {
-            margin-bottom: 10px;
-
-        }
-
-        .supports-description {
-            margin-left: 15px;
+        p {
+            margin: revert;
         }
     }
 }

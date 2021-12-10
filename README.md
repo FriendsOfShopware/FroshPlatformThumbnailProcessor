@@ -8,11 +8,11 @@ You can use this, if you don't want thumbnails to be created on you development-
 It will add parameters to original image paths.  
 So you are able to save storage and add new thumbnails on the fly.
 
-| Version 	| Requirements               	
-|---------	|----------------------------
-| 1.0.0 - 1.0.5     	| Min. Shopware 6.0
-| 1.0.6 - 1.0.15     	| Min. Shopware 6.3
-| 1.0.16 - *     	| Min. Shopware 6.4
+| Version 	            | Requirements      |
+|----------------------|-------------------|
+| 1.0.0 - 1.0.5     	  | Min. Shopware 6.0 |
+| 1.0.6 - 1.0.15     	 | Min. Shopware 6.3 |
+| 1.0.16 - *     	     | Min. Shopware 6.4 |
 
 ## Install
 
@@ -47,42 +47,9 @@ You may want to delete folder `thumbnails` within folder `public`
 - then run the command `bin/console media:generate-thumbnails` on the console to update the thumbnails for all images in the database
 - Clear shop cache
 
-## Tested Supports
+## Find Patterns
 
-### imgproxy [Link](https://imgproxy.net/)
-
-Tested with insecure environment for internal test-shops.  
-Template example: `http://localhost:8080/x/fit/{width}/0/sm/0/plain/{mediaUrl}/{mediaPath}`  
-will become `http://localhost:8080/x/fit/800/0/sm/0/plain/https://www.example.com/media/01/82/69/sasse.png`
-
-### BunnyCDN [Link](https://bunnycdn.com/)
-
-`Opinion: not cheap with 9,5$/m per zone, but fast and including webp`  
-You would have to active `Bunny Optimizer` and `Manipulation Engine` in your Zone in BunnyCDN.  
-Template example: `{mediaUrl}/{mediaPath}?width={width}` (default)  
-will become `https://www.example.com/media/01/82/69/sasse.png?width=800`
-
-### Images.weserv.nl [Link](https://images.weserv.nl/)
-
-`Opinion: free, but slow and without webp`  
-An image cache & resize service. Manipulate images on-the-fly with a worldwide cache.  
-Template example: `https://images.weserv.nl/?url={mediaUrl}/{mediaPath}&w={width}`  
-will become `https://images.weserv.nl/?url=https://www.example.com/media/01/82/69/sasse.png&w=800`
-
-### cloudimage [Link](https://www.cloudimage.io/en/home)
-
-`Opinion: has free plan, fast and including webp`  
-An image cache & resize service. Manipulate images on-the-fly with a worldwide cache.  
-Template example: `https://token.cloudimg.io/v7/{mediaUrl}/{mediaPath}&w={width}`  
-will become `https://token.cloudimg.io/v7/https://www.example.com/media/01/82/69/sasse.png&w=800`
-
-### Cloudflare Image Resizing [Link](https://developers.cloudflare.com/images/)
-
-`Opinion: many options but only for business and enterprise customers.`  
-Has a lossless image optimization and big hosters have their NFS connected in their contracts directly to cloudflare
-Template example: `{mediaUrl}/cdn-cgi/image/width={width},quality=85,format=auto/{mediaPath}`  
-will become `https://yourshop.com/cdn-cgi/image/width%3D3000%2Cquality%3D85%2Cformat%3Dauto/media/db/f4/18/1624437000/334c0cd2b7dd465c9a35a806e8052643.jpg`
-
+You can find patterns in [Github Discussions in category Patterns](https://github.com/FriendsOfShopware/FroshPlatformThumbnailProcessor/discussions/categories/patterns)
 
 ## License
 
