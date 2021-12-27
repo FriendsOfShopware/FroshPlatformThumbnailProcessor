@@ -6,7 +6,7 @@ on:
 
 jobs:
     build:
-        uses: FriendsOfShopware/workflows/.github/workflows/store.yml@main
+        uses: FriendsOfShopware/actions/.github/workflows/store.yml@main
         with:
             extensionName: FroshPlatformThumbnailProcessor
             shopwareVersion: 6.4.0
