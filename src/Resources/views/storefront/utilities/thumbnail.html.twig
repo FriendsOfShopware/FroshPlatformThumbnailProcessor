@@ -24,7 +24,7 @@
         {% if thumbnails %}
             {# generate srcset with all available thumbnails #}
             {% set srcsetValue %}{% apply spaceless %}
-                {{ media|sw_encode_media_url }} {{ thumbnails|first.width + 1 }}w, {% for thumbnail in thumbnails %}{{ thumbnail.url | sw_encode_url }} {{ thumbnail.width }}w{% if not loop.last %}, {% endif %}{% endfor %}
+                {{ media.url }} {{ thumbnails|first.width + 1 }}w, {% for thumbnail in thumbnails %}{{ thumbnail.url }} {{ thumbnail.width }}w{% if not loop.last %}, {% endif %}{% endfor %}
             {% endapply %}{% endset %}
         {% endif %}
     {% endif %}
@@ -41,7 +41,7 @@
 
     {% block thumbnail_utility_img %}
         <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-            data-src="{{ media|sw_encode_media_url }}"
+            data-src="{{ media.url }}"
             {% if srcsetValue %}
                 data-srcset="{{ srcsetValue }}"
                 data-sizes="auto"
