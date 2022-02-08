@@ -1,3 +1,7 @@
+# 1.0.21
+
+* Fixes a problem with the retrieval of the micro data of the product images
+
 # 1.0.20
 
 * Output alt and title attributes for thumbnails if they were saved with the image in media
