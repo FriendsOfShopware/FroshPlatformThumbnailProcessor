@@ -1,3 +1,7 @@
+# 1.0.21
+
+* Behebt ein Problem mit dem Abruf der Microdaten der Produkt Bilder
+
 # 1.0.20
 
 * Gebe alt- und title-Attribute bei Thumbnails aus, wenn diese beim Bild gespeichert wurden

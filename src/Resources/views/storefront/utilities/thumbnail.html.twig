@@ -48,7 +48,12 @@
                 data-aspectratio="{{ ratio }}"
                 data-parent-fit="contain"
             {% endif %}
-            {% for key, value in attributes %} {{ key }}="{{ value }}"{% endfor %}
+            {% for key, value in attributes %}
+                {{ key }}="{{ value }}"
+                {% if key == 'itemprop' %}
+                    content="{{ media|sw_encode_media_url }}"
+                {% endif %}
+            {% endfor %}
             {% if inlineStyle is defined %}
                 style="{{ inlineStyle }}"
             {% endif %}
