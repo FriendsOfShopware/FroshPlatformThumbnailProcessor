@@ -1,3 +1,7 @@
+# 1.0.22
+
+* Optimize url encoding for image paths to support imgproxy v3
+
 # 1.0.21
 
 * Fixes a problem with the retrieval of the micro data of the product images

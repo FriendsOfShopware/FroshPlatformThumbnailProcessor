@@ -1,3 +1,7 @@
+# 1.0.22
+
+* Optimiere URL-Kodierung von Bild-Pfaden, sodass nun imgproxy v3 supported wird
+
 # 1.0.21
 
 * Behebt ein Problem mit dem Abruf der Microdaten der Produkt Bilder
