@@ -1,3 +1,7 @@
+# 1.0.23
+
+* Remove url encoding for image paths
+
 # 1.0.22
 
 * Optimize url encoding for image paths to support imgproxy v3

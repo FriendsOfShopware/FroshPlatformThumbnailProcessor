@@ -1,3 +1,7 @@
+# 1.0.23
+
+* Entferne URL-Kodierung von Bild-Pfaden
+
 # 1.0.22
 
 * Optimiere URL-Kodierung von Bild-Pfaden, sodass nun imgproxy v3 supported wird
