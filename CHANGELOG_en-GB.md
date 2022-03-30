@@ -1,3 +1,7 @@
+# 1.0.24
+
+* Set width of 100% to image elements width set alignment
+
 # 1.0.23
 
 * Remove url encoding for image paths
