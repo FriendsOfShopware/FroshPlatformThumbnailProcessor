@@ -1,3 +1,7 @@
+# 1.0.25
+
+* Sortiere Thumbnailgrößen im Code
+
 # 1.0.24
 
 * Setze Breite auf 100% bei Bilder-Elementen mit einem gesetzten Ausrichtung

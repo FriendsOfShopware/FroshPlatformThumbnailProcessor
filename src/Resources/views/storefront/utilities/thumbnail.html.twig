@@ -19,7 +19,7 @@
 
     {% set metaProportion = media.metaData %}
     {% if media.thumbnails|length > 0 %}
-        {% set thumbnails = media.thumbnails|filter((v) => v.width <= metaProportion.width)|sort|reverse %}
+        {% set thumbnails = media.thumbnails|filter((v) => v.width <= metaProportion.width)|sort((a, b) => a.width <=> b.width)|reverse %}
 
         {% if thumbnails %}
             {# generate srcset with all available thumbnails #}

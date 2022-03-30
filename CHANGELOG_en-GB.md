@@ -1,4 +1,8 @@
-# 1.0.24
+# 1.0.25
+
+* Sort thumbnail sizes in code
+
+* # 1.0.24
 
 * Set width of 100% to image elements width set alignment
 
