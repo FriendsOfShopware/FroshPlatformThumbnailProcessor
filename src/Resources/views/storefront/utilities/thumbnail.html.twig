@@ -51,7 +51,7 @@
             {% for key, value in attributes %}
                 {{ key }}="{{ value }}"
                 {% if key == 'itemprop' %}
-                    content="{{ media|sw_encode_media_url }}"
+                    content="{{ media.url }}"
                 {% endif %}
             {% endfor %}
             {% if inlineStyle is defined %}
