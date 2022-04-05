@@ -1,3 +1,7 @@
+# 1.0.26
+
+* Implementierte eigene URL-Kodierung
+
 # 1.0.25
 
 * Sortiere Thumbnailgrößen im Code

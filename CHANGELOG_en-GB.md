@@ -1,3 +1,7 @@
+# 1.0.26
+
+* Implement own URL encoding
+
 # 1.0.25
 
 * Sort thumbnail sizes in code
