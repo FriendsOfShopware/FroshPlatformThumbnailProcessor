@@ -29,5 +29,8 @@
             <argument type="service" id="media_folder.repository"/>
         </service>
 
+        <service id="Frosh\ThumbnailProcessor\Storefront\Framework\Twig\Extension\UrlEncodingTwigFilter" public="false">
+            <tag name="twig.extension"/>
+        </service>
     </services>
 </container>
