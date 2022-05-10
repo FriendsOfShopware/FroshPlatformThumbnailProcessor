@@ -1,3 +1,7 @@
+# 1.0.27
+
+* Fix problems from Shopware 6.4.10
+
 # 1.0.26
 
 * Implement own URL encoding

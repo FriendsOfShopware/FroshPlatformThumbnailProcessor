@@ -1,3 +1,7 @@
+# 1.0.27
+
+* Behebe Probleme ab Shopware 6.4.10
+
 # 1.0.26
 
 * Implementierte eigene URL-Kodierung
