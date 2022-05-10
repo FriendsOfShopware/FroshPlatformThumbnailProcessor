@@ -11,7 +11,7 @@
         "thumbnail"
     ],
     "description": "This plugins allows you to use variable thumbnails, without having them on storage.",
-    "version": "1.0.26",
+    "version": "1.0.27",
     "type": "shopware-platform-plugin",
     "license": "mit",
     "authors": [
@@ -21,7 +21,7 @@
         }
     ],
     "require": {
-        "shopware/core": "^6.4.0"
+        "shopware/core": "^6.4.10"
     },
     "extra": {
         "shopware-plugin-class": "Frosh\\ThumbnailProcessor\\FroshPlatformThumbnailProcessor",
