@@ -8,8 +8,9 @@ use Shopware\Core\Content\Media\MediaType\ImageType;
 use Shopware\Core\Content\Media\Pathname\UrlGeneratorInterface;
 use Shopware\Core\System\SystemConfig\SystemConfigService;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Contracts\Service\ResetInterface;
 
-class UrlGeneratorDecorator implements UrlGeneratorInterface
+class UrlGeneratorDecorator implements UrlGeneratorInterface, ResetInterface
 {
     /**
      * @var RequestStack
@@ -106,6 +107,11 @@ class UrlGeneratorDecorator implements UrlGeneratorInterface
     public function getRelativeThumbnailUrl(MediaEntity $media, MediaThumbnailEntity $thumbnail): string
     {
         return $this->getAbsoluteThumbnailUrl($media, $thumbnail);
+    }
+
+    public function reset(): void
+    {
+        $this->fallbackBaseUrl = null;
     }
 
     private function normalizeBaseUrl(?string $baseUrl): ?string
