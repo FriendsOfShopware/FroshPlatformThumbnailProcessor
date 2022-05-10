@@ -8,6 +8,7 @@
 
         <service id="Frosh\ThumbnailProcessor\Service\UrlGeneratorDecorator"
                  decorates="Shopware\Core\Content\Media\Pathname\UrlGeneratorInterface">
+            <argument type="service" id="Shopware\Core\Content\Media\Pathname\PathnameStrategy\PathnameStrategyInterface"/>
             <argument type="service" id="Frosh\ThumbnailProcessor\Service\UrlGeneratorDecorator.inner"/>
             <argument type="service" id="Frosh\ThumbnailProcessor\Service\ThumbnailUrlTemplateInterface"/>
             <argument type="service" id="request_stack"/>

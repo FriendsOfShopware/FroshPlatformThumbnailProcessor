@@ -5,6 +5,7 @@ namespace Frosh\ThumbnailProcessor\Service;
 use Shopware\Core\Content\Media\Aggregate\MediaThumbnail\MediaThumbnailEntity;
 use Shopware\Core\Content\Media\MediaEntity;
 use Shopware\Core\Content\Media\MediaType\ImageType;
+use Shopware\Core\Content\Media\Pathname\PathnameStrategy\PathnameStrategyInterface;
 use Shopware\Core\Content\Media\Pathname\UrlGeneratorInterface;
 use Shopware\Core\System\SystemConfig\SystemConfigService;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -21,6 +22,16 @@ class UrlGeneratorDecorator implements UrlGeneratorInterface, ResetInterface
      * @var string|null
      */
     private $baseUrl;
+
+    /**
+     * @var PathnameStrategyInterface
+     */
+    private $pathnameStrategy;
+
+    /**
+     * @var string|null
+     */
+    private $fallbackBaseUrl;
 
     /**
      * @var UrlGeneratorInterface
@@ -48,6 +59,7 @@ class UrlGeneratorDecorator implements UrlGeneratorInterface, ResetInterface
     private $systemConfigService;
 
     public function __construct(
+        PathnameStrategyInterface $pathnameStrategy,
         UrlGeneratorInterface $decoratedService,
         ThumbnailUrlTemplateInterface $thumbnailUrlTemplate,
         RequestStack $requestStack,
@@ -55,6 +67,7 @@ class UrlGeneratorDecorator implements UrlGeneratorInterface, ResetInterface
         ?string $baseUrl = null
     )
     {
+        $this->pathnameStrategy = $pathnameStrategy;
         $this->decoratedService = $decoratedService;
         $this->requestStack = $requestStack;
 
@@ -62,6 +75,11 @@ class UrlGeneratorDecorator implements UrlGeneratorInterface, ResetInterface
 
         $this->thumbnailUrlTemplate = $thumbnailUrlTemplate;
         $this->systemConfigService = $systemConfigService;
+    }
+
+    public function reset(): void
+    {
+        $this->fallbackBaseUrl = null;
     }
 
     public function getAbsoluteMediaUrl(MediaEntity $media): string
@@ -107,11 +125,6 @@ class UrlGeneratorDecorator implements UrlGeneratorInterface, ResetInterface
     public function getRelativeThumbnailUrl(MediaEntity $media, MediaThumbnailEntity $thumbnail): string
     {
         return $this->getAbsoluteThumbnailUrl($media, $thumbnail);
-    }
-
-    public function reset(): void
-    {
-        $this->fallbackBaseUrl = null;
     }
 
     private function normalizeBaseUrl(?string $baseUrl): ?string
