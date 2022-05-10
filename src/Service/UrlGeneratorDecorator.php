@@ -6,45 +6,28 @@ use Shopware\Core\Content\Media\Aggregate\MediaThumbnail\MediaThumbnailEntity;
 use Shopware\Core\Content\Media\MediaEntity;
 use Shopware\Core\Content\Media\MediaType\ImageType;
 use Shopware\Core\Content\Media\Pathname\UrlGeneratorInterface;
+use Shopware\Core\DevOps\Environment\EnvironmentHelper;
 use Shopware\Core\System\SystemConfig\SystemConfigService;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Contracts\Service\ResetInterface;
 
-class UrlGeneratorDecorator implements UrlGeneratorInterface
+class UrlGeneratorDecorator implements UrlGeneratorInterface, ResetInterface
 {
-    /**
-     * @var RequestStack
-     */
-    private $requestStack;
+    private RequestStack $requestStack;
 
-    /**
-     * @var string|null
-     */
-    private $baseUrl;
+    private ?string $baseUrl;
 
-    /**
-     * @var UrlGeneratorInterface
-     */
-    private $decoratedService;
+    private UrlGeneratorInterface $decoratedService;
 
-    /**
-     * @var ThumbnailUrlTemplateInterface
-     */
-    private $thumbnailUrlTemplate;
+    private ThumbnailUrlTemplateInterface $thumbnailUrlTemplate;
 
-    /**
-     * @var bool|null
-     */
-    private $processSVG;
+    private ?bool $processSVG = null;
 
-    /**
-     * @var bool|null
-     */
-    private $processOriginalImages;
+    private ?bool $processOriginalImages = null;
 
-    /**
-     * @var SystemConfigService
-     */
-    private $systemConfigService;
+    private SystemConfigService $systemConfigService;
+
+    private ?string $fallbackBaseUrl = null;
 
     public function __construct(
         UrlGeneratorInterface $decoratedService,
@@ -108,6 +91,23 @@ class UrlGeneratorDecorator implements UrlGeneratorInterface
         return $this->getAbsoluteThumbnailUrl($media, $thumbnail);
     }
 
+    public function reset(): void
+    {
+        $this->fallbackBaseUrl = null;
+    }
+
+    private function createFallbackUrl(): string
+    {
+        $request = $this->requestStack->getMainRequest();
+        if ($request) {
+            $basePath = $request->getSchemeAndHttpHost() . $request->getBasePath();
+
+            return rtrim($basePath, '/');
+        }
+
+        return (string) EnvironmentHelper::getVariable('APP_URL');
+    }
+
     private function normalizeBaseUrl(?string $baseUrl): ?string
     {
         if (!$baseUrl) {
@@ -120,22 +120,10 @@ class UrlGeneratorDecorator implements UrlGeneratorInterface
     private function getBaseUrl(): string
     {
         if (!$this->baseUrl) {
-            $this->baseUrl = $this->createFallbackUrl();
+            return $this->fallbackBaseUrl ?? $this->fallbackBaseUrl = $this->createFallbackUrl();
         }
 
         return $this->baseUrl;
-    }
-
-    private function createFallbackUrl(): string
-    {
-        $request = $this->requestStack->getMasterRequest();
-        if ($request) {
-            $basePath = $request->getSchemeAndHttpHost() . $request->getBasePath();
-
-            return rtrim($basePath, '/');
-        }
-
-        return '';
     }
 
     private function canProcessSVG(): bool
