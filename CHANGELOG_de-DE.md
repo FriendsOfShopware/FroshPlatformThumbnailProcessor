@@ -1,3 +1,7 @@
+# UNRELEASED
+
+* Verarbeite Einstellungen je Saleschannel
+
 # 1.0.27
 
 * Behebe Probleme ab Shopware 6.4.10

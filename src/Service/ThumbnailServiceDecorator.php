@@ -17,15 +17,9 @@ use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 
 class ThumbnailServiceDecorator extends ThumbnailService
 {
-    /**
-     * @var EntityRepositoryInterface
-     */
-    private $thumbnailRepository;
+    private EntityRepositoryInterface $thumbnailRepository;
 
-    /**
-     * @var EntityRepositoryInterface
-     */
-    private $mediaFolderRepository;
+    private EntityRepositoryInterface $mediaFolderRepository;
 
     public function __construct(
         EntityRepositoryInterface $thumbnailRepository,

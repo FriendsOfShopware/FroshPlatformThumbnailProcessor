@@ -1,3 +1,7 @@
+# UNRELEASED
+
+* Respect setting per saleschannel
+
 # 1.0.27
 
 * Fix problems from Shopware 6.4.10

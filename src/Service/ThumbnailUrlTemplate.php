@@ -2,21 +2,22 @@
 
 namespace Frosh\ThumbnailProcessor\Service;
 
+use Shopware\Core\PlatformRequest;
 use Shopware\Core\System\SystemConfig\SystemConfigService;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 class ThumbnailUrlTemplate implements ThumbnailUrlTemplateInterface
 {
-    /** @var string|null */
-    private $pattern;
+    private ?string $pattern = null;
 
-    /**
-     * @var SystemConfigService
-     */
-    private $systemConfigService;
+    private SystemConfigService $systemConfigService;
 
-    public function __construct(SystemConfigService $systemConfigService)
+    private RequestStack $requestStack;
+
+    public function __construct(SystemConfigService $systemConfigService, RequestStack $requestStack)
     {
         $this->systemConfigService = $systemConfigService;
+        $this->requestStack = $requestStack;
     }
 
     public function getUrl(string $mediaUrl, string $mediaPath, string $width, string $height = ''): string
@@ -34,7 +35,14 @@ class ThumbnailUrlTemplate implements ThumbnailUrlTemplateInterface
             return $this->pattern;
         }
 
-        $pattern = $this->systemConfigService->get('FroshPlatformThumbnailProcessor.config.ThumbnailPattern');
+        $salesChannelId = null;
+
+        $masterRequest = $this->requestStack->getMainRequest();
+        if ($masterRequest) {
+            $salesChannelId = $masterRequest->attributes->get(PlatformRequest::ATTRIBUTE_SALES_CHANNEL_ID);
+        }
+
+        $pattern = $this->systemConfigService->get('FroshPlatformThumbnailProcessor.config.ThumbnailPattern', $salesChannelId);
         if ($pattern && is_string($pattern)) {
             $this->pattern = $pattern;
         } else {
