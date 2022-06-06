@@ -35,8 +35,7 @@ class UrlGeneratorDecorator implements UrlGeneratorInterface, ResetInterface
         RequestStack $requestStack,
         SystemConfigService $systemConfigService,
         ?string $baseUrl = null
-    )
-    {
+    ) {
         $this->decoratedService = $decoratedService;
         $this->requestStack = $requestStack;
 
@@ -63,8 +62,8 @@ class UrlGeneratorDecorator implements UrlGeneratorInterface, ResetInterface
         return $this->thumbnailUrlTemplate->getUrl(
             $this->getBaseUrl(),
             $this->getRelativeMediaUrl($media),
-            "3000",
-            "3000"
+            '3000',
+            '3000'
         );
     }
 
@@ -83,7 +82,8 @@ class UrlGeneratorDecorator implements UrlGeneratorInterface, ResetInterface
             $this->getBaseUrl(),
             $this->decoratedService->getRelativeMediaUrl($media),
             (string) $thumbnail->getWidth(),
-            (string) $thumbnail->getHeight());
+            (string) $thumbnail->getHeight()
+        );
     }
 
     public function getRelativeThumbnailUrl(MediaEntity $media, MediaThumbnailEntity $thumbnail): string
@@ -132,7 +132,8 @@ class UrlGeneratorDecorator implements UrlGeneratorInterface, ResetInterface
             return $this->processSVG;
         }
 
-        $this->processSVG = (bool)$this->systemConfigService->get('FroshPlatformThumbnailProcessor.config.ProcessSVG');
+        $this->processSVG = (bool) $this->systemConfigService->get('FroshPlatformThumbnailProcessor.config.ProcessSVG');
+
         return $this->processSVG;
     }
 
@@ -142,7 +143,8 @@ class UrlGeneratorDecorator implements UrlGeneratorInterface, ResetInterface
             return $this->processOriginalImages;
         }
 
-        $this->processOriginalImages = (bool)$this->systemConfigService->get('FroshPlatformThumbnailProcessor.config.ProcessOriginalImages');
+        $this->processOriginalImages = (bool) $this->systemConfigService->get('FroshPlatformThumbnailProcessor.config.ProcessOriginalImages');
+
         return $this->processOriginalImages;
     }
 }

@@ -20,6 +20,7 @@
                  class="Frosh\ThumbnailProcessor\Service\ThumbnailUrlTemplate">
             <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService"/>
             <argument type="service" id="request_stack"/>
+            <argument type="service" id="product_export.repository"/>
         </service>
 
         <service id="Frosh\ThumbnailProcessor\Service\ThumbnailServiceDecorator"

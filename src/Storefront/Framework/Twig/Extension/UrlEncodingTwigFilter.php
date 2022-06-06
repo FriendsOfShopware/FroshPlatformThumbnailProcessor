@@ -2,7 +2,6 @@
 
 namespace Frosh\ThumbnailProcessor\Storefront\Framework\Twig\Extension;
 
-use Shopware\Core\Content\Media\MediaEntity;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 
