@@ -1,8 +1,2 @@
-import template from './frosh-thumbnail-processor-info-texts.html.twig';
-import './frosh-thumbnail-processor-info-texts.scss'
-
-const {Component} = Shopware;
-
-Component.register('frosh-thumbnail-processor-info-texts', {
-    template,
-});
+import './frosh-thumbnail-processor-info-texts';
+import './frosh-thumbnail-processor-config-restriction';

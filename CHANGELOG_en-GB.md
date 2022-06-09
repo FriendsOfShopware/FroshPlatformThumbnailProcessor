@@ -1,3 +1,7 @@
+# 1.0.28
+
+* Restrict configuration to "All Saleschannels"
+
 # 1.0.27
 
 * Fix problems from Shopware 6.4.10

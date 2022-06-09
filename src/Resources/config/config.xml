@@ -35,5 +35,9 @@
         <component name="frosh-thumbnail-processor-info-texts">
             <name>froshthumbnailprocessorinfotexts</name>
         </component>
+
+        <component name="frosh-thumbnail-processor-config-restriction">
+            <name>configRestriction</name>
+        </component>
     </card>
 </config>
