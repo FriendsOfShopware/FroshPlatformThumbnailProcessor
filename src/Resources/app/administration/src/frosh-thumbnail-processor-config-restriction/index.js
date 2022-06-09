@@ -27,17 +27,16 @@ Component.register('frosh-thumbnail-processor-config-restriction', {
         },
 
         pluginConfigData() {
-            let config = this.$parent.$parent.$parent.actualConfigData;
-            if (config) {
-                return this.$parent.$parent.$parent;
+            let configData = this.$parent;
+            for (let i = 0; i < 20; i++) {
+                if (configData.actualConfigData) {
+                    return configData;
+                }
+
+                configData = configData.$parent;
             }
 
-            config = this.$parent.$parent.$parent.$parent.actualConfigData;
-            if (config) {
-                return this.$parent.$parent.$parent.$parent;
-            }
-
-            return this.$parent.$parent.$parent.$parent.$parent;
+            throw "Can not get pluginConfigData";
         }
     },
 
