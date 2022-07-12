@@ -4,9 +4,9 @@
     {% endif %}
 
     {% if attributes.class %}
-        {% set attributes = attributes|merge({'class': 'lazyload ' ~ attributes.class}) %}
+        {% set attributes = attributes|merge({'class': 'frosh-proc lazyload ' ~ attributes.class}) %}
     {% else %}
-        {% set attributes = attributes|merge({'class': 'lazyload'}) %}
+        {% set attributes = attributes|merge({'class': 'frosh-proc lazyload'}) %}
     {% endif %}
 
     {% if attributes.alt is not defined and media.translated.alt is defined %}
@@ -31,16 +31,11 @@
 
     {% set ratio = (metaProportion.width / max(metaProportion.height, 1))|round(3, 'floor') %}
 
-
-    {% set inlineStyle = "" %}
-    {% if fullWidth %}
-        {% if ratio >= 1  %}
-            {% set inlineStyle = inlineStyle ~ "width: 100vw; height: " ~ (100 / ratio)|round(3) ~ "vw;" %}
-        {% else %}
-            {% set inlineStyle = inlineStyle ~ "width: " ~ (100 * ratio)|round(3)~ "vw; height: 100vw;" %}
-        {% endif %}
+    {% set inlineStyle = "aspect-ratio:" ~ ratio ~ ";" %}
+    {% if attributes.style %}
+        {% set attributes = attributes|merge({'style': inlineStyle ~ attributes.style}) %}
     {% else %}
-        {% set inlineStyle = inlineStyle ~ "width: 100%; aspect-ratio: " ~ ratio|round(3) ~ ";" %}
+        {% set attributes = attributes|merge({'style': inlineStyle}) %}
     {% endif %}
 
     {% block thumbnail_utility_img %}
@@ -59,9 +54,6 @@
                     content="{{ media.url|frosh_encode_url }}"
                 {% endif %}
             {% endfor %}
-            {% if inlineStyle != "" %}
-                style="{{ inlineStyle }}"
-            {% endif %}
         />
 
     {% endblock %}
