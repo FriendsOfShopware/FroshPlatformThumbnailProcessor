@@ -39,7 +39,11 @@
     {% endif %}
 
     {% block thumbnail_utility_img %}
-        <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+        {% if src is not defined %}
+            {% set src = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==' %}
+        {% endif %}
+
+        <img src="{{ src }}"
             data-src="{{ media.url|frosh_encode_url }}"
             {% if srcsetValue %}
                 data-srcset="{{ srcsetValue }}"
