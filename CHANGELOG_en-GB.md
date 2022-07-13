@@ -1,3 +1,9 @@
+# 1.1.0
+
+* Set aspect-ratio with inline-css to reserve space of images which reduces Cumulative Layout Shift (CLS)
+* Set class `frosh-proc` onto images managed by this plugin, use selector `img.frosh-proc` to set specific css style
+* Add usage of variable `src`. Use this to determine an own placeholder image or preload image.
+
 # 1.0.28
 
 * Restrict configuration to "All Saleschannels"
