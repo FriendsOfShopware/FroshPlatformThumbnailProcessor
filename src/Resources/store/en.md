@@ -2,7 +2,7 @@ Don't waste the computing power and space with thumbnails! With this plugin you 
 This plugin also provides the LazyLoading function with auto generated sizes for thumbnails.  
 Every product, every picture in the shopping worlds legitimately has thumbnails. These become standard
 generated and saved automatically during upload.  
-At this point this plugin intervenes and provides the function that no more thumbnails are created have to be created.  
+At this point this plugin intervenes and provides the function that no more thumbnail files are created. The only thing that remains is that the thumbnail sizes are stored in the database.  
 The thumbnails are then generated and delivered by an external service in real time when visiting.
 
 ## Advantages of saving thumbnail generation:
