@@ -1,3 +1,7 @@
+# 1.1.1
+
+* set values of width and height as ratio without calculation
+
 # 1.1.0
 
 * Set aspect-ratio with inline-css to reserve space of images which reduces Cumulative Layout Shift (CLS)

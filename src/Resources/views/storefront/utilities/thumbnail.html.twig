@@ -29,7 +29,7 @@
         {% endif %}
     {% endif %}
 
-    {% set ratio = (metaProportion.width / max(metaProportion.height, 1))|round(3, 'floor') %}
+    {% set ratio = metaProportion.width ~ '/' ~ metaProportion.height %}
 
     {% set inlineStyle = "aspect-ratio:" ~ ratio ~ ";" %}
     {% if attributes.style %}
