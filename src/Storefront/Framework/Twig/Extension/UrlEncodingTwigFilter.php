@@ -26,8 +26,17 @@ class UrlEncodingTwigFilter extends AbstractExtension
 
         $urlInfo = parse_url($mediaUrl);
 
+        if (!isset($urlInfo['path'])) {
+            return $mediaUrl;
+        }
+
         // we encode just parts after "/media/" to add support for imgproxy and paths which always need to be encoded
         $paths = \explode('/media/', $urlInfo['path']);
+
+        if (count($paths) === 0) {
+            return $mediaUrl;
+        }
+
         $paths[0] .= '/media';
 
         $relativeImagePath = $paths[1];
