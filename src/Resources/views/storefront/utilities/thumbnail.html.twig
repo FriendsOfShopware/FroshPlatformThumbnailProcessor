@@ -51,6 +51,7 @@
                 data-aspectratio="{{ ratio }}"
                 data-parent-fit="contain"
             {% endif %}
+            width="{{ metaProportion.width }}" height="{{ metaProportion.height }}"
             {% for key, value in attributes %}
                 {{ key }}="{{ value }}"
                 {% if key == 'itemprop' %}
