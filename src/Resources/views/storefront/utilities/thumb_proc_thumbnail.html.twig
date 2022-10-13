@@ -1,7 +1,5 @@
 {% block thumbnail_utility %}{% apply spaceless %}
-    {% if attributes is not defined %}
-        {% set attributes = {} %}
-    {% endif %}
+    {% set attributes = attributes ?: {} %}
 
     {% if attributes.class %}
         {% set attributes = attributes|merge({'class': 'frosh-proc lazyload ' ~ attributes.class}) %}
@@ -36,6 +34,18 @@
         {% set attributes = attributes|merge({'style': inlineStyle ~ attributes.style}) %}
     {% else %}
         {% set attributes = attributes|merge({'style': inlineStyle}) %}
+    {% endif %}
+
+    {% if config('EyecookBlurhash') is not same as null %}
+        {% set noIntegration = config('EyecookBlurhash.config.integrationMode') is same as 'none' %}
+
+        {% if not noIntegration and media.metaData.blurhash %}
+            {% set attributes = attributes|merge({
+                'data-blurhash': media.metaData.blurhash,
+                'data-ow': media.metaData.hashOriginWidth,
+                'data-oh': media.metaData.hashOriginHeight
+            }) %}
+        {% endif %}
     {% endif %}
 
     {% block thumbnail_utility_img %}

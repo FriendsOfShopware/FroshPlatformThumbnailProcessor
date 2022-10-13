@@ -1,0 +1,9 @@
+{% set noIntegration = ecbConfEqualsConst('integrationMode', 'VALUE_INTEGRATION_MODE_NONE') %}
+
+{% if not noIntegration and media.metaData.blurhash %}
+    {% set attributes = attributes|merge({
+        'data-blurhash': media.metaData.blurhash,
+        'data-ow': media.metaData.hashOriginWidth,
+        'data-oh': media.metaData.hashOriginHeight
+    }) %}
+{% endif %}

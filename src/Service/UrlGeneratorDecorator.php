@@ -88,7 +88,7 @@ class UrlGeneratorDecorator implements UrlGeneratorInterface, ResetInterface
 
     public function getRelativeThumbnailUrl(MediaEntity $media, MediaThumbnailEntity $thumbnail): string
     {
-        return $this->getAbsoluteThumbnailUrl($media, $thumbnail);
+        return $this->getRelativeMediaUrl($media);
     }
 
     public function reset(): void
