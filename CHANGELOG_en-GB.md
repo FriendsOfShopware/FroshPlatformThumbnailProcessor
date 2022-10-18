@@ -1,3 +1,7 @@
+# 1.1.2
+
+* catch error thrown when image has been specified wrong
+
 # 1.1.1
 
 * set values of width and height as ratio without calculation
