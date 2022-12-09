@@ -18,9 +18,14 @@ So you are able to save storage and add new thumbnails on the fly.
 
 Download the plugin from the release page and enable it in shopware.
 
+### By composer
+
+`composer require frosh/platform-thumbnail-processor`
+
 ### From source
 
 Run `npm install` in `src/Resources/app/storefront` within the plugin directory
+
 
 ## Usage
 While active, this will access all thumbnails variable from original image. The thumbnail-files won't be needed anymore.
