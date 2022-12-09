@@ -26,6 +26,10 @@ Download the plugin from the release page and enable it in shopware.
 
 Run `npm install` in `src/Resources/app/storefront` within the plugin directory
 
+### By zip
+
+download latest release and upload into admin:
+https://github.com/FriendsOfShopware/FroshPlatformThumbnailProcessor/releases/latest/download/FroshPlatformThumbnailProcessor.zip
 
 ## Usage
 While active, this will access all thumbnails variable from original image. The thumbnail-files won't be needed anymore.
