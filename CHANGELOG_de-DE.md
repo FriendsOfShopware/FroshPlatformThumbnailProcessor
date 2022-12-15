@@ -1,3 +1,7 @@
+# 2.0.0
+
+* ATTENTION: Removed lazysizes from this plugin! Please install dedicated plugin: FroshLazySizes
+
 # 1.1.2
 
 * catch error thrown when image has been specified wrong

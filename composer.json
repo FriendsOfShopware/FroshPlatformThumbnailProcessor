@@ -11,7 +11,7 @@
         "thumbnail"
     ],
     "description": "This plugins allows you to use variable thumbnails, without having them on storage.",
-    "version": "1.1.2",
+    "version": "2.0.0",
     "type": "shopware-platform-plugin",
     "license": "mit",
     "authors": [
@@ -23,11 +23,14 @@
     "require": {
         "shopware/core": "^6.4.10"
     },
+    "suggest": {
+        "frosh/lazy-sizes": "*"
+    },
     "extra": {
         "shopware-plugin-class": "Frosh\\ThumbnailProcessor\\FroshPlatformThumbnailProcessor",
         "label": {
-            "de-DE": "ThumbnailProcessor mit Lazy Loading und Webp-Unterstützung",
-            "en-GB": "ThumbnailProcessor incl. Lazy Loading and Webp-Support"
+            "de-DE": "ThumbnailProcessor mit Webp-Unterstützung",
+            "en-GB": "ThumbnailProcessor incl. Webp-Support"
         },
         "description": {
             "de-DE": "Verschwende keine Rechenleistung und keinen Speicherplatz mit Thumbnails! Lass diese in Echtzeit beim Besuch durch einen externen Dienst erzeugen und ausliefern.",
