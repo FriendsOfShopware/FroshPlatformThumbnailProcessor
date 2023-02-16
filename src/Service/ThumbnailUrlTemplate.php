@@ -6,23 +6,16 @@ use Shopware\Core\System\SystemConfig\SystemConfigService;
 
 class ThumbnailUrlTemplate implements ThumbnailUrlTemplateInterface
 {
-    /** @var string|null */
-    private $pattern;
+    private ?string $pattern = null;
 
-    /**
-     * @var SystemConfigService
-     */
-    private $systemConfigService;
-
-    public function __construct(SystemConfigService $systemConfigService)
+    public function __construct(private readonly SystemConfigService $systemConfigService)
     {
-        $this->systemConfigService = $systemConfigService;
     }
 
-    public function getUrl(string $mediaUrl, string $mediaPath, string $width, string $height = ''): string
+    public function getUrl(string $mediaUrl, string $mediaPath, string $width): string
     {
         return str_replace(
-            ['{mediaUrl}', '{mediaPath}', '{width}', '{height}'],
+            ['{mediaUrl}', '{mediaPath}', '{width}'],
             [$mediaUrl, $mediaPath, $width, ''],
             $this->getPattern()
         );
@@ -35,11 +28,7 @@ class ThumbnailUrlTemplate implements ThumbnailUrlTemplateInterface
         }
 
         $pattern = $this->systemConfigService->get('FroshPlatformThumbnailProcessor.config.ThumbnailPattern');
-        if ($pattern && is_string($pattern)) {
-            $this->pattern = $pattern;
-        } else {
-            $this->pattern = '{mediaUrl}/{mediaPath}?width={width}';
-        }
+        $this->pattern = $pattern && \is_string($pattern) ? $pattern : '{mediaUrl}/{mediaPath}?width={width}';
 
         return $this->pattern;
     }

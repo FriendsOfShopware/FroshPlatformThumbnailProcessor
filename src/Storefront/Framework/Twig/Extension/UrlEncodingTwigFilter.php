@@ -2,7 +2,6 @@
 
 namespace Frosh\ThumbnailProcessor\Storefront\Framework\Twig\Extension;
 
-use Shopware\Core\Content\Media\MediaEntity;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 
@@ -14,7 +13,7 @@ class UrlEncodingTwigFilter extends AbstractExtension
     public function getFilters(): array
     {
         return [
-            new TwigFilter('frosh_encode_url', [$this, 'encodeUrl']),
+            new TwigFilter('frosh_encode_url', fn (?string $mediaUrl): ?string => $this->encodeUrl($mediaUrl)),
         ];
     }
 
@@ -33,7 +32,7 @@ class UrlEncodingTwigFilter extends AbstractExtension
         // we encode just parts after "/media/" to add support for imgproxy and paths which always need to be encoded
         $paths = \explode('/media/', $urlInfo['path']);
 
-        if (count($paths) < 2) {
+        if (\count($paths) < 2) {
             return $mediaUrl;
         }
 

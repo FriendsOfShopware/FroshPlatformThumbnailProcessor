@@ -13,37 +13,22 @@ use Symfony\Contracts\Service\ResetInterface;
 
 class UrlGeneratorDecorator implements UrlGeneratorInterface, ResetInterface
 {
-    private RequestStack $requestStack;
-
-    private ?string $baseUrl;
-
-    private UrlGeneratorInterface $decoratedService;
-
-    private ThumbnailUrlTemplateInterface $thumbnailUrlTemplate;
+    private readonly ?string $baseUrl;
 
     private ?bool $processSVG = null;
 
     private ?bool $processOriginalImages = null;
 
-    private SystemConfigService $systemConfigService;
-
     private ?string $fallbackBaseUrl = null;
 
     public function __construct(
-        UrlGeneratorInterface $decoratedService,
-        ThumbnailUrlTemplateInterface $thumbnailUrlTemplate,
-        RequestStack $requestStack,
-        SystemConfigService $systemConfigService,
+        private readonly UrlGeneratorInterface $decoratedService,
+        private readonly ThumbnailUrlTemplateInterface $thumbnailUrlTemplate,
+        private readonly RequestStack $requestStack,
+        private readonly SystemConfigService $systemConfigService,
         ?string $baseUrl = null
-    )
-    {
-        $this->decoratedService = $decoratedService;
-        $this->requestStack = $requestStack;
-
+    ) {
         $this->baseUrl = $this->normalizeBaseUrl($baseUrl);
-
-        $this->thumbnailUrlTemplate = $thumbnailUrlTemplate;
-        $this->systemConfigService = $systemConfigService;
     }
 
     public function getAbsoluteMediaUrl(MediaEntity $media): string
@@ -63,8 +48,8 @@ class UrlGeneratorDecorator implements UrlGeneratorInterface, ResetInterface
         return $this->thumbnailUrlTemplate->getUrl(
             $this->getBaseUrl(),
             $this->getRelativeMediaUrl($media),
-            "3000",
-            "3000"
+            '3000',
+            '3000'
         );
     }
 
@@ -83,7 +68,8 @@ class UrlGeneratorDecorator implements UrlGeneratorInterface, ResetInterface
             $this->getBaseUrl(),
             $this->decoratedService->getRelativeMediaUrl($media),
             (string) $thumbnail->getWidth(),
-            (string) $thumbnail->getHeight());
+            (string) $thumbnail->getHeight()
+        );
     }
 
     public function getRelativeThumbnailUrl(MediaEntity $media, MediaThumbnailEntity $thumbnail): string
@@ -99,7 +85,7 @@ class UrlGeneratorDecorator implements UrlGeneratorInterface, ResetInterface
     private function createFallbackUrl(): string
     {
         $request = $this->requestStack->getMainRequest();
-        if ($request) {
+        if ($request !== null) {
             $basePath = $request->getSchemeAndHttpHost() . $request->getBasePath();
 
             return rtrim($basePath, '/');
@@ -132,7 +118,8 @@ class UrlGeneratorDecorator implements UrlGeneratorInterface, ResetInterface
             return $this->processSVG;
         }
 
-        $this->processSVG = (bool)$this->systemConfigService->get('FroshPlatformThumbnailProcessor.config.ProcessSVG');
+        $this->processSVG = (bool) $this->systemConfigService->get('FroshPlatformThumbnailProcessor.config.ProcessSVG');
+
         return $this->processSVG;
     }
 
@@ -142,7 +129,8 @@ class UrlGeneratorDecorator implements UrlGeneratorInterface, ResetInterface
             return $this->processOriginalImages;
         }
 
-        $this->processOriginalImages = (bool)$this->systemConfigService->get('FroshPlatformThumbnailProcessor.config.ProcessOriginalImages');
+        $this->processOriginalImages = (bool) $this->systemConfigService->get('FroshPlatformThumbnailProcessor.config.ProcessOriginalImages');
+
         return $this->processOriginalImages;
     }
 }
