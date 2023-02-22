@@ -13,7 +13,7 @@ class UrlEncodingTwigFilter extends AbstractExtension
     public function getFilters(): array
     {
         return [
-            new TwigFilter('frosh_encode_url', fn (?string $mediaUrl): ?string => $this->encodeUrl($mediaUrl)),
+            new TwigFilter('frosh_encode_url', $this->encodeUrl(...)),
         ];
     }
 
