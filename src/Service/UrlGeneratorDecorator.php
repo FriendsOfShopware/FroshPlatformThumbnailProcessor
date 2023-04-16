@@ -48,7 +48,6 @@ class UrlGeneratorDecorator implements UrlGeneratorInterface, ResetInterface
         return $this->thumbnailUrlTemplate->getUrl(
             $this->getBaseUrl(),
             $this->getRelativeMediaUrl($media),
-            '3000',
             '3000'
         );
     }
@@ -67,8 +66,7 @@ class UrlGeneratorDecorator implements UrlGeneratorInterface, ResetInterface
         return $this->thumbnailUrlTemplate->getUrl(
             $this->getBaseUrl(),
             $this->decoratedService->getRelativeMediaUrl($media),
-            (string) $thumbnail->getWidth(),
-            (string) $thumbnail->getHeight()
+            (string) $thumbnail->getWidth()
         );
     }
 
