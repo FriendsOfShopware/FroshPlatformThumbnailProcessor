@@ -21,7 +21,7 @@
         }
     ],
     "require": {
-        "shopware/core": "^6.5.0"
+        "shopware/core": "~6.4.10"
     },
     "suggest": {
         "frosh/lazy-sizes": "*"
