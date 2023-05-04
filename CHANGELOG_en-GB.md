@@ -1,5 +1,6 @@
 # 3.0.0
 * Shopware 6.5 compatibility
+* Add support to define ThumbnailPattern per SalesChannel
 
 # 2.0.0
 

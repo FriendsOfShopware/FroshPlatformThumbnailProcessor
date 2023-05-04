@@ -7,6 +7,7 @@ use Shopware\Core\Content\Media\MediaEntity;
 use Shopware\Core\Content\Media\MediaType\ImageType;
 use Shopware\Core\Content\Media\Pathname\UrlGeneratorInterface;
 use Shopware\Core\DevOps\Environment\EnvironmentHelper;
+use Shopware\Core\PlatformRequest;
 use Shopware\Core\System\SystemConfig\SystemConfigService;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Contracts\Service\ResetInterface;
@@ -15,11 +16,9 @@ class UrlGeneratorDecorator implements UrlGeneratorInterface, ResetInterface
 {
     private readonly ?string $baseUrl;
 
-    private ?bool $processSVG = null;
-
-    private ?bool $processOriginalImages = null;
-
     private ?string $fallbackBaseUrl = null;
+
+    private ?array $config;
 
     public function __construct(
         private readonly UrlGeneratorInterface $decoratedService,
@@ -78,6 +77,7 @@ class UrlGeneratorDecorator implements UrlGeneratorInterface, ResetInterface
     public function reset(): void
     {
         $this->fallbackBaseUrl = null;
+        $this->config = null;
     }
 
     private function createFallbackUrl(): string
@@ -112,23 +112,21 @@ class UrlGeneratorDecorator implements UrlGeneratorInterface, ResetInterface
 
     private function canProcessSVG(): bool
     {
-        if ($this->processSVG !== null) {
-            return $this->processSVG;
-        }
-
-        $this->processSVG = (bool) $this->systemConfigService->get('FroshPlatformThumbnailProcessor.config.ProcessSVG');
-
-        return $this->processSVG;
+        return (bool) $this->getConfig('ProcessSVG');
     }
 
     private function canProcessOriginalImages(): bool
     {
-        if ($this->processOriginalImages !== null) {
-            return $this->processOriginalImages;
+        return (bool) $this->getConfig('ProcessOriginalImages');
+    }
+
+    private function getConfig(string $key)
+    {
+        if (!isset($this->config)) {
+            $salesChannelId = $this->requestStack?->getMainRequest()?->attributes->get(PlatformRequest::ATTRIBUTE_SALES_CHANNEL_ID);
+            $this->config = $this->systemConfigService->get('FroshPlatformThumbnailProcessor.config', $salesChannelId);
         }
 
-        $this->processOriginalImages = (bool) $this->systemConfigService->get('FroshPlatformThumbnailProcessor.config.ProcessOriginalImages');
-
-        return $this->processOriginalImages;
+        return $this->config[$key] ?? null;
     }
 }

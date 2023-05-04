@@ -13,8 +13,9 @@ class PhpParserReplaceMethodVisitor extends NodeVisitorAbstract
     public function leaveNode(Node $node): void
     {
         if ($node instanceof Node\Stmt\Class_) {
-            $node->setDocComment((new Doc(
-'/**'.PHP_EOL.'THIS CLASS HAS BEEN GENERATED AUTOMATICALLY'.PHP_EOL.'*/')));
+            $node->setDocComment(new Doc(
+                '/**' . \PHP_EOL . 'THIS CLASS HAS BEEN GENERATED AUTOMATICALLY' . \PHP_EOL . '*/'
+            ));
 
             return;
         }
