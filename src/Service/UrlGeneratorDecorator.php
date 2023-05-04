@@ -7,8 +7,6 @@ use Shopware\Core\Content\Media\MediaEntity;
 use Shopware\Core\Content\Media\MediaType\ImageType;
 use Shopware\Core\Content\Media\Pathname\UrlGeneratorInterface;
 use Shopware\Core\DevOps\Environment\EnvironmentHelper;
-use Shopware\Core\PlatformRequest;
-use Shopware\Core\System\SystemConfig\SystemConfigService;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Contracts\Service\ResetInterface;
 
@@ -18,9 +16,7 @@ class UrlGeneratorDecorator implements UrlGeneratorInterface, ResetInterface
 
     private ?string $fallbackBaseUrl = null;
 
-    private ?array $config;
-
-    private SystemConfigService $systemConfigService;
+    private ConfigReader $configReader;
 
     private RequestStack $requestStack;
 
@@ -32,13 +28,13 @@ class UrlGeneratorDecorator implements UrlGeneratorInterface, ResetInterface
         UrlGeneratorInterface $decoratedService,
         ThumbnailUrlTemplateInterface $thumbnailUrlTemplate,
         RequestStack $requestStack,
-        SystemConfigService $systemConfigService,
+        ConfigReader $configReader,
         ?string $baseUrl = null
     ) {
         $this->decoratedService = $decoratedService;
         $this->thumbnailUrlTemplate = $thumbnailUrlTemplate;
         $this->requestStack = $requestStack;
-        $this->systemConfigService = $systemConfigService;
+        $this->configReader = $configReader;
         $this->baseUrl = $this->normalizeBaseUrl($baseUrl);
     }
 
@@ -89,7 +85,6 @@ class UrlGeneratorDecorator implements UrlGeneratorInterface, ResetInterface
     public function reset(): void
     {
         $this->fallbackBaseUrl = null;
-        $this->config = null;
     }
 
     private function createFallbackUrl(): string
@@ -124,33 +119,11 @@ class UrlGeneratorDecorator implements UrlGeneratorInterface, ResetInterface
 
     private function canProcessSVG(): bool
     {
-        return (bool) $this->getConfig('ProcessSVG');
+        return (bool) $this->configReader->getConfig('ProcessSVG');
     }
 
     private function canProcessOriginalImages(): bool
     {
-        return (bool) $this->getConfig('ProcessOriginalImages');
-    }
-
-    private function getConfig(string $key)
-    {
-        if (!isset($this->config)) {
-            $this->config = $this->systemConfigService->get('FroshPlatformThumbnailProcessor.config', $this->getSalesChannelId());
-        }
-
-        return $this->config[$key] ?? null;
-    }
-
-    private function getSalesChannelId(): ?string
-    {
-        if ($this->requestStack === null) {
-            return null;
-        }
-
-        if ($this->requestStack->getMainRequest() === null) {
-            return null;
-        }
-
-        return $this->requestStack->getMainRequest()->attributes->get(PlatformRequest::ATTRIBUTE_SALES_CHANNEL_ID);
+        return (bool) $this->configReader->getConfig('ProcessOriginalImages');
     }
 }
