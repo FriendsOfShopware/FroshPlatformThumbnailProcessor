@@ -2,6 +2,7 @@
 
 namespace Frosh\ThumbnailProcessor\DependencyInjection;
 
+use PhpParser\Comment\Doc;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Expression;
 use PhpParser\NodeVisitorAbstract;
@@ -11,6 +12,13 @@ class PhpParserReplaceMethodVisitor extends NodeVisitorAbstract
 {
     public function leaveNode(Node $node): void
     {
+        if ($node instanceof Node\Stmt\Class_) {
+            $node->setDocComment((new Doc(
+'/**'.PHP_EOL.'THIS CLASS HAS BEEN GENERATED AUTOMATICALLY'.PHP_EOL.'*/')));
+
+            return;
+        }
+
         // we don't need to generate the files, so we just return the array
         if ($node instanceof Node\Stmt\ClassMethod && $node->name->toString() === 'createThumbnailsForSizes') {
             $node->stmts = (new ParserFactory())->create(ParserFactory::PREFER_PHP7)
