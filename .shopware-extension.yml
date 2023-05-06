@@ -33,7 +33,7 @@ store:
       - No more thumbnail files
       - URL per SalesChannel possible
   images:
-    - file: src/Resources/store/0.jpg
+    - file: src/Resources/store/images/0.jpg
       activate:
         de: true
         en: true
@@ -41,7 +41,7 @@ store:
         de: true
         en: true
       priority: 0
-    - file: src/Resources/store/1.jpg
+    - file: src/Resources/store/images/1.jpg
       activate:
         de: true
         en: true
