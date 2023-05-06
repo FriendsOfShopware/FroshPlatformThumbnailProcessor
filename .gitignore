@@ -1,5 +1,4 @@
 vendor
-phpstan.neon
 frosh-platform-thumbnail-processor.css
 frosh-platform-thumbnail-processor.js
 node_modules

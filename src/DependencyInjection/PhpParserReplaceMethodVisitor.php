@@ -10,14 +10,14 @@ use PhpParser\ParserFactory;
 
 class PhpParserReplaceMethodVisitor extends NodeVisitorAbstract
 {
-    public function leaveNode(Node $node): void
+    public function leaveNode(Node $node)
     {
         if ($node instanceof Node\Stmt\Class_) {
             $node->setDocComment(new Doc(
                 '/**' . \PHP_EOL . 'THIS CLASS HAS BEEN GENERATED AUTOMATICALLY' . \PHP_EOL . '*/'
             ));
 
-            return;
+            return null;
         }
 
         // we don't need to generate the files, so we just return the array
@@ -39,17 +39,23 @@ class PhpParserReplaceMethodVisitor extends NodeVisitorAbstract
 
                             return $savedThumbnails;');
 
-            return;
+            return null;
         }
 
         // the strict option is useless with this plugin, so this should always be false
         if ($node instanceof Node\Stmt\ClassMethod && $node->name->toString() === 'updateThumbnails') {
             $stmts = $node->getStmts();
+            if (!is_array($stmts)) {
+                return null;
+            }
+
             array_unshift($stmts, new Expression(new Node\Expr\Assign(
                 new Node\Expr\Variable('strict'),
                 new Node\Expr\ConstFetch(new Node\Name('false'))
             )));
             $node->stmts = $stmts;
         }
+
+        return null;
     }
 }
