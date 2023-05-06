@@ -61,7 +61,7 @@ class ThumbnailServiceGeneratorPass implements CompilerPassInterface
         $thumbnailService = new \ReflectionClass(ThumbnailService::class);
         $fileName = $thumbnailService->getFileName();
 
-        if (!is_string($fileName)) {
+        if (!\is_string($fileName)) {
             return null;
         }
 

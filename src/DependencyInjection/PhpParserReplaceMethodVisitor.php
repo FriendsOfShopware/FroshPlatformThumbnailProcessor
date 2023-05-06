@@ -45,7 +45,7 @@ class PhpParserReplaceMethodVisitor extends NodeVisitorAbstract
         // the strict option is useless with this plugin, so this should always be false
         if ($node instanceof Node\Stmt\ClassMethod && $node->name->toString() === 'updateThumbnails') {
             $stmts = $node->getStmts();
-            if (!is_array($stmts)) {
+            if (!\is_array($stmts)) {
                 return null;
             }
 
