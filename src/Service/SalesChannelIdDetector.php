@@ -28,6 +28,10 @@ class SalesChannelIdDetector
     {
         $masterRequest = $this->requestStack->getMainRequest();
 
+        if ($masterRequest === null) {
+            return null;
+        }
+
         $salesChannelId = $masterRequest->attributes->get(PlatformRequest::ATTRIBUTE_SALES_CHANNEL_ID);
 
         if (\is_string($salesChannelId)) {
