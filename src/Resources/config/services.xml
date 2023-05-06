@@ -10,7 +10,7 @@
             <argument type="service" id="Frosh\ThumbnailProcessor\Service\UrlGeneratorDecorator.inner"/>
             <argument type="service" id="Frosh\ThumbnailProcessor\Service\ThumbnailUrlTemplateInterface"/>
             <argument type="service" id="request_stack"/>
-            <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService"/>
+            <argument type="service" id="Frosh\ThumbnailProcessor\Service\ConfigReader"/>
             <argument>%shopware.filesystem.public.url%</argument>
 
             <tag name="kernel.reset" method="reset"/>
@@ -18,16 +18,17 @@
 
         <service id="Frosh\ThumbnailProcessor\Service\ThumbnailUrlTemplateInterface"
                  class="Frosh\ThumbnailProcessor\Service\ThumbnailUrlTemplate">
-            <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService"/>
+            <argument type="service" id="Frosh\ThumbnailProcessor\Service\ConfigReader"/>
         </service>
 
-        <service id="Frosh\ThumbnailProcessor\Service\ThumbnailServiceDecorator"
-                 decorates="Shopware\Core\Content\Media\Thumbnail\ThumbnailService">
-            <argument type="service" id="media_thumbnail.repository"/>
-            <argument type="service" id="shopware.filesystem.public"/>
-            <argument type="service" id="shopware.filesystem.private"/>
-            <argument type="service" id="Shopware\Core\Content\Media\Pathname\UrlGeneratorInterface"/>
-            <argument type="service" id="media_folder.repository"/>
+        <service id="Frosh\ThumbnailProcessor\Service\ConfigReader">
+            <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService"/>
+            <argument type="service" id="Frosh\ThumbnailProcessor\Service\SalesChannelIdDetector"/>
+        </service>
+
+        <service id="Frosh\ThumbnailProcessor\Service\SalesChannelIdDetector">
+            <argument type="service" id="request_stack"/>
+            <argument type="service" id="product_export.repository"/>
         </service>
     </services>
 </container>

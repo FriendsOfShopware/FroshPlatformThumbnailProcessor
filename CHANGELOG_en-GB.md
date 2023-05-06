@@ -1,3 +1,7 @@
+# 3.0.0
+* Shopware 6.5 compatibility
+* Add support to define ThumbnailPattern per SalesChannel
+
 # 2.0.0
 
 * ATTENTION: Removed lazysizes from this plugin! Please install dedicated plugin: FroshLazySizes
