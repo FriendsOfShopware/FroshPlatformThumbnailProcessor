@@ -17,7 +17,7 @@ class SalesChannelIdDetector
     private RequestStack $requestStack;
 
     public function __construct(
-        RequestStack              $requestStack,
+        RequestStack $requestStack,
         EntityRepository $productExportRepository
     ) {
         $this->requestStack = $requestStack;
@@ -49,6 +49,10 @@ class SalesChannelIdDetector
     {
         $fileName = $masterRequest->get('fileName');
         $accessKey = $masterRequest->get('accessKey');
+
+        if (!is_string($fileName) || !is_string($accessKey)) {
+            return null;
+        }
 
         $criteria = new Criteria();
         $criteria

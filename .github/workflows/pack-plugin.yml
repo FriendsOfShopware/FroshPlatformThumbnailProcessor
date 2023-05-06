@@ -1,15 +1,15 @@
 name: PackPlugin
 on:
-    push:
-        branches:
-            - v2
+  push:
+    branches:
+      - v2
 
 jobs:
-    build:
-        uses: FriendsOfShopware/actions/.github/workflows/store-shopware-cli.yml@main
-        with:
-            extensionName: FroshPlatformThumbnailProcessor
-        secrets:
-            accountUser: ${{ secrets.ACCOUNT_USER }}
-            accountPassword: ${{ secrets.ACCOUNT_PASSWORD }}
-            ghToken: ${{ secrets.GITHUB_TOKEN }}
+  build:
+    uses: FriendsOfShopware/actions/.github/workflows/store-shopware-cli.yml@main
+    with:
+      extensionName: FroshPlatformThumbnailProcessor
+    secrets:
+      accountUser: ${{ secrets.ACCOUNT_USER }}
+      accountPassword: ${{ secrets.ACCOUNT_PASSWORD }}
+      ghToken: ${{ secrets.GITHUB_TOKEN }}

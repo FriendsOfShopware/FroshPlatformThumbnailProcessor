@@ -17,10 +17,22 @@ class ThumbnailServiceGeneratorPass implements CompilerPassInterface
 {
     public function process(ContainerBuilder $container): void
     {
-        $thumbnailService = new \ReflectionClass(ThumbnailService::class);
+        $fileContents = $this->getThumbnailServiceFileContent();
+
+        if (empty($fileContents)) {
+            $this->removeReflectionClass();
+
+            return;
+        }
 
         $phpParser = (new ParserFactory())->create(ParserFactory::ONLY_PHP7);
-        $ast = $phpParser->parse(file_get_contents($thumbnailService->getFileName()));
+        $ast = $phpParser->parse($fileContents);
+
+        if ($ast === null) {
+            $this->removeReflectionClass();
+
+            return;
+        }
 
         $nodeFinder = new NodeFinder();
 
@@ -38,9 +50,35 @@ class ThumbnailServiceGeneratorPass implements CompilerPassInterface
 
         $printer = new Standard();
 
-        file_put_contents(__DIR__ . '/ThumbnailService.php', $printer->prettyPrintFile($ast));
+        file_put_contents($this->getTargetPath(), $printer->prettyPrintFile($ast));
 
         $container->getDefinition(ThumbnailService::class)
             ->setClass(__NAMESPACE__ . '\\ThumbnailService');
+    }
+
+    private function getThumbnailServiceFileContent(): ?string
+    {
+        $thumbnailService = new \ReflectionClass(ThumbnailService::class);
+        $fileName = $thumbnailService->getFileName();
+
+        if (!is_string($fileName)) {
+            return null;
+        }
+
+        return file_get_contents($fileName) ?: null;
+    }
+
+    private function getTargetPath(): string
+    {
+        return __DIR__ . '/ThumbnailService.php';
+    }
+
+    private function removeReflectionClass(): void
+    {
+        if (!is_file($this->getTargetPath())) {
+            return;
+        }
+
+        unlink($this->getTargetPath());
     }
 }
