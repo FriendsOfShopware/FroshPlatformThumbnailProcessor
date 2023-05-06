@@ -45,7 +45,7 @@ class SalesChannelIdDetector
         $fileName = $masterRequest->get('fileName');
         $accessKey = $masterRequest->get('accessKey');
 
-        if (!is_string($fileName) || !is_string($accessKey)) {
+        if (!\is_string($fileName) || !\is_string($accessKey)) {
             return null;
         }
 

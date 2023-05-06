@@ -6,7 +6,9 @@ use Shopware\Core\System\SystemConfig\SystemConfigService;
 
 class ConfigReader
 {
-    /** @var array<mixed>|null  */
+    /**
+     * @var array<mixed>|null
+     */
     private ?array $config = null;
 
     public function __construct(
@@ -21,7 +23,7 @@ class ConfigReader
             $salesChannelId = $this->salesChannelIdDetector->getSalesChannelId();
             $config = $this->systemConfigService->get('FroshPlatformThumbnailProcessor.config', $salesChannelId);
 
-            if (!is_array($config)) {
+            if (!\is_array($config)) {
                 return null;
             }
 
