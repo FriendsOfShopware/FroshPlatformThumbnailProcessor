@@ -16,6 +16,9 @@ class UrlGeneratorDecorator implements UrlGeneratorInterface, ResetInterface
 
     private ?string $fallbackBaseUrl = null;
 
+    /**
+     * @var array<string>|null
+     */
     private ?array $extensionBlacklist = null;
 
     public function __construct(
@@ -119,29 +122,43 @@ class UrlGeneratorDecorator implements UrlGeneratorInterface, ResetInterface
         return !\in_array(\strtolower($fileExtension), $extensionBlacklist, true);
     }
 
+    /**
+     * @return array<string>
+     */
     private function getExtensionBlacklist(): array
     {
         if (\is_array($this->extensionBlacklist)) {
             return $this->extensionBlacklist;
         }
 
-        $extensionBlacklist = \strtolower((string) $this->configReader->getConfig('ExtensionBlacklist'));
+        $extensionBlacklist = $this->configReader->getConfig('ExtensionBlacklist');
 
-        $this->extensionBlacklist = \array_unique(
-            \array_filter(
-                \explode(',', \preg_replace('/\s+/', '', $extensionBlacklist))
-            )
-        );
+        if (\is_string($extensionBlacklist)) {
+            $this->extensionBlacklist = \array_unique(
+                \array_filter(
+                    \explode(
+                        ',',
+                        (string) \preg_replace('/\s+/', '', \strtolower($extensionBlacklist))
+                    )
+                )
+            );
+        } else {
+            $this->extensionBlacklist = [];
+        }
 
         return $this->extensionBlacklist;
     }
 
     private function getMaxWidth(): string
     {
-        $maxWidth = (string) $this->configReader->getConfig('ProcessOriginalImageMaxWidth');
+        $maxWidth = $this->configReader->getConfig('ProcessOriginalImageMaxWidth');
 
-        if ($maxWidth !== '') {
+        if (\is_string($maxWidth)) {
             return $maxWidth;
+        }
+
+        if (\is_int($maxWidth) || \is_float($maxWidth)) {
+            return (string) $maxWidth;
         }
 
         return '3000';
