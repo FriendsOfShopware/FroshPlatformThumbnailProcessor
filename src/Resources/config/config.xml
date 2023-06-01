@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/shopware/platform/master/src/Core/System/SystemConfig/Schema/config.xsd">
+        xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/shopware/platform/trunk/src/Core/System/SystemConfig/Schema/config.xsd">
 
     <card>
         <title>Configuration</title>
-        <input-field type="text">
+        <input-field>
             <name>ThumbnailPattern</name>
             <label>Thumbnail-Pattern</label>
             <placeholder>{mediaUrl}/{mediaPath}?width={width}</placeholder>
@@ -22,13 +22,18 @@
             <defaultValue>1</defaultValue>
         </input-field>
 
-        <input-field type="bool">
-            <name>ProcessSVG</name>
-            <label>Process SVG files</label>
-            <defaultValue>0</defaultValue>
+        <input-field type="int">
+            <name>ProcessOriginalImageMaxWidth</name>
+            <label>Maximum width of original image</label>
+            <defaultValue>3000</defaultValue>
+        </input-field>
+
+        <input-field>
+            <name>ExtensionBlacklist</name>
+            <label>Blacklist for file extensions</label>
+            <defaultValue>svg, ico</defaultValue>
             <helpText>
-                Some services will convert SVG files into jpg or webp which results in much bigger files.
-                Just activate, if your service can manage and compress SVG files.
+                You can set a list of file extension seperated by comma which will not be processed. F.e. some services will convert SVG files into jpg or webp which results in much bigger files. That is why we set svg as default here. Default: svg, ico
             </helpText>
         </input-field>
 

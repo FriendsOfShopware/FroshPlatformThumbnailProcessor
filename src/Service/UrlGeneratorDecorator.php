@@ -16,6 +16,8 @@ class UrlGeneratorDecorator implements UrlGeneratorInterface, ResetInterface
 
     private ?string $fallbackBaseUrl = null;
 
+    private ?array $extensionBlacklist = null;
+
     public function __construct(
         private readonly UrlGeneratorInterface $decoratedService,
         private readonly ThumbnailUrlTemplateInterface $thumbnailUrlTemplate,
@@ -36,14 +38,14 @@ class UrlGeneratorDecorator implements UrlGeneratorInterface, ResetInterface
             return $this->decoratedService->getAbsoluteMediaUrl($media);
         }
 
-        if (!$this->canProcessSVG() && $media->getFileExtension() === 'svg') {
+        if (!$this->canProcessFileExtension($media->getFileExtension())) {
             return $this->decoratedService->getAbsoluteMediaUrl($media);
         }
 
         return $this->thumbnailUrlTemplate->getUrl(
             $this->getBaseUrl(),
             $this->getRelativeMediaUrl($media),
-            '3000'
+            $this->getMaxWidth()
         );
     }
 
@@ -54,7 +56,7 @@ class UrlGeneratorDecorator implements UrlGeneratorInterface, ResetInterface
 
     public function getAbsoluteThumbnailUrl(MediaEntity $media, MediaThumbnailEntity $thumbnail): string
     {
-        if (!$this->canProcessSVG() && $media->getFileExtension() === 'svg') {
+        if (!$this->canProcessFileExtension($media->getFileExtension())) {
             return $this->decoratedService->getAbsoluteMediaUrl($media);
         }
 
@@ -73,6 +75,7 @@ class UrlGeneratorDecorator implements UrlGeneratorInterface, ResetInterface
     public function reset(): void
     {
         $this->fallbackBaseUrl = null;
+        $this->extensionBlacklist = null;
     }
 
     private function createFallbackUrl(): string
@@ -105,13 +108,51 @@ class UrlGeneratorDecorator implements UrlGeneratorInterface, ResetInterface
         return $this->baseUrl;
     }
 
-    private function canProcessSVG(): bool
-    {
-        return (bool) $this->configReader->getConfig('ProcessSVG');
-    }
-
     private function canProcessOriginalImages(): bool
     {
         return (bool) $this->configReader->getConfig('ProcessOriginalImages');
+    }
+
+    private function canProcessFileExtension(?string $fileExtension): bool
+    {
+        if ($fileExtension === null) {
+            return false;
+        }
+
+        $extensionBlacklist = $this->getExtensionBlacklist();
+
+        if (empty($extensionBlacklist)) {
+            return true;
+        }
+
+        return !\in_array(\strtolower($fileExtension), $extensionBlacklist, true);
+    }
+
+    private function getExtensionBlacklist(): array
+    {
+        if (\is_array($this->extensionBlacklist)) {
+            return $this->extensionBlacklist;
+        }
+
+        $extensionBlacklist = \strtolower((string) $this->configReader->getConfig('ExtensionBlacklist'));
+
+        $this->extensionBlacklist = \array_unique(
+            \array_filter(
+                \explode(',', \preg_replace('/\s+/', '', $extensionBlacklist))
+            )
+        );
+
+        return $this->extensionBlacklist;
+    }
+
+    private function getMaxWidth(): string
+    {
+        $maxWidth = (string) $this->configReader->getConfig('ProcessOriginalImageMaxWidth');
+
+        if ($maxWidth !== '') {
+            return $maxWidth;
+        }
+
+        return '3000';
     }
 }
