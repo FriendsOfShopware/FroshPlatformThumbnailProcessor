@@ -34,10 +34,6 @@ class UrlGeneratorDecorator implements UrlGeneratorInterface, ResetInterface
             return $this->decoratedService->getAbsoluteMediaUrl($media);
         }
 
-        if (!$this->canProcessOriginalImages()) {
-            return $this->decoratedService->getAbsoluteMediaUrl($media);
-        }
-
         if (!$this->canProcessFileExtension($media->getFileExtension())) {
             return $this->decoratedService->getAbsoluteMediaUrl($media);
         }
@@ -106,11 +102,6 @@ class UrlGeneratorDecorator implements UrlGeneratorInterface, ResetInterface
         }
 
         return $this->baseUrl;
-    }
-
-    private function canProcessOriginalImages(): bool
-    {
-        return (bool) $this->configReader->getConfig('ProcessOriginalImages');
     }
 
     private function canProcessFileExtension(?string $fileExtension): bool

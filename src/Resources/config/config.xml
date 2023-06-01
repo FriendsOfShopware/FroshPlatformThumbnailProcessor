@@ -16,16 +16,14 @@
             </helpText>
         </input-field>
 
-        <input-field type="bool">
-            <name>ProcessOriginalImages</name>
-            <label>Process Original Images</label>
-            <defaultValue>1</defaultValue>
-        </input-field>
-
         <input-field type="int">
             <name>ProcessOriginalImageMaxWidth</name>
-            <label>Maximum width of original image</label>
+            <label>Maximum width of full size image</label>
             <defaultValue>3000</defaultValue>
+            <helpText>
+                Additionally to the config for thumbnail-sizes, the image uploaded to media is always used as highest thumbnail size.
+                Therefore, it should also be processed. You can set a maximum width for this image. Default: 3000
+            </helpText>
         </input-field>
 
         <input-field>

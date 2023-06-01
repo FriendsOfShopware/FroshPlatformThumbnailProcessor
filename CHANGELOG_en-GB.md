@@ -1,6 +1,7 @@
 # 3.0.1
 * Add configuration to set maximum size for original image
 * Add configuration to add file extension which will not be processed
+* Remove configuration to toggle processing the original image
 
 # 3.0.0
 * Shopware 6.5 compatibility
