@@ -41,7 +41,7 @@
 
 * Sort thumbnail sizes in code
 
-* # 1.0.24
+# 1.0.24
 
 * Set width of 100% to image elements width set alignment
 
@@ -126,9 +126,9 @@
 
 # 1.0.5
 
-* Compatiblity to 6.3.0.0
+* Compatibility to 6.3.0.0
 
-## 1.0.4
+# 1.0.4
 
 * Option to improve thumbnail display in listings
 
