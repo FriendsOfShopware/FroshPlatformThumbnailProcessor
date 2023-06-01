@@ -27,11 +27,11 @@
         </input-field>
 
         <input-field>
-            <name>ExtensionBlacklist</name>
-            <label>Blacklist for file extensions</label>
-            <defaultValue>svg, ico</defaultValue>
+            <name>ExtensionsAllowList</name>
+            <label>Allow list for file extensions</label>
+            <defaultValue>png, jpg, jpeg, webp, gif</defaultValue>
             <helpText>
-                You can set a list of file extension seperated by comma which will not be processed. F.e. some services will convert SVG files into jpg or webp which results in much bigger files. That is why we set svg as default here. Default: svg, ico
+                You can set a list of file extension seperated by comma which will be processed. F.e. some services will convert SVG files into jpg or webp which results in much bigger files. That is why we do not set svg as default here. Default: png, jpg, jpeg, webp, gif
             </helpText>
         </input-field>
 

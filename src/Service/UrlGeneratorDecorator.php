@@ -19,7 +19,7 @@ class UrlGeneratorDecorator implements UrlGeneratorInterface, ResetInterface
     /**
      * @var array<string>|null
      */
-    private ?array $extensionBlacklist = null;
+    private ?array $extensionsAllowList = null;
 
     public function __construct(
         private readonly UrlGeneratorInterface $decoratedService,
@@ -74,7 +74,18 @@ class UrlGeneratorDecorator implements UrlGeneratorInterface, ResetInterface
     public function reset(): void
     {
         $this->fallbackBaseUrl = null;
-        $this->extensionBlacklist = null;
+        $this->extensionsAllowList = null;
+    }
+
+    private function getFallbackUrl(): string
+    {
+        if ($this->fallbackBaseUrl) {
+            return $this->fallbackBaseUrl;
+        }
+
+        $this->fallbackBaseUrl = $this->createFallbackUrl();
+
+        return $this->fallbackBaseUrl;
     }
 
     private function createFallbackUrl(): string
@@ -101,7 +112,7 @@ class UrlGeneratorDecorator implements UrlGeneratorInterface, ResetInterface
     private function getBaseUrl(): string
     {
         if (!$this->baseUrl) {
-            return $this->fallbackBaseUrl ?? $this->fallbackBaseUrl = $this->createFallbackUrl();
+            return $this->getFallbackUrl();
         }
 
         return $this->baseUrl;
@@ -113,40 +124,39 @@ class UrlGeneratorDecorator implements UrlGeneratorInterface, ResetInterface
             return false;
         }
 
-        $extensionBlacklist = $this->getExtensionBlacklist();
+        $extensionsAllowList = $this->getExtensionsAllowList();
 
-        if (empty($extensionBlacklist)) {
-            return true;
+        if (empty($extensionsAllowList)) {
+            return false;
         }
 
-        return !\in_array(\strtolower($fileExtension), $extensionBlacklist, true);
+        return \in_array(\strtolower($fileExtension), $extensionsAllowList, true);
     }
 
     /**
      * @return array<string>
      */
-    private function getExtensionBlacklist(): array
+    private function getExtensionsAllowList(): array
     {
-        if (\is_array($this->extensionBlacklist)) {
-            return $this->extensionBlacklist;
+        if (\is_array($this->extensionsAllowList)) {
+            return $this->extensionsAllowList;
         }
 
-        $extensionBlacklist = $this->configReader->getConfig('ExtensionBlacklist');
+        $extensionsAllowListConfig = $this->configReader->getConfig('ExtensionsAllowList');
+        $this->extensionsAllowList = [];
 
-        if (\is_string($extensionBlacklist)) {
-            $this->extensionBlacklist = \array_unique(
+        if (\is_string($extensionsAllowListConfig)) {
+            $this->extensionsAllowList = \array_unique(
                 \array_filter(
                     \explode(
                         ',',
-                        (string) \preg_replace('/\s+/', '', \strtolower($extensionBlacklist))
+                        (string) \preg_replace('/\s+/', '', \strtolower($extensionsAllowListConfig))
                     )
                 )
             );
-        } else {
-            $this->extensionBlacklist = [];
         }
 
-        return $this->extensionBlacklist;
+        return $this->extensionsAllowList;
     }
 
     private function getMaxWidth(): string

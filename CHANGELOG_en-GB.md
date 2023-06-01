@@ -1,6 +1,6 @@
 # 3.0.1
 * Add configuration to set maximum size for original image
-* Add configuration to add file extension which will not be processed
+* Add configuration to specify file extension which can be processed
 * Remove configuration to toggle processing the original image
 
 # 3.0.0
