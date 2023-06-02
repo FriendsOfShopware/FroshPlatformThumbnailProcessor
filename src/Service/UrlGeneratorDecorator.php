@@ -17,12 +17,13 @@ class UrlGeneratorDecorator implements UrlGeneratorInterface, ResetInterface
     private ?string $fallbackBaseUrl = null;
 
     public function __construct(
-        private readonly UrlGeneratorInterface $decoratedService,
+        private readonly UrlGeneratorInterface         $decoratedService,
         private readonly ThumbnailUrlTemplateInterface $thumbnailUrlTemplate,
-        private readonly RequestStack $requestStack,
-        private readonly ConfigReader $configReader,
-        ?string $baseUrl = null
-    ) {
+        private readonly RequestStack                  $requestStack,
+        private readonly ConfigReader                  $configReader,
+        ?string                                        $baseUrl = null
+    )
+    {
         $this->baseUrl = $this->normalizeBaseUrl($baseUrl);
     }
 
@@ -61,7 +62,7 @@ class UrlGeneratorDecorator implements UrlGeneratorInterface, ResetInterface
         return $this->thumbnailUrlTemplate->getUrl(
             $this->getBaseUrl(),
             $this->decoratedService->getRelativeMediaUrl($media),
-            (string) $thumbnail->getWidth()
+            (string)$thumbnail->getWidth()
         );
     }
 
@@ -84,7 +85,7 @@ class UrlGeneratorDecorator implements UrlGeneratorInterface, ResetInterface
             return rtrim($basePath, '/');
         }
 
-        return (string) EnvironmentHelper::getVariable('APP_URL');
+        return (string)EnvironmentHelper::getVariable('APP_URL');
     }
 
     private function normalizeBaseUrl(?string $baseUrl): ?string
@@ -107,11 +108,26 @@ class UrlGeneratorDecorator implements UrlGeneratorInterface, ResetInterface
 
     private function canProcessSVG(): bool
     {
-        return (bool) $this->configReader->getConfig('ProcessSVG');
+        if ($this->processSVG !== null) {
+            return $this->processSVG;
+        }
+
+        $this->processSVG = (bool)$this->systemConfigService->get('FroshPlatformThumbnailProcessor.config.ProcessSVG', $this->getRequestSalesChannelId());
+        return $this->processSVG;
     }
 
     private function canProcessOriginalImages(): bool
     {
-        return (bool) $this->configReader->getConfig('ProcessOriginalImages');
+        if ($this->processOriginalImages !== null) {
+            return $this->processOriginalImages;
+        }
+
+        $this->processOriginalImages = (bool)$this->systemConfigService->get('FroshPlatformThumbnailProcessor.config.ProcessOriginalImages', $this->getRequestSalesChannelId());
+        return $this->processOriginalImages;
+    }
+
+    private function getRequestSalesChannelId(): ?string
+    {
+        return $this->requestStack->getMainRequest()->attributes->get('sw-sales-channel-id');
     }
 }
