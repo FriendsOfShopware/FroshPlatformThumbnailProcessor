@@ -7,6 +7,7 @@ use Shopware\Core\Content\Media\MediaEntity;
 use Shopware\Core\Content\Media\MediaType\ImageType;
 use Shopware\Core\Content\Media\Pathname\UrlGeneratorInterface;
 use Shopware\Core\DevOps\Environment\EnvironmentHelper;
+use Shopware\Core\PlatformRequest;
 use Shopware\Core\System\SystemConfig\SystemConfigService;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Contracts\Service\ResetInterface;
@@ -132,7 +133,7 @@ class UrlGeneratorDecorator implements UrlGeneratorInterface, ResetInterface
             return $this->processSVG;
         }
 
-        $this->processSVG = (bool)$this->systemConfigService->get('FroshPlatformThumbnailProcessor.config.ProcessSVG');
+        $this->processSVG = (bool)$this->systemConfigService->get('FroshPlatformThumbnailProcessor.config.ProcessSVG', $this->getRequestSalesChannelId());
         return $this->processSVG;
     }
 
@@ -142,7 +143,24 @@ class UrlGeneratorDecorator implements UrlGeneratorInterface, ResetInterface
             return $this->processOriginalImages;
         }
 
-        $this->processOriginalImages = (bool)$this->systemConfigService->get('FroshPlatformThumbnailProcessor.config.ProcessOriginalImages');
+        $this->processOriginalImages = (bool)$this->systemConfigService->get('FroshPlatformThumbnailProcessor.config.ProcessOriginalImages', $this->getRequestSalesChannelId());
         return $this->processOriginalImages;
+    }
+
+    public function getRequestSalesChannelId(): ?string
+    {
+        $masterRequest = $this->requestStack->getMainRequest();
+
+        if ($masterRequest === null) {
+            return null;
+        }
+
+        $salesChannelId = $masterRequest->attributes->get(PlatformRequest::ATTRIBUTE_SALES_CHANNEL_ID);
+
+        if (\is_string($salesChannelId)) {
+            return $salesChannelId;
+        }
+
+        return null;
     }
 }
