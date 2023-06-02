@@ -16,6 +16,11 @@ class UrlGeneratorDecorator implements UrlGeneratorInterface, ResetInterface
 
     private ?string $fallbackBaseUrl = null;
 
+    /**
+     * @var array<string>|null
+     */
+    private ?array $extensionsAllowList = null;
+
     public function __construct(
         private readonly UrlGeneratorInterface $decoratedService,
         private readonly ThumbnailUrlTemplateInterface $thumbnailUrlTemplate,
@@ -32,18 +37,14 @@ class UrlGeneratorDecorator implements UrlGeneratorInterface, ResetInterface
             return $this->decoratedService->getAbsoluteMediaUrl($media);
         }
 
-        if (!$this->canProcessOriginalImages()) {
-            return $this->decoratedService->getAbsoluteMediaUrl($media);
-        }
-
-        if (!$this->canProcessSVG() && $media->getFileExtension() === 'svg') {
+        if (!$this->canProcessFileExtension($media->getFileExtension())) {
             return $this->decoratedService->getAbsoluteMediaUrl($media);
         }
 
         return $this->thumbnailUrlTemplate->getUrl(
             $this->getBaseUrl(),
             $this->getRelativeMediaUrl($media),
-            '3000'
+            $this->getMaxWidth()
         );
     }
 
@@ -54,7 +55,7 @@ class UrlGeneratorDecorator implements UrlGeneratorInterface, ResetInterface
 
     public function getAbsoluteThumbnailUrl(MediaEntity $media, MediaThumbnailEntity $thumbnail): string
     {
-        if (!$this->canProcessSVG() && $media->getFileExtension() === 'svg') {
+        if (!$this->canProcessFileExtension($media->getFileExtension())) {
             return $this->decoratedService->getAbsoluteMediaUrl($media);
         }
 
@@ -73,6 +74,18 @@ class UrlGeneratorDecorator implements UrlGeneratorInterface, ResetInterface
     public function reset(): void
     {
         $this->fallbackBaseUrl = null;
+        $this->extensionsAllowList = null;
+    }
+
+    private function getFallbackUrl(): string
+    {
+        if ($this->fallbackBaseUrl) {
+            return $this->fallbackBaseUrl;
+        }
+
+        $this->fallbackBaseUrl = $this->createFallbackUrl();
+
+        return $this->fallbackBaseUrl;
     }
 
     private function createFallbackUrl(): string
@@ -99,19 +112,65 @@ class UrlGeneratorDecorator implements UrlGeneratorInterface, ResetInterface
     private function getBaseUrl(): string
     {
         if (!$this->baseUrl) {
-            return $this->fallbackBaseUrl ?? $this->fallbackBaseUrl = $this->createFallbackUrl();
+            return $this->getFallbackUrl();
         }
 
         return $this->baseUrl;
     }
 
-    private function canProcessSVG(): bool
+    private function canProcessFileExtension(?string $fileExtension): bool
     {
-        return (bool) $this->configReader->getConfig('ProcessSVG');
+        if ($fileExtension === null) {
+            return false;
+        }
+
+        $extensionsAllowList = $this->getExtensionsAllowList();
+
+        if (empty($extensionsAllowList)) {
+            return false;
+        }
+
+        return \in_array(\strtolower($fileExtension), $extensionsAllowList, true);
     }
 
-    private function canProcessOriginalImages(): bool
+    /**
+     * @return array<string>
+     */
+    private function getExtensionsAllowList(): array
     {
-        return (bool) $this->configReader->getConfig('ProcessOriginalImages');
+        if (\is_array($this->extensionsAllowList)) {
+            return $this->extensionsAllowList;
+        }
+
+        $extensionsAllowListConfig = $this->configReader->getConfig('ExtensionsAllowList');
+        $this->extensionsAllowList = [];
+
+        if (\is_string($extensionsAllowListConfig)) {
+            $this->extensionsAllowList = \array_unique(
+                \array_filter(
+                    \explode(
+                        ',',
+                        (string) \preg_replace('/\s+/', '', \strtolower($extensionsAllowListConfig))
+                    )
+                )
+            );
+        }
+
+        return $this->extensionsAllowList;
+    }
+
+    private function getMaxWidth(): string
+    {
+        $maxWidth = $this->configReader->getConfig('ProcessOriginalImageMaxWidth');
+
+        if (\is_string($maxWidth)) {
+            return $maxWidth;
+        }
+
+        if (\is_int($maxWidth) || \is_float($maxWidth)) {
+            return (string) $maxWidth;
+        }
+
+        return '3000';
     }
 }
