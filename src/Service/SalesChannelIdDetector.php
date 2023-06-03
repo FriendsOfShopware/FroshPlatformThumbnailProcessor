@@ -21,29 +21,29 @@ class SalesChannelIdDetector
 
     public function getSalesChannelId(): ?string
     {
-        $masterRequest = $this->requestStack->getMainRequest();
+        $mainRequest = $this->requestStack->getMainRequest();
 
-        if ($masterRequest === null) {
+        if ($mainRequest === null) {
             return null;
         }
 
-        $salesChannelId = $masterRequest->attributes->get(PlatformRequest::ATTRIBUTE_SALES_CHANNEL_ID);
+        $salesChannelId = $mainRequest->attributes->get(PlatformRequest::ATTRIBUTE_SALES_CHANNEL_ID);
 
         if (\is_string($salesChannelId)) {
             return $salesChannelId;
         }
 
-        if ($masterRequest->attributes->get('_route') === 'store-api.product.export') {
-            return $this->getSalesChannelIdByProductExport($masterRequest);
+        if ($mainRequest->attributes->get('_route') === 'store-api.product.export') {
+            return $this->getSalesChannelIdByProductExport($mainRequest);
         }
 
         return null;
     }
 
-    private function getSalesChannelIdByProductExport(Request $masterRequest): ?string
+    private function getSalesChannelIdByProductExport(Request $mainRequest): ?string
     {
-        $fileName = $masterRequest->get('fileName');
-        $accessKey = $masterRequest->get('accessKey');
+        $fileName = $mainRequest->attributes->get('fileName');
+        $accessKey = $mainRequest->attributes->get('accessKey');
 
         if (!\is_string($fileName) || !\is_string($accessKey)) {
             return null;
