@@ -3,3 +3,4 @@ frosh-platform-thumbnail-processor.css
 frosh-platform-thumbnail-processor.js
 node_modules
 src/DependencyInjection/ThumbnailService.php
+src/DependencyInjection/FileSaver.php
