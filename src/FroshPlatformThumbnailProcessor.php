@@ -12,8 +12,18 @@ class FroshPlatformThumbnailProcessor extends Plugin
 {
     public function build(ContainerBuilder $container): void
     {
-        $container->addCompilerPass(new GeneratorCompilerPass(ThumbnailService::class));
-        $container->addCompilerPass(new GeneratorCompilerPass(FileSaver::class));
+        $builder = $container->get('Doctrine\DBAL\Connection')->createQueryBuilder()->select('`active`')
+            ->from('plugin')
+            ->where('`name` = :pluginName')
+            ->andWhere('`active` = 1')
+            ->setParameter('pluginName', 'FroshPlatformThumbnailProcessor');
+
+        $active = $builder->executeQuery()->fetchOne();
+
+        if ($active === null || !empty($active)) {
+            $container->addCompilerPass(new GeneratorCompilerPass(ThumbnailService::class));
+            $container->addCompilerPass(new GeneratorCompilerPass(FileSaver::class));
+        }
 
         parent::build($container);
     }

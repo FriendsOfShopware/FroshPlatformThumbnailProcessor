@@ -4,16 +4,24 @@
 
     <card>
         <title>Configuration</title>
+
+        <input-field type="bool">
+            <name>Active</name>
+            <label>Active</label>
+            <defaultValue>false</defaultValue>
+            <helpText>Should the plugins function be active?</helpText>
+        </input-field>
+
         <input-field>
             <name>ThumbnailPattern</name>
             <label>Thumbnail-Pattern</label>
             <placeholder>{mediaUrl}/{mediaPath}?width={width}</placeholder>
             <defaultValue>{mediaUrl}/{mediaPath}?width={width}</defaultValue>
-            <helpText>available variables:
-                {mediaUrl}: https://cdn.test.de/
-                {mediaPath}: media/image/5b/6d/16/tea.png
+            <helpText><![CDATA[available variables:<br>
+                {mediaUrl}: https://cdn.test.de/<br>
+                {mediaPath}: media/image/5b/6d/16/tea.png<br>
                 {width}: 800
-            </helpText>
+            ]]></helpText>
         </input-field>
 
         <input-field type="int">

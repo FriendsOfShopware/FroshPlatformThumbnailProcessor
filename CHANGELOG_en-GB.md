@@ -1,3 +1,6 @@
+# 3.0.2
+* Add configuration within the plugin to activate its function explicit
+
 # 3.0.1
 * Add configuration to set maximum size for original image
 * Add configuration to specify file extension which can be processed
