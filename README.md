@@ -11,7 +11,7 @@ So you are able to save storage and add new thumbnails on the fly.
 |----------------------|-------------------|
 | 1.0.0 - 1.0.5     	  | Min. Shopware 6.0 |
 | 1.0.6 - 1.0.15     	 | Min. Shopware 6.3 |
-| 1.0.16 - 2.0.0     	 | Min. Shopware 6.4 |
+| 1.0.16 - [2.*](https://github.com/FriendsOfShopware/FroshPlatformThumbnailProcessor/tree/v2)       	 | Min. Shopware 6.4 |
 | 3.0.0      	         | Min. Shopware 6.5 |
 
 ## Install
