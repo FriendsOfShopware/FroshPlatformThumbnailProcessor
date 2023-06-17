@@ -92,7 +92,11 @@ class GeneratorCompilerPass implements CompilerPassInterface
 
         // we don't need to generate the files, so we just return the array
         $createThumbnailsForSizesNode->stmts = (new ParserFactory())->create(ParserFactory::PREFER_PHP7)
-            ->parse('<?php if ($thumbnailSizes->count() === 0) {
+            ->parse('<?php if ($thumbnailSizes === null) {
+                                return [];
+                            }
+
+                            if ($thumbnailSizes->count() === 0) {
                                 return [];
                             }
 

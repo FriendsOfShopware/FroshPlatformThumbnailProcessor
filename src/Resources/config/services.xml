@@ -30,5 +30,11 @@
             <argument type="service" id="request_stack"/>
             <argument type="service" id="product_export.repository"/>
         </service>
+
+        <service id="Frosh\ThumbnailProcessor\EventListener\ThumbnailSizesChangedListener">
+            <argument type="service" id="Shopware\Core\Content\Media\Commands\GenerateThumbnailsCommand"/>
+            <argument type="service" id="media_folder.repository"/>
+            <tag name="kernel.event_subscriber"/>
+        </service>
     </services>
 </container>
