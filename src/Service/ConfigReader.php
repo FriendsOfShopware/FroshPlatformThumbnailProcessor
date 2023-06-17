@@ -23,6 +23,9 @@ class ConfigReader
         $this->systemConfigService = $systemConfigService;
     }
 
+    /**
+     * @return mixed|null
+     */
     public function getConfig(string $key)
     {
         if (!$this->config) {

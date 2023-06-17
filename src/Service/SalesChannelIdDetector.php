@@ -63,6 +63,11 @@ class SalesChannelIdDetector
         /** @var ProductExportEntity|null $productExport */
         $productExport = $this->productExportRepository->search($criteria, Context::createDefaultContext())->first();
 
-        return $productExport?->getSalesChannelId();
+        if ($productExport instanceof ProductExportEntity) {
+            return $productExport->getSalesChannelId();
+        }
+
+        return null;
+
     }
 }

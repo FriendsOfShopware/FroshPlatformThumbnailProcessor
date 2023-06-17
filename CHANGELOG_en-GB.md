@@ -3,6 +3,7 @@
 * Add configuration to set maximum size for original image
 * Add configuration to specify file extension which can be processed
 * Remove configuration to toggle processing the original image
+* Add auto update of thumbnails after changing thumbnailSizes: no more need to run "media:generate-thumbnails"
 
 # 2.0.0
 

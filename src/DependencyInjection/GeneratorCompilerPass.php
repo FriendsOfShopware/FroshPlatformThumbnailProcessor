@@ -2,6 +2,7 @@
 
 namespace Frosh\ThumbnailProcessor\DependencyInjection;
 
+use Composer\Autoload\ClassLoader;
 use PhpParser\Comment\Doc;
 use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\ConstFetch;
@@ -32,6 +33,8 @@ class GeneratorCompilerPass implements CompilerPassInterface
 
     public function process(ContainerBuilder $container): void
     {
+        $this->resetClassLoader();
+
         $fileContents = $this->getFileContent();
 
         if (empty($fileContents)) {
@@ -62,7 +65,7 @@ class GeneratorCompilerPass implements CompilerPassInterface
 
         $originalNamespace = $namespace->name->toString();
 
-        if ($originalNamespace === null) {
+        if (empty($originalNamespace)) {
             $this->removeReflectionClass();
 
             return;
@@ -104,7 +107,11 @@ class GeneratorCompilerPass implements CompilerPassInterface
 
         // we don't need to generate the files, so we just return the array
         $createThumbnailsForSizesNode->stmts = (new ParserFactory())->create(ParserFactory::PREFER_PHP7)
-            ->parse('<?php if ($thumbnailSizes->count() === 0) {
+            ->parse('<?php if ($thumbnailSizes === null) {
+                                return [];
+                            }
+
+                            if ($thumbnailSizes->count() === 0) {
                                 return [];
                             }
 
@@ -239,5 +246,20 @@ class GeneratorCompilerPass implements CompilerPassInterface
         }
 
         return substr($lastOccur, 1);
+    }
+
+    private function resetClassLoader(): void
+    {
+        $file = __DIR__ . '/../../vendor/autoload.php';
+        if (!is_file($file)) {
+            return;
+        }
+
+        $classLoader = require_once $file;
+
+        if ($classLoader instanceof ClassLoader) {
+            $classLoader->unregister();
+            $classLoader->register(false);
+        }
     }
 }

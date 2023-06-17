@@ -2,5 +2,17 @@ parameters:
     level: 9
     paths:
         - src
-    excludePaths:
-        - src/DependencyInjection/ThumbnailService.php
+    ignoreErrors:
+        -
+            message: "#^Call to an undefined method Shopware\\\\Core\\\\Content\\\\Media\\\\Message\\\\GenerateThumbnailsMessage\\:\\:setContext\\(\\)\\.$#"
+            count: 1
+            path: src/DependencyInjection/FileSaver.php
+
+        -
+            message: "#^Parameter \\#1 \\$objectOrClass of class ReflectionClass constructor expects class\\-string\\<T of object\\>\\|T of object, string given\\.$#"
+            count: 1
+            path: src/DependencyInjection/GeneratorCompilerPass.php
+
+        -
+            message: "#^Method Frosh\\\\ThumbnailProcessor\\\\DependencyInjection\\\\ThumbnailService\\:\\:(.*)\\(\\) is unused\\.$#"
+            path: src/DependencyInjection/ThumbnailService.php
