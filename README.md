@@ -53,7 +53,7 @@ You may want to delete folder `thumbnails` within folder `public`
 
 ## Adding more thumbnail sizes:
 - Save new size in the folder of the media management
-- then run the command `bin/console media:generate-thumbnails` on the console to update the thumbnails for all images in the database
+- (up to and including plugin version 3.0.1) then run the command `bin/console media:generate-thumbnails` on the console to update the thumbnails for all images in the database
 - Clear shop cache
 
 ## Find Patterns
