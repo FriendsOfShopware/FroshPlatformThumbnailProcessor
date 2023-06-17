@@ -21,17 +21,17 @@ Die Thumbnails werden dann in Echtzeit beim Besuch durch einen externen Dienst e
 Beachten Sie, dass dieses Plugin nur die Funktion zum Ausliefern der Thumbnail-Urls bereitstellt.  
 Dieses Plugin erstellt keine Thumbnails! Dazu werden die entsprechenden Dienste verwendet.
 
-Es gibt vier Paramter, die Ihnen optional zur Erstellung des Links zur Verfügung stehen:  
+Es gibt drei Paramter, die Ihnen optional zur Erstellung des Links zur Verfügung stehen:  
 {mediaUrl}: Primär die Config shopware.cdn.url, alternativ Shop-Url  
 {mediaPath}: Der relative Pfad zu dem Originalbild  
 {width}: Die Breite des Thumbnails  
 
-Finde fertige Template auf github:  
-[Github Category Patterns](https://github.com/FriendsOfShopware/FroshPlatformThumbnailProcessor/discussions/categories/patterns).
+Finde fertige Template auf GitHub:  
+[GitHub Category Patterns](https://github.com/FriendsOfShopware/FroshPlatformThumbnailProcessor/discussions/categories/patterns).
 
 Nach der Einrichtung und Prüfung im DeveloperTools Ihres Browsers, können Sie auch den vorhandenen thumbnail-Ordner sichern und löschen.  
 
 Dieses Plugin wird von [@FriendsOfShopware](https://store.shopware.com/friends-of-shopware.html) entwickelt.  
 Maintainer dieses Plugins ist: [Sebastian König (tinect)](https://github.com/tinect)
 
-Bei Fragen / Fehlern bitte ein [Github Issue](https://github.com/FriendsOfShopware/FroshPlatformThumbnailProcessor/issues/new) erstellen
+Bei Fragen / Fehlern bitte ein [GitHub Issue](https://github.com/FriendsOfShopware/FroshPlatformThumbnailProcessor/issues/new) erstellen
