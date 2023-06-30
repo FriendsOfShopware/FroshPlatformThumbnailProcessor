@@ -11,7 +11,7 @@
         "thumbnail"
     ],
     "description": "This plugins allows you to use variable thumbnails, without having them on storage.",
-    "version": "3.0.2",
+    "version": "3.0.3",
     "type": "shopware-platform-plugin",
     "license": "mit",
     "authors": [
@@ -34,7 +34,7 @@
             "en-GB": "ThumbnailProcessor incl. Webp-Support"
         },
         "description": {
-            "de-DE": "Verschwende keine Rechenleistung und keinen Speicherplatz mit Thumbnails! Lass diese in Echtzeit beim Besuch durch einen externen Dienst erzeugen und ausliefern.",
+            "de-DE": "Verschwende nicht Rechenleistung und Speicherplatz durch Thumbnails! Lass diese in Echtzeit beim Besuch durch einen externen Dienst erzeugen und ausliefern.",
             "en-GB": "Don't waste the computing power and space with thumbnails! Have the thumbnails generated and delivered in real time when you visit an external service."
         },
         "manufacturerLink": {

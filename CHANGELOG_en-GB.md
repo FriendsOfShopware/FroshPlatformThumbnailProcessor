@@ -1,3 +1,6 @@
+# 3.0.3
+* Adjust wordings and remove typos
+
 # 3.0.2
 * Add auto update of thumbnails after changing thumbnailSizes: no more need to run "media:generate-thumbnails"
 
