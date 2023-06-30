@@ -1,3 +1,6 @@
+# Unreleased 2.x
+* Adjust wordings and remove typos
+
 # 2.0.1
 * Add support to define ThumbnailPattern per SalesChannel
 * Add configuration to set maximum size for original image
@@ -109,15 +112,15 @@
 # 1.0.9
 
 * BUGFIX Fix thumbnail-variable, which occurs, when no thumbnail exists
- 
+
 # 1.0.8
 
 * FEATURE Added Option to fix ThumbnailSizes for the gallery on product page
- 
+
 # 1.0.7
 
 * FEATURE Thumbnails that are larger than the original image are no longer displayed, requested and delivered
- 
+
 # 1.0.6
 
 * Fix mediaUrl in 6.3.0.0
