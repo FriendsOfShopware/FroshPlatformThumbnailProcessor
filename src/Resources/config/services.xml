@@ -36,5 +36,13 @@
             <argument type="service" id="media_folder.repository"/>
             <tag name="kernel.event_subscriber"/>
         </service>
+
+        <service id="Frosh\ThumbnailProcessor\Controller\Api\TestController" public="true">
+            <argument type="service" id="Shopware\Core\Content\Media\Pathname\UrlGeneratorInterface"/>
+            <argument type="service" id="media.repository"/>
+            <argument type="service" id="media_folder.repository"/>
+            <argument type="service" id="Shopware\Core\Content\Media\File\FileSaver"/>
+            <argument type="service" id="Shopware\Core\Content\Media\File\FileFetcher"/>
+        </service>
     </services>
 </container>

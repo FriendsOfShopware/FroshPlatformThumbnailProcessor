@@ -53,12 +53,16 @@ You may want to delete folder `thumbnails` within folder `public`
 
 ## Adding more thumbnail sizes:
 - Save new size in the folder of the media management
-- (up to and including plugin version 3.0.1) then run the command `bin/console media:generate-thumbnails` on the console to update the thumbnails for all images in the database
+- (no more needed from version 3.0.2) run the command `bin/console media:generate-thumbnails` on the console to update the thumbnails for all images in the database
 - Clear shop cache
 
 ## Find Patterns
 
 You can find patterns in [GitHub Discussions in category Patterns](https://github.com/FriendsOfShopware/FroshPlatformThumbnailProcessor/discussions/categories/patterns)
+
+## Uninstall
+
+After uninstalling plugin you have to run `bin/console media:generate-thumbnails -strict` to generate the thumbnails-files on disk.
 
 ## License
 
