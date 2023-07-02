@@ -1,0 +1,8 @@
+<div>
+    <sw-button-process
+        :isLoading="isLoading"
+        :processSuccess="isSuccessful"
+        @process-finish="finish"
+        @click="saveAndCheck"
+    >{{ btnLabel }}</sw-button-process>
+</div>

@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
 class SalesChannelIdDetector
 {
     private EntityRepository $productExportRepository;
+
     private RequestStack $requestStack;
 
     public function __construct(
@@ -68,6 +69,5 @@ class SalesChannelIdDetector
         }
 
         return null;
-
     }
 }

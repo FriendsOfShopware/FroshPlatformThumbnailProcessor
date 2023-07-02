@@ -1,5 +1,7 @@
 # Unreleased 2.x
 * Adjust wordings and remove typos
+* Add configuration within the plugin to activate its function explicit
+* Add button to test the service with a sample image
 
 # 2.0.1
 * Add support to define ThumbnailPattern per SalesChannel
