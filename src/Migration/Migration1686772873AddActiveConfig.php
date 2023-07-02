@@ -20,8 +20,8 @@ class Migration1686772873AddActiveConfig extends MigrationStep
             return;
         }
 
-        // we added the active flag with version 2.0.2, so we don't need to set the default value afterward
-        if (\version_compare($currentPluginVersion, '2.0.2', '>')) {
+        // we added the active flag with version 2.1.0, so we don't need to set the default value afterward
+        if (\version_compare($currentPluginVersion, '2.1.0', '>')) {
             return;
         }
 

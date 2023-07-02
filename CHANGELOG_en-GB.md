@@ -1,4 +1,4 @@
-# Unreleased 2.x
+# 2.1.0
 * Adjust wordings and remove typos
 * Add configuration within the plugin to activate its function explicit
 * Add button to test the service with a sample image
