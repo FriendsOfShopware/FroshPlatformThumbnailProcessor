@@ -1,11 +1,11 @@
 Don't waste the computing power and space with thumbnails! With this plugin you can access dynamic thumbnails.  
-This plugin also provides the LazyLoading function with auto generated sizes for thumbnails.  
 Every product, every picture in the shopping worlds legitimately has thumbnails. These become standard
 generated and saved automatically during upload.  
 At this point this plugin intervenes and provides the function that no more thumbnail files are created. The only thing that remains is that the thumbnail sizes are stored in the database.  
 The thumbnails are then generated and delivered by an external service in real time when visiting.
 
 ## Advantages of saving thumbnail generation:
+- Use external service to deliver images optimized
 - Save space on disk
 - Faster upload of images
 - Relief of the server
@@ -13,7 +13,7 @@ The thumbnails are then generated and delivered by an external service in real t
 
 ## Adding more thumbnail sizes:
 - Save new size in the folder of the media management
-- then run the command `bin/console media:generate-thumbnails` on the console to update the thumbnails for all images in the database
+- then run the command `bin/console media:generate-thumbnails` on the console to update the thumbnails for all images in the database (no more needed from version 3.0.2)
 - Clear shop cache
 
 ## Which service do I now use for the thumbnails:

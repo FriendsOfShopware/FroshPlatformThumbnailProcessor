@@ -1,5 +1,5 @@
 Verschwende keine Rechenleistung und keinen Speicherplatz mit Thumbnails!  
-Mit diesem Plugin können Sie auf dynamische Thumbnails zurückgreifen. Außerdem stellt dieses Plugin die Funktion von LazyLoading mit automatisch generierten Sizes für Thumbnails zur Verfügung.  
+Mit diesem Plugin können Sie auf dynamische Thumbnails zurückgreifen.  
 Jedes Produkt, jedes Bild in der Einkaufswelten hat berechtigterweise Thumbnails. Diese werden standardmäßig
 automatisch beim Upload erzeugt und auf der Festplatte gespeichert.  
 An diesem Punkt greift dieses Plugin ein und stellt die Funktion zur Verfügung, dass keine Thumbnaildateien mehr erstellt
@@ -7,6 +7,7 @@ werden müssen. Es bleibt lediglich, dass die Thumbnail-Größen in der Datenban
 Die Thumbnails werden dann in Echtzeit beim Besuch durch einen externen Dienst erzeugt und ausgeliefert.
 
 ## Vorteile vom Sparen der Thumbnailerzeugung:
+- Nutze einen externen Dienst, um deine Bilder optimiert auszuliefern
 - Sparen von Speicherplatz
 - Schnellerer Upload von Bildern
 - Entlastung des Servers
@@ -14,7 +15,7 @@ Die Thumbnails werden dann in Echtzeit beim Besuch durch einen externen Dienst e
 
 ## Hinzufügen weiterer Thumbnail-Größen:
 - im Order der Medienverwaltung neue Größe hinterlegen
-- dann den Befehl `bin/console media:generate-thumbnails` auf der Konsole ausführen, damit die Thumbnails für alle Bilder in der Datenbank aktualisiert werden
+- dann den Befehl `bin/console media:generate-thumbnails` auf der Konsole ausführen, damit die Thumbnails für alle Bilder in der Datenbank aktualisiert werden (ab v3.0.2 nicht mehr notwendig)
 - Shop-Cache leeren
 
 ## Welchen Dienst verwende ich nun für die Thumbnails:
