@@ -24,8 +24,8 @@ Dieses Plugin erstellt keine Thumbnails! Dazu werden die entsprechenden Dienste 
 
 Es gibt drei Parameter, die Ihnen optional zur Erstellung des Links zur Verfügung stehen:  
 {mediaUrl}: Primär die Config shopware.cdn.url, alternativ Shop-Url  
-{mediaPath}: Der relative Pfad zu dem Originalbild  
-{width}: Die Breite des Thumbnails  
+{mediaPath}: relativer Pfad zu dem Originalbild  
+{width}: Breite des Thumbnails  
 
 Finde fertige Template auf GitHub:  
 [GitHub Category Patterns](https://github.com/FriendsOfShopware/FroshPlatformThumbnailProcessor/discussions/categories/patterns).
