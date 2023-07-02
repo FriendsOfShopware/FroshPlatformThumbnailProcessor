@@ -1,3 +1,6 @@
+# 3.0.5
+* Add support for plugins testimage coming from Shopware 6.4 
+
 # 3.0.4
 * Add configuration within the plugin to activate its function explicit
 * Add button to test the service with a sample image

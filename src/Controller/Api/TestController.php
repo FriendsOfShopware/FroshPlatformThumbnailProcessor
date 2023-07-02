@@ -88,8 +88,9 @@ class TestController
     {
         $context = Context::createDefaultContext();
         $mediaId = \hash('xxh128', $fileContent);
+        $pathInfo = pathinfo($testFile);
 
-        $existingMedia = $this->getMediaById($mediaId, $context);
+        $existingMedia = $this->getMediaById($pathInfo['filename'], $context);
         if ($existingMedia) {
             return $existingMedia;
         }
@@ -106,7 +107,6 @@ class TestController
             $context
         );
 
-        $pathInfo = pathinfo($testFile);
         if (empty($pathInfo['extension'])) {
             $pathInfo['extension'] = 'jpg';
         }
@@ -124,7 +124,7 @@ class TestController
             $context
         );
 
-        $existingMedia = $this->getMediaById($mediaId, $context);
+        $existingMedia = $this->getMediaById($pathInfo['filename'], $context);
         if ($existingMedia) {
             return $existingMedia;
         }
@@ -132,9 +132,11 @@ class TestController
         throw new \RuntimeException('Media has not been saved!');
     }
 
-    private function getMediaById(string $id, Context $context): ?MediaEntity
+    private function getMediaById(string $fileName, Context $context): ?MediaEntity
     {
-        $criteria = new Criteria([$id]);
+        $criteria = new Criteria();
+        //we use the fileName filter to add backward compatibility
+        $criteria->addFilter(new EqualsFilter('fileName', $fileName));
 
         return $this->mediaRepository->search($criteria, $context)->getEntities()->first();
     }
