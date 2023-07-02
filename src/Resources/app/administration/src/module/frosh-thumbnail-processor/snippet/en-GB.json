@@ -1,0 +1,12 @@
+{
+  "thumbnail-processor": {
+    "test": {
+      "title": "Service Test",
+      "success": "Seems good! Please check the displayed sample image to contain lighten trees view.",
+      "error": {
+        "general": "There was an error loading the image. Please check the url and setting.",
+        "noResize": "The used service does not resize the image."
+      }
+    }
+  }
+}

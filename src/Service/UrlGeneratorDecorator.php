@@ -2,11 +2,13 @@
 
 namespace Frosh\ThumbnailProcessor\Service;
 
+use Frosh\ThumbnailProcessor\Controller\Api\TestController;
 use Shopware\Core\Content\Media\Aggregate\MediaThumbnail\MediaThumbnailEntity;
 use Shopware\Core\Content\Media\MediaEntity;
 use Shopware\Core\Content\Media\MediaType\ImageType;
 use Shopware\Core\Content\Media\Pathname\UrlGeneratorInterface;
 use Shopware\Core\DevOps\Environment\EnvironmentHelper;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Contracts\Service\ResetInterface;
 
@@ -33,6 +35,10 @@ class UrlGeneratorDecorator implements UrlGeneratorInterface, ResetInterface
 
     public function getAbsoluteMediaUrl(MediaEntity $media): string
     {
+        if ($this->isActive() === false) {
+            return $this->decoratedService->getAbsoluteMediaUrl($media);
+        }
+
         if (!($media->getMediaType() instanceof ImageType)) {
             return $this->decoratedService->getAbsoluteMediaUrl($media);
         }
@@ -55,6 +61,10 @@ class UrlGeneratorDecorator implements UrlGeneratorInterface, ResetInterface
 
     public function getAbsoluteThumbnailUrl(MediaEntity $media, MediaThumbnailEntity $thumbnail): string
     {
+        if ($this->isActive() === false) {
+            return $this->decoratedService->getAbsoluteMediaUrl($media);
+        }
+
         if (!$this->canProcessFileExtension($media->getFileExtension())) {
             return $this->decoratedService->getAbsoluteMediaUrl($media);
         }
@@ -172,5 +182,27 @@ class UrlGeneratorDecorator implements UrlGeneratorInterface, ResetInterface
         }
 
         return '3000';
+    }
+
+    private function isActive(): bool
+    {
+        $activeConfig = $this->configReader->getConfig('Active');
+
+        if ($activeConfig === null) {
+            return true;
+        }
+
+        return $this->testisActive() || !empty($activeConfig);
+    }
+
+    private function testisActive(): bool
+    {
+        $mainRequest = $this->requestStack->getMainRequest();
+
+        if ($mainRequest instanceof Request) {
+            return $mainRequest->attributes->has(TestController::REQUEST_ATTRIBUTE_TEST_ACTIVE);
+        }
+
+        return false;
     }
 }

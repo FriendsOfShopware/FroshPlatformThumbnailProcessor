@@ -1,3 +1,7 @@
+# 3.0.4
+* Add configuration within the plugin to activate its function explicit
+* Add button to test the service with a sample image
+
 # 3.0.3
 * Adjust wordings and remove typos
 
