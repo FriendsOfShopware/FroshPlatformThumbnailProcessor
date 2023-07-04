@@ -9,9 +9,8 @@
                  decorates="Shopware\Core\Content\Media\Pathname\UrlGeneratorInterface">
             <argument type="service" id="Frosh\ThumbnailProcessor\Service\UrlGeneratorDecorator.inner"/>
             <argument type="service" id="Frosh\ThumbnailProcessor\Service\ThumbnailUrlTemplateInterface"/>
-            <argument type="service" id="request_stack"/>
+            <argument type="service" id="shopware.filesystem.public"/>
             <argument type="service" id="Frosh\ThumbnailProcessor\Service\ConfigReader"/>
-            <argument>%shopware.filesystem.public.url%</argument>
 
             <tag name="kernel.reset" method="reset"/>
         </service>
@@ -24,6 +23,7 @@
         <service id="Frosh\ThumbnailProcessor\Service\ConfigReader">
             <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService"/>
             <argument type="service" id="Frosh\ThumbnailProcessor\Service\SalesChannelIdDetector"/>
+            <argument type="service" id="request_stack"/>
         </service>
 
         <service id="Frosh\ThumbnailProcessor\Service\SalesChannelIdDetector">

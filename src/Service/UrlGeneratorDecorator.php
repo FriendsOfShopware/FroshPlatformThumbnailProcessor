@@ -2,22 +2,14 @@
 
 namespace Frosh\ThumbnailProcessor\Service;
 
-use Frosh\ThumbnailProcessor\Controller\Api\TestController;
+use League\Flysystem\FilesystemOperator;
 use Shopware\Core\Content\Media\Aggregate\MediaThumbnail\MediaThumbnailEntity;
 use Shopware\Core\Content\Media\MediaEntity;
-use Shopware\Core\Content\Media\MediaType\ImageType;
 use Shopware\Core\Content\Media\Pathname\UrlGeneratorInterface;
-use Shopware\Core\DevOps\Environment\EnvironmentHelper;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Contracts\Service\ResetInterface;
 
 class UrlGeneratorDecorator implements UrlGeneratorInterface, ResetInterface
 {
-    private readonly ?string $baseUrl;
-
-    private ?string $fallbackBaseUrl = null;
-
     /**
      * @var array<string>|null
      */
@@ -26,31 +18,24 @@ class UrlGeneratorDecorator implements UrlGeneratorInterface, ResetInterface
     public function __construct(
         private readonly UrlGeneratorInterface $decoratedService,
         private readonly ThumbnailUrlTemplateInterface $thumbnailUrlTemplate,
-        private readonly RequestStack $requestStack,
-        private readonly ConfigReader $configReader,
-        ?string $baseUrl = null
+        private readonly FilesystemOperator $filesystem,
+        private readonly ConfigReader $configReader
     ) {
-        $this->baseUrl = $this->normalizeBaseUrl($baseUrl);
     }
 
     public function getAbsoluteMediaUrl(MediaEntity $media): string
     {
-        if ($this->isActive() === false) {
+        if ($this->canRun($media) === false) {
             return $this->decoratedService->getAbsoluteMediaUrl($media);
         }
 
-        if (!($media->getMediaType() instanceof ImageType)) {
-            return $this->decoratedService->getAbsoluteMediaUrl($media);
-        }
-
-        if (!$this->canProcessFileExtension($media->getFileExtension())) {
-            return $this->decoratedService->getAbsoluteMediaUrl($media);
-        }
+        $maxWidth = $this->configReader->getConfig('ProcessOriginalImageMaxWidth');
+        \assert(\is_string($maxWidth));
 
         return $this->thumbnailUrlTemplate->getUrl(
             $this->getBaseUrl(),
             $this->getRelativeMediaUrl($media),
-            $this->getMaxWidth()
+            $maxWidth
         );
     }
 
@@ -61,11 +46,7 @@ class UrlGeneratorDecorator implements UrlGeneratorInterface, ResetInterface
 
     public function getAbsoluteThumbnailUrl(MediaEntity $media, MediaThumbnailEntity $thumbnail): string
     {
-        if ($this->isActive() === false) {
-            return $this->decoratedService->getAbsoluteMediaUrl($media);
-        }
-
-        if (!$this->canProcessFileExtension($media->getFileExtension())) {
+        if ($this->canRun($media) === false) {
             return $this->decoratedService->getAbsoluteMediaUrl($media);
         }
 
@@ -83,49 +64,25 @@ class UrlGeneratorDecorator implements UrlGeneratorInterface, ResetInterface
 
     public function reset(): void
     {
-        $this->fallbackBaseUrl = null;
         $this->extensionsAllowList = null;
     }
 
-    private function getFallbackUrl(): string
+    private function canRun(MediaEntity $media): bool
     {
-        if ($this->fallbackBaseUrl) {
-            return $this->fallbackBaseUrl;
+        if ($this->configReader->getConfig('Active') === false) {
+            return false;
         }
 
-        $this->fallbackBaseUrl = $this->createFallbackUrl();
-
-        return $this->fallbackBaseUrl;
-    }
-
-    private function createFallbackUrl(): string
-    {
-        $request = $this->requestStack->getMainRequest();
-        if ($request !== null) {
-            $basePath = $request->getSchemeAndHttpHost() . $request->getBasePath();
-
-            return rtrim($basePath, '/');
+        if (!$this->canProcessFileExtension($media->getFileExtension())) {
+            return false;
         }
 
-        return (string) EnvironmentHelper::getVariable('APP_URL');
-    }
-
-    private function normalizeBaseUrl(?string $baseUrl): ?string
-    {
-        if (!$baseUrl) {
-            return null;
-        }
-
-        return rtrim($baseUrl, '/');
+        return true;
     }
 
     private function getBaseUrl(): string
     {
-        if (!$this->baseUrl) {
-            return $this->getFallbackUrl();
-        }
-
-        return $this->baseUrl;
+        return $this->filesystem->publicUrl('');
     }
 
     private function canProcessFileExtension(?string $fileExtension): bool
@@ -167,42 +124,5 @@ class UrlGeneratorDecorator implements UrlGeneratorInterface, ResetInterface
         }
 
         return $this->extensionsAllowList;
-    }
-
-    private function getMaxWidth(): string
-    {
-        $maxWidth = $this->configReader->getConfig('ProcessOriginalImageMaxWidth');
-
-        if (\is_string($maxWidth)) {
-            return $maxWidth;
-        }
-
-        if (\is_int($maxWidth) || \is_float($maxWidth)) {
-            return (string) $maxWidth;
-        }
-
-        return '3000';
-    }
-
-    private function isActive(): bool
-    {
-        $activeConfig = $this->configReader->getConfig('Active');
-
-        if ($activeConfig === null) {
-            return true;
-        }
-
-        return $this->testisActive() || !empty($activeConfig);
-    }
-
-    private function testisActive(): bool
-    {
-        $mainRequest = $this->requestStack->getMainRequest();
-
-        if ($mainRequest instanceof Request) {
-            return $mainRequest->attributes->has(TestController::REQUEST_ATTRIBUTE_TEST_ACTIVE);
-        }
-
-        return false;
     }
 }

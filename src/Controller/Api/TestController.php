@@ -5,6 +5,7 @@ namespace Frosh\ThumbnailProcessor\Controller\Api;
 use Shopware\Core\Content\Media\Aggregate\MediaThumbnail\MediaThumbnailEntity;
 use Shopware\Core\Content\Media\File\FileFetcher;
 use Shopware\Core\Content\Media\File\FileSaver;
+use Shopware\Core\Content\Media\MediaCollection;
 use Shopware\Core\Content\Media\MediaEntity;
 use Shopware\Core\Content\Media\Pathname\UrlGeneratorInterface;
 use Shopware\Core\Framework\Context;
@@ -21,6 +22,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class TestController
 {
     public const REQUEST_ATTRIBUTE_TEST_ACTIVE = 'FroshPlatformThumbnailProcessorTestActive';
+    public const TEST_FILE_PATH = __DIR__ . '/../../Resources/data/froshthumbnailprocessortestimage.jpg';
 
     public function __construct(
         private readonly UrlGeneratorInterface $urlGenerator,
@@ -38,16 +40,10 @@ class TestController
             return new JsonResponse(['success' => false]);
         }
 
-        $testFile = \realpath(__DIR__ . '/../../Resources/data/froshthumbnailprocessortestimage.jpg');
+        $testFile = \realpath(self::TEST_FILE_PATH);
 
-        if (!\is_string($testFile) || !\is_file($testFile)) {
-            throw new \RuntimeException(\sprintf('Test file at "%s" is missing', $testFile));
-        }
-
-        $fileContent = \file_get_contents($testFile);
-
-        if (!\is_string($fileContent)) {
-            throw new \RuntimeException(\sprintf('Test file at "%s" could not be read', $testFile));
+        if (!\is_string($testFile) || !\is_file($testFile) || !\is_readable($testFile)) {
+            throw new \RuntimeException(\sprintf('Test file at "%s" is missing or not readable', $testFile));
         }
 
         $request->attributes->set(self::REQUEST_ATTRIBUTE_TEST_ACTIVE, '1');
@@ -57,7 +53,7 @@ class TestController
             $request->attributes->set(PlatformRequest::ATTRIBUTE_SALES_CHANNEL_ID, $salesChannelId);
         }
 
-        $media = $this->getSampleMedia($fileContent, $testFile);
+        $media = $this->getSampleMedia($testFile);
 
         $thumbnail = new MediaThumbnailEntity();
         $thumbnail->setWidth(200);
@@ -77,15 +73,18 @@ class TestController
             ->searchIds($criteria, $context)
             ->getIds();
 
-        if (\is_string($ids[0])) {
+        if (!empty($ids[0]) && \is_string($ids[0])) {
             return $ids[0];
         }
 
         throw new \RuntimeException('Media folder for product could not have been found!');
     }
 
-    private function getSampleMedia(string $fileContent, string $testFile): MediaEntity
+    private function getSampleMedia(string $testFile): MediaEntity
     {
+        $fileContent = \file_get_contents($testFile);
+        \assert(\is_string($fileContent));
+
         $context = Context::createDefaultContext();
         $mediaId = \hash('xxh128', $fileContent);
         $pathInfo = pathinfo($testFile);
@@ -107,14 +106,10 @@ class TestController
             $context
         );
 
-        if (empty($pathInfo['extension'])) {
-            $pathInfo['extension'] = 'jpg';
-        }
-
         $uploadedFile = $this->fileFetcher->fetchBlob(
             $fileContent,
-            $pathInfo['extension'],
-            'image/' . $pathInfo['extension']
+            'jpg',
+            'image/jpg'
         );
 
         $this->fileSaver->persistFileToMedia(
@@ -138,6 +133,9 @@ class TestController
         //we use the fileName filter to add backward compatibility
         $criteria->addFilter(new EqualsFilter('fileName', $fileName));
 
-        return $this->mediaRepository->search($criteria, $context)->getEntities()->first();
+        /** @var MediaCollection $entities */
+        $entities = $this->mediaRepository->search($criteria, $context)->getEntities();
+
+        return $entities->first();
     }
 }
