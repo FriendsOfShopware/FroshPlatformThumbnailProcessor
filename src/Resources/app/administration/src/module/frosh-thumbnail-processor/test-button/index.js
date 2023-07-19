@@ -21,16 +21,13 @@ Component.register('thumbnailprocessor-test', {
 
     computed: {
         pluginSalesChannelId() {
-            let configData = this.$parent;
-            for (let i = 0; i < 20; i++) {
-                if (typeof configData.currentSalesChannelId != "undefined") {
-                    return configData.currentSalesChannelId;
-                }
+            const configComponent = this.getParentComponent();
 
-                configData = configData.$parent;
+            if (!configComponent) {
+                throw "Can not get pluginConfigData";
             }
 
-            throw "Can not get pluginConfigData";
+            return configComponent.currentSalesChannelId;
         }
     },
 
@@ -52,47 +49,43 @@ Component.register('thumbnailprocessor-test', {
             });
         },
 
-        saveAndCheck() {
-            this.isLoading = true;
-            this.systemConfigSaveAll();
-        },
-
         check() {
-            const me = this;
+            this.isLoading = true;
 
-            me.thumbnailProcessorTest.getUrl(this.pluginSalesChannelId).then((res) => {
+            this.thumbnailProcessorTest.getUrl(this.pluginSalesChannelId).then((res) => {
                 if (res.url) {
-                    me.isSuccessful = true;
-
+                    this.isSuccessful = true;
+                    const me = this;
                     const img = document.createElement('img');
-                    img.width = 200;
-                    img.height = 200;
+                    const testImageContainerElement = document.querySelector('#testimage-container');
+                    const testImageElement = testImageContainerElement.querySelector('img');
+                    const testResultElement = document.querySelector('#test-result');
 
+                    img.src    = res.url;
+                    img.width  = 200;
+                    img.height = 200;
                     img.onload = function() {
                         if (img.naturalWidth !== 200) {
+                            testResultElement.innerText = me.$tc('thumbnail-processor.test.error.noResize');
                             me.showError(me.$tc('thumbnail-processor.test.error.noResize'), res.url);
                         }
                     };
-
                     img.onerror = function() {
+                        testImageElement.height = 0;
+                        testImageElement.width = 0;
+                        testResultElement.innerText = me.$tc('thumbnail-processor.test.error.general');
                         me.showError(me.$tc('thumbnail-processor.test.error.general'), res.url);
                     };
 
-                    img.src = res.url;
+                    if (testImageElement) {
+                        testImageElement.replaceWith(img);
 
-                    const testElement = document.querySelector('[name="FroshPlatformThumbnailProcessor.config.test"]');
-                    const testImage = testElement.querySelector('.frosh-thumbnail-processor-testimage img');
-
-                    if (testImage) {
-                        testImage.replaceWith(img);
-                    } else {
-                        const testImageContainer = document.createElement('p');
-                        testImageContainer.classList.add('frosh-thumbnail-processor-testimage');
-                        testImageContainer.appendChild(img);
-                        testElement.appendChild(testImageContainer);
+                        return;
                     }
+
+                    testImageContainerElement.appendChild(img);
                 } else {
-                    me.showError(me.$tc('thumbnail-processor.test.error.general'));
+                    this.showError(this.$tc('thumbnail-processor.test.error.general'));
                 }
 
                 setTimeout(() => {
@@ -102,21 +95,32 @@ Component.register('thumbnailprocessor-test', {
         },
 
         systemConfigSaveAll() {
-            const me = this;
-            let el = this.$parent;
+            this.isLoading = true;
+            const configComponent = this.getParentComponent();
 
-            for (let i = 0; i < 30; i++) {
-                if (typeof el.$refs.systemConfig != "undefined") {
-                    return el.$refs.systemConfig.saveAll()
-                        .then(() => {
-                            me.check();
-                        })
-                }
+            if (!configComponent) {
+                this.isLoading = false;
 
-                el = el.$parent;
+                throw "Can not get systemConfig";
             }
 
-            throw "Can not get systemConfig";
-        }
-    }
+            configComponent.saveAll()
+                .then(() => {
+                    this.check();
+                    this.isLoading = false;
+                });
+        },
+
+        getParentComponent (component = this) {
+            if (typeof component.actualConfigData !== 'undefined') {
+                return component;
+            }
+
+            if (component.$parent) {
+                return this.getParentComponent(component.$parent);
+            }
+
+            return null;
+        },
+    },
 })
