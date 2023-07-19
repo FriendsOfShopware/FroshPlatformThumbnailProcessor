@@ -1,3 +1,7 @@
-.frosh-thumbnail-processor-testimage {
+.frosh-thumbnail-processor .testdata-container {
     margin: 20px 0;
+}
+
+#test-result {
+    margin: 10px 0;
 }
