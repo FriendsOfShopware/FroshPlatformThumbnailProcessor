@@ -40,7 +40,7 @@ jobs:
         if: matrix.version == 'v6.5.0'
         run: |
           cd /opt/shopware/
-          composer require tomasvotruba/type-coverage --dev
+          composer require tomasvotruba/type-coverage --dev --no-scripts
 
       - name: PHPStan
         run: |
