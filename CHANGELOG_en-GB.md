@@ -1,3 +1,7 @@
+# 4.0.0
+* Add unit and integration tests
+* Changed Testbutton to show error text above the image
+
 # 3.0.5
 * Add support for plugins testimage coming from Shopware 6.4 
 
