@@ -36,12 +36,15 @@ Component.register('thumbnailprocessor-test', {
             this.isSuccessful = false;
         },
 
-        showError(message, sampleUrl) {
+        showError(message, sampleUrl, testResultElement) {
             this.isSuccessful = false;
 
             if (sampleUrl) {
                 message += ' sample url: ' + sampleUrl;
             }
+
+            testResultElement.innerText = message;
+            testResultElement.scrollIntoView();
 
             this.createNotificationError({
                 title: this.$tc('thumbnail-processor.test.title'),
@@ -66,15 +69,13 @@ Component.register('thumbnailprocessor-test', {
                     img.height = 200;
                     img.onload = function() {
                         if (img.naturalWidth !== 200) {
-                            testResultElement.innerText = me.$tc('thumbnail-processor.test.error.noResize');
-                            me.showError(me.$tc('thumbnail-processor.test.error.noResize'), res.url);
+                            me.showError(me.$tc('thumbnail-processor.test.error.noResize'), res.url, testResultElement);
                         }
                     };
                     img.onerror = function() {
                         testImageElement.height = 0;
                         testImageElement.width = 0;
-                        testResultElement.innerText = me.$tc('thumbnail-processor.test.error.general');
-                        me.showError(me.$tc('thumbnail-processor.test.error.general'), res.url);
+                        me.showError(me.$tc('thumbnail-processor.test.error.general'), res.url, testResultElement);
                     };
 
                     if (testImageElement) {
