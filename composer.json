@@ -50,5 +50,11 @@
         "psr-4": {
             "Frosh\\ThumbnailProcessor\\": "src/"
         }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Frosh\\ThumbnailProcessor\\Tests\\Unit": "tests/unit",
+            "Frosh\\ThumbnailProcessor\\Tests\\Integration": "tests/integration"
+        }
     }
 }

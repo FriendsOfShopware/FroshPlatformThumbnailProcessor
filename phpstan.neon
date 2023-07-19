@@ -2,6 +2,9 @@ parameters:
     level: 9
     paths:
         - src
+        - tests
+    type_coverage:
+        param_type: 95
     ignoreErrors:
         -
             message: "#^Call to an undefined method Shopware\\\\Core\\\\Content\\\\Media\\\\Message\\\\GenerateThumbnailsMessage\\:\\:setContext\\(\\)\\.$#"
@@ -10,10 +13,32 @@ parameters:
             reportUnmatched: false
 
         -
+            message: "#^Method Frosh\\\\ThumbnailProcessor\\\\DependencyInjection\\\\ThumbnailService\\:\\:(.*)\\(\\) is unused\\.$#"
+            path: src/DependencyInjection/ThumbnailService.php
+
+        -
+            message: '#^Call to deprecated method#'
+            path: src/DependencyInjection/FileSaver.php
+            reportUnmatched: false
+
+        -
+            message: "#(.*?)Shopware\\\\Tests\\\\Unit\\\\Common\\\\Stubs\\\\SystemConfigService\\\\StaticSystemConfigService#"
+            reportUnmatched: false
+
+        -
+            message: "#(.*?)Shopware\\\\Tests\\\\Unit\\\\Common\\\\Stubs\\\\DataAbstractionLayer\\\\StaticEntityRepository#"
+            reportUnmatched: false
+
+        # NEXT-29041 - Needs to be fixed with a script, rest goes to baseline
+        -
+            message: '#.* generic class Shopware\\Core\\Framework\\DataAbstractionLayer\\EntityRepository.*not specify its types: TEntityCollection#'
+            reportUnmatched: false
+
+        -
             message: "#^Parameter \\#1 \\$objectOrClass of class ReflectionClass constructor expects class\\-string\\<T of object\\>\\|T of object, string given\\.$#"
             count: 1
             path: src/DependencyInjection/GeneratorCompilerPass.php
 
         -
-            message: "#^Method Frosh\\\\ThumbnailProcessor\\\\DependencyInjection\\\\ThumbnailService\\:\\:(.*)\\(\\) is unused\\.$#"
-            path: src/DependencyInjection/ThumbnailService.php
+            message: "#^Property Frosh\\\\ThumbnailProcessor\\\\Tests\\\\Integration\\\\MediaUrlTest(.*)does not accept object\\|null\\.$#"
+            path: tests/integration/MediaUrlTest.php
