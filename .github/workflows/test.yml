@@ -24,6 +24,8 @@ jobs:
       - name: Test
         run: |
           start-mysql
+          mysql -V
+          php -v
           cp -r "./" "/plugins/FroshPlatformThumbnailProcessor"
           cd /plugins/FroshPlatformThumbnailProcessor
           php -d pcov.enabled=1 /opt/shopware/vendor/bin/phpunit  --coverage-clover clover.xml
