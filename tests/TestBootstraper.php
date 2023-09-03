@@ -10,7 +10,7 @@ if (\is_file($testBootstrapperPluginDevDocker)) {
     $testBootstrapper = require $testBootstrapperPluginDevDocker;
 
     return $testBootstrapper
-        /*->setLoadEnvFile(true)*/
+        ->setLoadEnvFile(true)
         ->setForceInstallPlugins(true)
         ->addActivePlugins('FroshPlatformThumbnailProcessor')
         ->bootstrap()
