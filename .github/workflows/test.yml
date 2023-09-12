@@ -30,7 +30,7 @@ jobs:
           cd /plugins/FroshPlatformThumbnailProcessor
           composer update -d /opt/shopware
 
-      - name: Install specific dependencies for PHPUNIT
+      - name: Install specific dependencies for PHPUnit
         if: matrix.version == 'v6.5.0'
         run: |
           composer require react/promise:~2 -d /opt/shopware/vendor-bin/roave-backward-compatibility-check
