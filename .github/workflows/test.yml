@@ -29,6 +29,7 @@ jobs:
           cp -r "./" "/plugins/FroshPlatformThumbnailProcessor"
           cd /plugins/FroshPlatformThumbnailProcessor
           composer update -d /opt/shopware
+          composer update -d /opt/shopware/vendor-bin/roave-backward-compatibility-check
           php -d pcov.enabled=1 /opt/shopware/vendor/bin/phpunit  --coverage-clover clover.xml
 
       - uses: codecov/codecov-action@v3
