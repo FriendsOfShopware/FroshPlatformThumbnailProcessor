@@ -30,11 +30,10 @@ jobs:
           cd /plugins/FroshPlatformThumbnailProcessor
           composer update -d /opt/shopware
 
-      - name: Install specific dependencies for v6.5.0
+      - name: Install specific dependencies for PHPUNIT
         if: matrix.version == 'v6.5.0'
         run: |
           composer require react/promise:~2 -d /opt/shopware/vendor-bin/roave-backward-compatibility-check
-          composer require tomasvotruba/type-coverage --dev --no-scripts -d /opt/shopware/
 
       - name: PHPUnit
         run: |
@@ -47,6 +46,11 @@ jobs:
           files: ./clover.xml
           root_dir: /plugins/FroshPlatformThumbnailProcessor
           working-directory: /plugins/FroshPlatformThumbnailProcessor
+
+      - name: Install specific dependencies for PHPStan
+        if: matrix.version == 'v6.5.0'
+        run: |
+          composer require tomasvotruba/type-coverage --dev --no-scripts -d /opt/shopware/
 
       - name: PHPStan
         run: |
