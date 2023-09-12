@@ -21,7 +21,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Test
+      - name: Prepare
         run: |
           start-mysql
           mysql -V
@@ -29,6 +29,15 @@ jobs:
           cp -r "./" "/plugins/FroshPlatformThumbnailProcessor"
           cd /plugins/FroshPlatformThumbnailProcessor
           composer update -d /opt/shopware
+
+      - name: Install specific dependencies for v6.5.0
+        if: matrix.version == 'v6.5.0'
+        run: |
+          composer require react/promise:~2 -d /opt/shopware/vendor-bin/roave-backward-compatibility-check
+          composer require tomasvotruba/type-coverage --dev --no-scripts -d /opt/shopware/
+
+      - name: PHPUnit
+        run: |
           php -d pcov.enabled=1 /opt/shopware/vendor/bin/phpunit  --coverage-clover clover.xml
 
       - uses: codecov/codecov-action@v3
@@ -38,13 +47,6 @@ jobs:
           files: ./clover.xml
           root_dir: /plugins/FroshPlatformThumbnailProcessor
           working-directory: /plugins/FroshPlatformThumbnailProcessor
-
-      - name: Install dependencies for PHPStan
-        if: matrix.version == 'v6.5.0'
-        run: |
-          cd /opt/shopware/
-          composer require react/promise:~2 -d /opt/shopware/vendor-bin/roave-backward-compatibility-check
-          composer require tomasvotruba/type-coverage --dev --no-scripts
 
       - name: PHPStan
         run: |
