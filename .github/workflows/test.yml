@@ -29,7 +29,6 @@ jobs:
           cp -r "./" "/plugins/FroshPlatformThumbnailProcessor"
           cd /plugins/FroshPlatformThumbnailProcessor
           composer update -d /opt/shopware
-          composer update -d /opt/shopware/vendor-bin/roave-backward-compatibility-check
           php -d pcov.enabled=1 /opt/shopware/vendor/bin/phpunit  --coverage-clover clover.xml
 
       - uses: codecov/codecov-action@v3
@@ -44,6 +43,7 @@ jobs:
         if: matrix.version == 'v6.5.0'
         run: |
           cd /opt/shopware/
+          composer require react/promise:~2 -d /opt/shopware/vendor-bin/roave-backward-compatibility-check
           composer require tomasvotruba/type-coverage --dev --no-scripts
 
       - name: PHPStan
