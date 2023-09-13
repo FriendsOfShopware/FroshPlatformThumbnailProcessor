@@ -48,11 +48,6 @@ jobs:
           root_dir: /plugins/FroshPlatformThumbnailProcessor
           working-directory: /plugins/FroshPlatformThumbnailProcessor
 
-      - name: Install specific dependencies for PHPStan
-        if: matrix.version == 'v6.5.0'
-        run: |
-          composer require tomasvotruba/type-coverage --dev --no-scripts -d /opt/shopware/
-
       - name: PHPStan
         run: |
           cd /plugins/FroshPlatformThumbnailProcessor

@@ -1,10 +1,8 @@
 parameters:
-    level: 9
+    level: max
     paths:
         - src
         - tests
-    type_coverage:
-        param_type: 95
     ignoreErrors:
         -
             message: "#^Call to an undefined method Shopware\\\\Core\\\\Content\\\\Media\\\\Message\\\\GenerateThumbnailsMessage\\:\\:setContext\\(\\)\\.$#"
