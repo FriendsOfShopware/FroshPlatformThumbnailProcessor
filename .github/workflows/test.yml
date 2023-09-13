@@ -29,11 +29,6 @@ jobs:
           cp -r "./" "/plugins/FroshPlatformThumbnailProcessor"
           cd /plugins/FroshPlatformThumbnailProcessor
 
-      - name: PHPStan
-        run: |
-          cd /plugins/FroshPlatformThumbnailProcessor
-          /opt/shopware/vendor/bin/phpstan analyse -c phpstan.neon
-
       - name: PHPUnit
         run: |
           cd /plugins/FroshPlatformThumbnailProcessor
@@ -46,3 +41,14 @@ jobs:
           files: ./clover.xml
           root_dir: /plugins/FroshPlatformThumbnailProcessor
           working-directory: /plugins/FroshPlatformThumbnailProcessor
+
+      - name: Install specific dependencies for PHPStan at v6.5.0
+        if: matrix.version == 'v6.5.0'
+        run: |
+          composer require tomasvotruba/type-coverage --dev --no-scripts -d /opt/shopware/
+
+      # we call this after PHPUnit to make sure that the generated files are available
+      - name: PHPStan
+        run: |
+          cd /plugins/FroshPlatformThumbnailProcessor
+          /opt/shopware/vendor/bin/phpstan analyse -c phpstan.neon
