@@ -49,7 +49,9 @@ Available variables with examples:
 Feel free to decorate `ThumbnailUrlTemplateInterface` to add more individual functions like [signed imgproxy](https://github.com/FriendsOfShopware/FroshPlatformThumbnailProcessorImgProxy)
 
 ## Removing unneeded thumbnails
-You may want to delete folder `thumbnails` within folder `public`
+You may want to delete folder `thumbnails` within folder `public`.
+If needed, you could create redirects on your web server for old paths.
+Example for Apache .htaccess: `RewriteRule ^thumbnail/(.*)_\d+x\d+.(.*)$ https://cdn.myshop.com/media/$1.$2 [L,R=301]`, consult their docs for more details.
 
 ## Adding more thumbnail sizes:
 - Save new size in the folder of the media management
