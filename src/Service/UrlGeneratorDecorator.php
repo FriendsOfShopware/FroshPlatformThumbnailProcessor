@@ -5,10 +5,10 @@ namespace Frosh\ThumbnailProcessor\Service;
 use League\Flysystem\FilesystemOperator;
 use Shopware\Core\Content\Media\Aggregate\MediaThumbnail\MediaThumbnailEntity;
 use Shopware\Core\Content\Media\MediaEntity;
+use Shopware\Core\Content\Media\Pathname\UrlGenerator;
 use Shopware\Core\Content\Media\Pathname\UrlGeneratorInterface;
-use Symfony\Contracts\Service\ResetInterface;
 
-class UrlGeneratorDecorator implements UrlGeneratorInterface, ResetInterface
+class UrlGeneratorDecorator extends UrlGenerator
 {
     /**
      * @var array<string>|null
