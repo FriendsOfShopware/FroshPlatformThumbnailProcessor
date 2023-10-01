@@ -8,6 +8,10 @@ use Shopware\Core\Content\Media\MediaEntity;
 use Shopware\Core\Content\Media\Pathname\UrlGenerator;
 use Shopware\Core\Content\Media\Pathname\UrlGeneratorInterface;
 
+/**
+ * We have to extend here, otherwise this would be thrown:
+ * Shopware\Core\Content\Media\Core\Strategy\BCStrategy::__construct(): Argument #3 ($generator) must be of type Shopware\Core\Content\Media\Pathname\UrlGenerator, Frosh\ThumbnailProcessor\Service\UrlGeneratorDecorator given
+ */
 class UrlGeneratorDecorator extends UrlGenerator
 {
     /**
