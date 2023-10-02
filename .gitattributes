@@ -1,3 +1,0 @@
-bin/ export-ignore
-phpstan.neon.dist export-ignore
-psalm.xml export-ignore
