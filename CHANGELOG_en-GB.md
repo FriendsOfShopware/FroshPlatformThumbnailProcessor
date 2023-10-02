@@ -1,3 +1,6 @@
+# 4.0.1
+* Add support for Shopware 6.5.6 with changed private methods
+
 # 4.0.0
 * Add unit and integration tests
 * Changed Testbutton to show error text above the image

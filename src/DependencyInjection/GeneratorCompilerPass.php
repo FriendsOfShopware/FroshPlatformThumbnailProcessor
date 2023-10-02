@@ -88,29 +88,17 @@ class GeneratorCompilerPass implements CompilerPassInterface
      */
     private function handleThumbnailService(NodeFinder $nodeFinder, array $ast): void
     {
-        $createThumbnailsForSizesNode = $this->getClassMethod($nodeFinder, 'createThumbnailsForSizes', $ast);
-
-        // we don't need to generate the files, so we just return the array
-        $createThumbnailsForSizesNode->stmts = (new ParserFactory())->create(ParserFactory::PREFER_PHP7)
-            ->parse('<?php if ($thumbnailSizes === null) {
-                                return [];
-                            }
-
-                            if ($thumbnailSizes->count() === 0) {
-                                return [];
-                            }
-
-                            $savedThumbnails = [];
-
-                            foreach ($thumbnailSizes as $size) {
-                                $savedThumbnails[] = [
-                                    \'mediaId\' => $media->getId(),
-                                    \'width\' => $size->getWidth(),
-                                    \'height\' => $size->getHeight(),
-                                ];
-                            }
-
-                            return $savedThumbnails;');
+        try {
+            $createThumbnailsForSizesNode = $this->getClassMethod($nodeFinder, 'createThumbnailsForSizes', $ast);
+            $this->handleCreateThumbnailsForSizes($createThumbnailsForSizesNode);
+        } catch (\RuntimeException $e) {
+            if ($e->getMessage() === 'Method createThumbnailsForSizes in class Shopware\Core\Content\Media\Thumbnail\ThumbnailService is missing') {
+                $generateAndSaveNode = $this->getClassMethod($nodeFinder, 'generateAndSave', $ast);
+                $this->handleGenerateAndSaveNode($generateAndSaveNode);
+            } else {
+                throw $e;
+            }
+        }
 
         // the strict option is useless with this plugin, so this should always be false
         $updateThumbnailsNode = $this->getClassMethod($nodeFinder, 'updateThumbnails', $ast);
@@ -231,5 +219,74 @@ class GeneratorCompilerPass implements CompilerPassInterface
         }
 
         return substr($lastOccur, 1);
+    }
+
+    private function handleCreateThumbnailsForSizes(ClassMethod $createThumbnailsForSizesNode): void
+    {
+        // we don't need to generate the files, so we just return the array
+        $createThumbnailsForSizesNode->stmts = (new ParserFactory())->create(ParserFactory::PREFER_PHP7)
+            ->parse('<?php if ($thumbnailSizes === null) {
+                                return [];
+                            }
+
+                            if ($thumbnailSizes->count() === 0) {
+                                return [];
+                            }
+
+                            $savedThumbnails = [];
+
+                            foreach ($thumbnailSizes as $size) {
+                                $savedThumbnails[] = [
+                                    \'mediaId\' => $media->getId(),
+                                    \'width\' => $size->getWidth(),
+                                    \'height\' => $size->getHeight(),
+                                ];
+                            }
+
+                            return $savedThumbnails;');
+    }
+
+    private function handleGenerateAndSaveNode(ClassMethod $generateAndSaveNode): void
+    {
+        // we don't need to generate the files, so we just return the array
+        $generateAndSaveNode->stmts = (new ParserFactory())->create(ParserFactory::PREFER_PHP7)
+            ->parse('<?php if ($sizes === null || $sizes->count() === 0) {
+                                    return [];
+                                }
+
+                                $records = [];
+
+                                $type = $media->getMediaType();
+                                if ($type === null) {
+                                    throw MediaException::mediaTypeNotLoaded($media->getId());
+                                }
+
+                                $mapped = [];
+                                foreach ($sizes as $size) {
+                                    $id = Uuid::randomHex();
+
+                                    $mapped[$size->getId()] = $id;
+
+                                    $records[] = [
+                                        \'id\' => $id,
+                                        \'mediaId\' => $media->getId(),
+                                        \'width\' => $size->getWidth(),
+                                        \'height\' => $size->getHeight(),
+                                    ];
+                                }
+
+                                // write thumbnail records to trigger path generation afterward
+                                $context->scope(Context::SYSTEM_SCOPE, function ($context) use ($records): void {
+                                    $context->addState(EntityIndexerRegistry::DISABLE_INDEXING);
+
+                                    $this->thumbnailRepository->create($records, $context);
+                                });
+
+                                $ids = \array_column($records, \'id\');
+
+                                // triggers the path generation for the persisted thumbnails
+                                $this->dispatcher->dispatch(new UpdateThumbnailPathEvent($ids));
+
+                                return $records;');
     }
 }
