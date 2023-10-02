@@ -17,6 +17,11 @@ parameters:
             path: src/DependencyInjection/ThumbnailService.php
 
         -
+            message: "#^Anonymous function should return array but returns mixed.#"
+            path: src/DependencyInjection/ThumbnailService.php
+            reportUnmatched: false
+
+        -
             message: '#^Call to deprecated method#'
             path: src/DependencyInjection/FileSaver.php
             reportUnmatched: false
@@ -29,7 +34,6 @@ parameters:
             message: "#(.*?)Shopware\\\\Tests\\\\Unit\\\\Common\\\\Stubs\\\\DataAbstractionLayer\\\\StaticEntityRepository#"
             reportUnmatched: false
 
-        # NEXT-29041 - Needs to be fixed with a script, rest goes to baseline
         -
             message: '#.* generic class Shopware\\Core\\Framework\\DataAbstractionLayer\\EntityRepository.*not specify its types: TEntityCollection#'
             reportUnmatched: false
@@ -42,3 +46,7 @@ parameters:
         -
             message: "#^Property Frosh\\\\ThumbnailProcessor\\\\Tests\\\\Integration\\\\MediaUrlTest(.*)does not accept object\\|null\\.$#"
             path: tests/integration/MediaUrlTest.php
+
+        -
+            message: "#Use AbstractMediaUrlGenerator instead#"
+            reportUnmatched: false
