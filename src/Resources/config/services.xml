@@ -15,6 +15,15 @@
             <tag name="kernel.reset" method="reset"/>
         </service>
 
+        <service id="Frosh\ThumbnailProcessor\Service\MediaUrlGenerator"
+                 decorates="Shopware\Core\Content\Media\Domain\Path\AbstractMediaUrlGenerator"
+                 decoration-on-invalid="ignore">
+            <argument type="service" id="Frosh\ThumbnailProcessor\Service\MediaUrlGenerator.inner"/>
+            <argument type="service" id="Frosh\ThumbnailProcessor\Service\ThumbnailUrlTemplateInterface"/>
+            <argument type="service" id="shopware.filesystem.public"/>
+            <argument type="service" id="Frosh\ThumbnailProcessor\Service\ConfigReader"/>
+        </service>
+
         <service id="Frosh\ThumbnailProcessor\Service\ThumbnailUrlTemplateInterface"
                  class="Frosh\ThumbnailProcessor\Service\ThumbnailUrlTemplate">
             <argument type="service" id="Frosh\ThumbnailProcessor\Service\ConfigReader"/>
