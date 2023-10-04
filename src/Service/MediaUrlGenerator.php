@@ -21,7 +21,7 @@ class MediaUrlGenerator extends AbstractMediaUrlGenerator
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function generate(array $paths): array
     {
