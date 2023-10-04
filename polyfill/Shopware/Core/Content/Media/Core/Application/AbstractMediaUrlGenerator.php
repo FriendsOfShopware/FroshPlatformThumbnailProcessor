@@ -3,7 +3,9 @@
 namespace Shopware\Core\Content\Media\Core\Application;
 
 if (!\class_exists(AbstractMediaUrlGenerator::class)) {
-    /*class AbstractMediaUrlGenerator {
-    }*/
+    abstract class AbstractMediaUrlGenerator
+    {
+        abstract public function generate(array $paths): array;
+    }
 }
 
