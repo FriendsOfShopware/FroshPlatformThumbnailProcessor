@@ -5,15 +5,10 @@ namespace Frosh\ThumbnailProcessor\Service;
 use League\Flysystem\FilesystemOperator;
 use Shopware\Core\Content\Media\Aggregate\MediaThumbnail\MediaThumbnailEntity;
 use Shopware\Core\Content\Media\MediaEntity;
-use Shopware\Core\Content\Media\Pathname\UrlGenerator;
 use Shopware\Core\Content\Media\Pathname\UrlGeneratorInterface;
+use Symfony\Contracts\Service\ResetInterface;
 
-/**
- * We have to extend here, otherwise this would be thrown:
- * Shopware\Core\Content\Media\Core\Strategy\BCStrategy::__construct(): Argument #3 ($generator) must be of type Shopware\Core\Content\Media\Pathname\UrlGenerator, Frosh\ThumbnailProcessor\Service\UrlGeneratorDecorator given
- * TODO: check PR https://github.com/shopware/platform/pull/3337
- */
-class UrlGeneratorDecorator extends UrlGenerator
+class UrlGeneratorDecorator implements UrlGeneratorInterface, ResetInterface
 {
     /**
      * @var array<string>|null
