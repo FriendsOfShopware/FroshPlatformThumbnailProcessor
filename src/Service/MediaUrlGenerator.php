@@ -20,6 +20,9 @@ class MediaUrlGenerator extends AbstractMediaUrlGenerator
     ) {
     }
 
+    /**
+     * @inheritDoc
+     */
     public function generate(array $paths): array
     {
         $originalUrls = $this->decoratedService->generate($paths);

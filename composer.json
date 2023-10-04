@@ -48,7 +48,8 @@
     },
     "autoload": {
         "psr-4": {
-            "Frosh\\ThumbnailProcessor\\": "src/"
+            "Frosh\\ThumbnailProcessor\\": "src/",
+            "Shopware\\Core\\": "polyfill/Shopware/Core/"
         }
     },
     "autoload-dev": {
