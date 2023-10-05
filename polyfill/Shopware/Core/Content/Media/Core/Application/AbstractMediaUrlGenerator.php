@@ -4,7 +4,7 @@ namespace Shopware\Core\Content\Media\Core\Application;
 
 use Shopware\Core\Content\Media\Core\Params\UrlParams;
 
-if (!\class_exists(AbstractMediaUrlGenerator::class)) {
+if (!\class_exists(AbstractMediaUrlGenerator::class, false)) {
     /**
      * @param array<string|int, UrlParams> $paths indexed by id, value contains the path
      *
