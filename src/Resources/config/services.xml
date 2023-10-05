@@ -5,19 +5,8 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <service id="Frosh\ThumbnailProcessor\Service\UrlGeneratorDecorator"
-                 decorates="Shopware\Core\Content\Media\Pathname\UrlGeneratorInterface">
-            <argument type="service" id="Frosh\ThumbnailProcessor\Service\UrlGeneratorDecorator.inner"/>
-            <argument type="service" id="Frosh\ThumbnailProcessor\Service\ThumbnailUrlTemplateInterface"/>
-            <argument type="service" id="shopware.filesystem.public"/>
-            <argument type="service" id="Frosh\ThumbnailProcessor\Service\ConfigReader"/>
-
-            <tag name="kernel.reset" method="reset"/>
-        </service>
-
         <service id="Frosh\ThumbnailProcessor\Service\MediaUrlGenerator"
-                 decorates="Shopware\Core\Content\Media\Domain\Path\AbstractMediaUrlGenerator"
-                 decoration-on-invalid="ignore">
+                 decorates="Shopware\Core\Content\Media\Domain\Path\AbstractMediaUrlGenerator">
             <argument type="service" id="Frosh\ThumbnailProcessor\Service\MediaUrlGenerator.inner"/>
             <argument type="service" id="Frosh\ThumbnailProcessor\Service\ThumbnailUrlTemplateInterface"/>
             <argument type="service" id="shopware.filesystem.public"/>

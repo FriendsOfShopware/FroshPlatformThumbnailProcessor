@@ -14,7 +14,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        version: [ "v6.5.0", "v6.5.1", "v6.5.2", "v6.5.3", "v6.5.4", "v6.5.5", "v6.5.6", "v6.5.7", "6.5.x" ]
+        version: [
+          "trunk" #TODO: update to 6.6
+        ]
     container: ghcr.io/friendsofshopware/platform-plugin-dev:${{ matrix.version }}
     runs-on: ubuntu-latest
     steps:
@@ -23,6 +25,8 @@ jobs:
 
       - name: Prepare
         run: |
+          echo "MEDIA_PATH=1" >> /opt/shopware/.env
+
           start-mysql
           php /opt/shopware/bin/console -V
           mysql -V
@@ -42,11 +46,6 @@ jobs:
           files: ./clover.xml
           root_dir: /plugins/FroshPlatformThumbnailProcessor
           working-directory: /plugins/FroshPlatformThumbnailProcessor
-
-      - name: Install specific dependencies for PHPStan at v6.5.0
-        if: matrix.version == 'v6.5.0'
-        run: |
-          composer require tomasvotruba/type-coverage --dev --no-scripts -d /opt/shopware/
 
       # we call this after PHPUnit to make sure that the generated files are available
       - name: PHPStan

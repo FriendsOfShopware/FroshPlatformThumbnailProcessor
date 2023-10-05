@@ -21,7 +21,7 @@
         }
     ],
     "require": {
-        "shopware/core": "~6.5.0",
+        "shopware/core": "~6.6.0||~6.5.9999999",
         "nikic/php-parser": "^4.13.0"
     },
     "suggest": {
@@ -48,8 +48,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Frosh\\ThumbnailProcessor\\": "src/",
-            "Shopware\\Core\\": "polyfill/Shopware/Core/"
+            "Frosh\\ThumbnailProcessor\\": "src/"
         }
     },
     "autoload-dev": {
