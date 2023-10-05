@@ -4,7 +4,7 @@ namespace Frosh\ThumbnailProcessor\tests;
 
 use Shopware\Core\TestBootstrapper;
 
-/*$testBootstrapperPluginDevDocker = '/opt/share/shopware/tests/TestBootstrapper.php';
+$testBootstrapperPluginDevDocker = '/opt/share/shopware/tests/TestBootstrapper.php';
 
 if (\is_file($testBootstrapperPluginDevDocker)) {
     $testBootstrapper = require $testBootstrapperPluginDevDocker;
@@ -15,13 +15,12 @@ if (\is_file($testBootstrapperPluginDevDocker)) {
         ->addActivePlugins('FroshPlatformThumbnailProcessor')
         ->bootstrap()
         ->getClassLoader();
-}*/
+}
 
 $paths = [
     '../../../../src/Core/TestBootstrapper.php',
     '../vendor/shopware/core/TestBootstrapper.php',
     '../../../../vendor/shopware/core/TestBootstrapper.php',
-    '/opt/shopware/vendor/shopware/core/TestBootstrapper.php',
 ];
 
 foreach ($paths as $path) {
