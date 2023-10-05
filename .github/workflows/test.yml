@@ -51,5 +51,5 @@ jobs:
       # we call this after PHPUnit to make sure that the generated files are available
       - name: PHPStan
         run: |
-          cd /plugins/FroshPlatformThumbnailProcessor
-          /opt/shopware/vendor/bin/phpstan analyse -c phpstan.neon
+          cd /opt/shopware/
+          vendor/bin/phpstan analyse -c /opt/shopware/custom/plugins/FroshPlatformThumbnailProcessor/phpstan.neon
