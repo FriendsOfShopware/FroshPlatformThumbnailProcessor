@@ -13,7 +13,7 @@ class FroshPlatformThumbnailProcessorTest extends TestCase
         $pluginBootstrap = new FroshPlatformThumbnailProcessor(true, __DIR__ . '/../../');
 
         $container = $this->createMock(ContainerBuilder::class);
-        $container->expects(static::exactly(2))
+        $container->expects(static::exactly(3))
             ->method('addCompilerPass');
 
         $pluginBootstrap->build($container);

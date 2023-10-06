@@ -5,9 +5,8 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <service id="Frosh\ThumbnailProcessor\Service\MediaUrlGenerator"
-                 decorates="Shopware\Core\Content\Media\Domain\Path\AbstractMediaUrlGenerator">
-            <argument type="service" id="Frosh\ThumbnailProcessor\Service\MediaUrlGenerator.inner"/>
+        <service id="Frosh\ThumbnailProcessor\Core\Media\MediaUrlGenerator">
+            <argument type="service" id="Shopware\Core\Content\Media\Core\Application\AbstractMediaUrlGenerator"/>
             <argument type="service" id="Frosh\ThumbnailProcessor\Service\ThumbnailUrlTemplateInterface"/>
             <argument type="service" id="shopware.filesystem.public"/>
             <argument type="service" id="Frosh\ThumbnailProcessor\Service\ConfigReader"/>
@@ -33,6 +32,14 @@
             <argument type="service" id="Shopware\Core\Content\Media\Commands\GenerateThumbnailsCommand"/>
             <argument type="service" id="media_folder.repository"/>
             <tag name="kernel.event_subscriber"/>
+        </service>
+
+        <service id="Frosh\ThumbnailProcessor\Core\Media\MediaUrlLoader">
+            <argument type="service" id="Frosh\ThumbnailProcessor\Core\Media\MediaUrlGenerator"/>
+
+            <!-- trigger "new" media path handling and url generation -->
+            <tag name="kernel.event_listener" event="media.loaded" method="loaded" priority="20" />
+            <tag name="kernel.event_listener" event="partial.media.loaded" method="loaded" priority="19" />
         </service>
 
         <service id="Frosh\ThumbnailProcessor\Controller\Api\TestController" public="true">

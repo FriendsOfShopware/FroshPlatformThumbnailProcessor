@@ -3,6 +3,7 @@
 namespace Frosh\ThumbnailProcessor;
 
 use Frosh\ThumbnailProcessor\DependencyInjection\GeneratorCompilerPass;
+use Frosh\ThumbnailProcessor\DependencyInjection\RemoveMediaUrlLoaderLoadedEventListenerCompilerPass;
 use Shopware\Core\Content\Media\File\FileSaver;
 use Shopware\Core\Content\Media\Thumbnail\ThumbnailService;
 use Shopware\Core\Framework\Plugin;
@@ -14,6 +15,7 @@ class FroshPlatformThumbnailProcessor extends Plugin
     {
         $container->addCompilerPass(new GeneratorCompilerPass(ThumbnailService::class));
         $container->addCompilerPass(new GeneratorCompilerPass(FileSaver::class));
+        $container->addCompilerPass(new RemoveMediaUrlLoaderLoadedEventListenerCompilerPass());
 
         parent::build($container);
     }
