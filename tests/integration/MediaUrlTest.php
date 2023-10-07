@@ -59,7 +59,7 @@ class MediaUrlTest extends TestCase
         $this->context = Context::createDefaultContext();
     }
 
-    public function testMediaUrlWithInactiveConfig(): void
+    public function testMediaUrlWithInactiveConfigResultsInOriginalMedia(): void
     {
         $fixture = $this->mediaFixtures['NamedMimePngEtxPngWithFolder'];
         $media = $this->getPngWithFolder();
