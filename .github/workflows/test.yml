@@ -40,7 +40,7 @@ jobs:
       - name: PHPUnit
         run: |
           cd /plugins/FroshPlatformThumbnailProcessor
-          php -d pcov.enabled=1 /opt/shopware/vendor/bin/phpunit  --coverage-clover clover.xml
+          php -d pcov.enabled=1 /opt/shopware/vendor/bin/phpunit  --coverage-clover clover.xml --testsuite Unit
 
       - uses: codecov/codecov-action@v3
         env:
@@ -49,6 +49,11 @@ jobs:
           files: ./clover.xml
           root_dir: /plugins/FroshPlatformThumbnailProcessor
           working-directory: /plugins/FroshPlatformThumbnailProcessor
+
+      - name: PHPUnit Integration
+        run: |
+          cd /plugins/FroshPlatformThumbnailProcessor
+          php /opt/shopware/vendor/bin/phpunit --testsuite Integration
 
       # we call this after PHPUnit to make sure that the generated files are available
       - name: PHPStan
