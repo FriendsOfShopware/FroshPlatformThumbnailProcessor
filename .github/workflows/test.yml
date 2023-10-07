@@ -30,7 +30,6 @@ jobs:
           mysql -V
           php -v
           cp -r "./" "/plugins/FroshPlatformThumbnailProcessor"
-          cd /plugins/FroshPlatformThumbnailProcessor
 
       - name: Prepare FeatureTag Usage
         run: |

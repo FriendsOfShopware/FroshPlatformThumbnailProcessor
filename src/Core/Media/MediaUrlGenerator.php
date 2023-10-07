@@ -40,8 +40,9 @@ class MediaUrlGenerator
                 source: UrlParamsSource::THUMBNAIL,
                 path: $value->mediaUrlParams->path,
                 updatedAt: $value->mediaUrlParams->updatedAt,
-                width: $value->width
             );
+
+            $paths[$key]->width = $value->width;
         }
 
         $originalUrls = $this->mediaUrlGenerator->generate($paths);

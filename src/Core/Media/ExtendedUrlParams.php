@@ -2,41 +2,69 @@
 
 namespace Frosh\ThumbnailProcessor\Core\Media;
 
+use Shopware\Core\Content\Media\Core\Params\UrlParams;
 use Shopware\Core\Content\Media\Core\Params\UrlParamsSource;
 use Shopware\Core\Framework\DataAbstractionLayer\Entity;
-use Shopware\Core\Framework\Struct\Struct;
 
-class ExtendedUrlParams extends Struct
+class ExtendedUrlParams extends UrlParams
 {
-    public function __construct(
-        public readonly string $id,
-        public readonly UrlParamsSource $source,
-        public readonly string $path,
-        public readonly ?\DateTimeInterface $updatedAt = null,
-        public readonly ?ExtendedUrlParams $mediaUrlParams = null,
-        public readonly ?int $width = null,
-    ) {
-    }
+    public ?ExtendedUrlParams $mediaUrlParams = null;
+    public ?int $width = null;
 
     public static function fromMedia(Entity $entity): self
     {
+        $path = $entity->get('path');
+        if (!\is_string($path)) {
+            throw new \InvalidArgumentException('"path" must be a string');
+        }
+
+        $updatedAt = $entity->get('updatedAt') ?? $entity->get('createdAt');
+        if (!($updatedAt instanceof \DateTimeInterface)) {
+            $updatedAt = null;
+        }
+
         return new self(
             id: $entity->getUniqueIdentifier(),
             source: UrlParamsSource::MEDIA,
-            path: $entity->get('path'),
-            updatedAt: $entity->get('updatedAt') ?? $entity->get('createdAt')
+            path: $path,
+            updatedAt: $updatedAt
         );
     }
 
-    public static function fromThumbnail(Entity $entity, ExtendedUrlParams $mediaUrlParams): self
+    public static function fromThumbnail(Entity $entity): self
     {
-        return new self(
+        $path = $entity->get('path');
+        if (!\is_string($path)) {
+            throw new \InvalidArgumentException('"path" must be a string');
+        }
+
+        $mediaUrlParams = $entity->getTranslation('mediaUrlParams');
+        if (!($mediaUrlParams instanceof ExtendedUrlParams)) {
+            throw new \InvalidArgumentException(
+                \sprintf('"mediaUrlParams" must be type of "%s"', ExtendedUrlParams::class)
+            );
+        }
+
+        $updatedAt = $entity->get('updatedAt') ?? $entity->get('createdAt');
+        if (!($updatedAt instanceof \DateTimeInterface)) {
+            $updatedAt = null;
+        }
+
+        $width = $entity->get('width');
+        if (!\is_int($width)) {
+            $width = null;
+        }
+
+        $result = new self(
             id: $entity->getUniqueIdentifier(),
             source: UrlParamsSource::THUMBNAIL,
-            path: $entity->get('path'),
-            updatedAt: $entity->get('updatedAt') ?? $entity->get('createdAt'),
-            mediaUrlParams: $mediaUrlParams,
-            width: $entity->get('width'),
+            path: $path,
+            updatedAt: $updatedAt,
         );
+
+        $result->mediaUrlParams = $mediaUrlParams;
+        $result->width = $width;
+
+        return $result;
     }
 }

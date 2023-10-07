@@ -12,6 +12,9 @@ class MediaUrlLoader
     ) {
     }
 
+    /**
+     * @param iterable<Entity> $entities
+     */
     public function loaded(iterable $entities): void
     {
         //TODO: remove check when Shopware 6.6.0 is required
@@ -38,8 +41,17 @@ class MediaUrlLoader
                 continue;
             }
 
-            /** @var Entity $thumbnail */
-            foreach ($entity->get('thumbnails') as $thumbnail) {
+            $thumbnails = $entity->get('thumbnails');
+
+            if (!\is_iterable($thumbnails)) {
+                continue;
+            }
+
+            foreach ($thumbnails as $thumbnail) {
+                if (!($thumbnail instanceof Entity)) {
+                    continue;
+                }
+
                 if (!isset($urls[$thumbnail->getUniqueIdentifier()])) {
                     continue;
                 }
@@ -74,18 +86,29 @@ class MediaUrlLoader
                 continue;
             }
 
-            /** @var Entity $thumbnail */
-            foreach ($entity->get('thumbnails') as $thumbnail) {
+            $thumbnails = $entity->get('thumbnails');
+
+            if (!\is_iterable($thumbnails)) {
+                continue;
+            }
+
+            foreach ($thumbnails as $thumbnail) {
+                if (!($thumbnail instanceof Entity)) {
+                    continue;
+                }
+
                 if (!$thumbnail->has('path') || empty($thumbnail->get('path'))) {
                     continue;
                 }
 
                 if (!$thumbnail->has('width')) {
-                    //TODO: load it! it might be empty due to PartialDataLoading, maybe subscribe to partial.thumbnal.loaded
+                    //TODO: load it! it might be empty due to PartialDataLoading, maybe subscribe to partial.thumbnail.loaded
                     continue;
                 }
 
-                $mapped[$thumbnail->getUniqueIdentifier()] = ExtendedUrlParams::fromThumbnail($thumbnail, $mapped[$entity->getUniqueIdentifier()]);
+                $thumbnail->addTranslated('mediaUrlParams', $mapped[$entity->getUniqueIdentifier()]);
+
+                $mapped[$thumbnail->getUniqueIdentifier()] = ExtendedUrlParams::fromThumbnail($thumbnail);
             }
         }
 
