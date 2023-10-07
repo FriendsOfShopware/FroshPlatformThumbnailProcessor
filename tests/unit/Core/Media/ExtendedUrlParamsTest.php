@@ -11,7 +11,7 @@ use Shopware\Core\Framework\Uuid\Uuid;
 
 class ExtendedUrlParamsTest extends TestCase
 {
-    public function testFromMediaThrowsExceptionOnInvalidPath()
+    public function testFromMediaThrowsExceptionOnInvalidPath(): void
     {
         $entity = new Entity();
         $entity->assign(['path' => null]);
@@ -21,7 +21,7 @@ class ExtendedUrlParamsTest extends TestCase
         ExtendedUrlParams::fromMedia($entity);
     }
 
-    public function testFromMediaWithNotSetUpdatedAtAndCreatedAt()
+    public function testFromMediaWithNotSetUpdatedAtAndCreatedAt(): void
     {
         $entity = new Entity();
         $entity->assign([
@@ -33,7 +33,7 @@ class ExtendedUrlParamsTest extends TestCase
         $this->assertNull($result->updatedAt);
     }
 
-    public function testFromMediaWithUpdatedAtWithString()
+    public function testFromMediaWithUpdatedAtWithString(): void
     {
         $entity = new Entity();
         $entity->assign([
@@ -46,7 +46,7 @@ class ExtendedUrlParamsTest extends TestCase
         $this->assertNull($result->updatedAt);
     }
 
-    public function testFromMediaWithUpdatedAtWithDateTimeInterface()
+    public function testFromMediaWithUpdatedAtWithDateTimeInterface(): void
     {
         $entity = new Entity();
         $entity->assign([
