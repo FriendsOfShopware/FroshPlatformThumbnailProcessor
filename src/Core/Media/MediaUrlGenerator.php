@@ -6,7 +6,6 @@ use Frosh\ThumbnailProcessor\Service\ConfigReader;
 use Frosh\ThumbnailProcessor\Service\ThumbnailUrlTemplateInterface;
 use League\Flysystem\FilesystemOperator;
 use Shopware\Core\Content\Media\Core\Application\AbstractMediaUrlGenerator;
-use Shopware\Core\Content\Media\Core\Params\UrlParamsSource;
 
 class MediaUrlGenerator
 {
