@@ -8,8 +8,6 @@ use Shopware\Core\Framework\DataAbstractionLayer\Entity;
 
 class ExtendedUrlParams extends UrlParams
 {
-    public ?ExtendedUrlParams $mediaUrlParams = null;
-
     public ?int $width = null;
 
     public static function fromMedia(Entity $entity): self
@@ -59,11 +57,10 @@ class ExtendedUrlParams extends UrlParams
         $result = new self(
             id: $entity->getUniqueIdentifier(),
             source: UrlParamsSource::THUMBNAIL,
-            path: $path,
-            updatedAt: $updatedAt,
+            path: $mediaUrlParams->path,
+            updatedAt: $mediaUrlParams->updatedAt
         );
 
-        $result->mediaUrlParams = $mediaUrlParams;
         $result->width = $width;
 
         return $result;

@@ -30,21 +30,6 @@ class MediaUrlGenerator
      */
     public function generate(array $paths): array
     {
-        foreach ($paths as $key => $value) {
-            if ($value->source->name !== UrlParamsSource::THUMBNAIL->name || $value->mediaUrlParams === null) {
-                continue;
-            }
-
-            $paths[$key] = new ExtendedUrlParams(
-                id: $value->id,
-                source: UrlParamsSource::THUMBNAIL,
-                path: $value->mediaUrlParams->path,
-                updatedAt: $value->mediaUrlParams->updatedAt,
-            );
-
-            $paths[$key]->width = $value->width;
-        }
-
         $originalUrls = $this->mediaUrlGenerator->generate($paths);
 
         if ($this->configReader->getConfig('Active') === false) {
