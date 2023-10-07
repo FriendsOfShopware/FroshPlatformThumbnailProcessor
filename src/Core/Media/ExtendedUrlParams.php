@@ -37,16 +37,16 @@ class ExtendedUrlParams extends UrlParams
             throw new \InvalidArgumentException('"path" must be a string');
         }
 
-        $mediaUrlParams = $entity->getTranslation('mediaUrlParams');
-        if (!($mediaUrlParams instanceof ExtendedUrlParams)) {
-            throw new \InvalidArgumentException(
-                \sprintf('"mediaUrlParams" must be type of "%s"', ExtendedUrlParams::class)
-            );
-        }
-
         $updatedAt = $entity->get('updatedAt') ?? $entity->get('createdAt');
         if (!($updatedAt instanceof \DateTimeInterface)) {
             $updatedAt = null;
+        }
+
+        $mediaUrlParams = $entity->getTranslation('mediaUrlParams');
+        if (!($mediaUrlParams instanceof ExtendedUrlParams)) {
+            throw new \InvalidArgumentException(
+                \sprintf('"mediaUrlParams" within translations must be type of "%s"', ExtendedUrlParams::class)
+            );
         }
 
         $width = $entity->get('width');

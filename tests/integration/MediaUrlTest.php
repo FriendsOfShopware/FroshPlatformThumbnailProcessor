@@ -3,14 +3,11 @@
 namespace Frosh\ThumbnailProcessor\Tests\Integration;
 
 use Frosh\ThumbnailProcessor\Controller\Api\TestController;
-use Frosh\ThumbnailProcessor\Service\MediaUrlGenerator;
 use PHPUnit\Framework\TestCase;
 use Shopware\Core\Content\Media\Aggregate\MediaThumbnail\MediaThumbnailCollection;
 use Shopware\Core\Content\Media\Commands\GenerateThumbnailsCommand;
 use Shopware\Core\Content\Media\Core\Application\AbstractMediaUrlGenerator;
-use Shopware\Core\Content\Media\Core\Params\UrlParams;
 use Shopware\Core\Content\Media\MediaEntity;
-use Shopware\Core\Content\Media\Pathname\UrlGeneratorInterface;
 use Shopware\Core\Content\Test\Media\MediaFixtures;
 use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
