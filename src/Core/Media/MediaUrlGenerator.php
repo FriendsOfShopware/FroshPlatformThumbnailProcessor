@@ -66,7 +66,7 @@ class MediaUrlGenerator
             $urls[$key] = $this->thumbnailUrlTemplate->getUrl(
                 $baseUrl,
                 $value->path,
-                $value->width ? (string )$value->width : $maxWidth
+                $value->width ? (string) $value->width : $maxWidth
             );
         }
 
