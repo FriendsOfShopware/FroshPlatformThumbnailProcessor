@@ -35,7 +35,6 @@ jobs:
         run: |
           cd /opt/shopware/
           echo "MEDIA_PATH=1" >> .env
-          curl https://patch-diff.githubusercontent.com/raw/shopware/platform/pull/3348.patch | git apply -v
 
       - name: PHPUnit
         run: |
