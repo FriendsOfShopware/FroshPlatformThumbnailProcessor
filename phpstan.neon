@@ -3,8 +3,6 @@ parameters:
     paths:
         - src
         - tests
-    type_coverage:
-        param_type: 95
     ignoreErrors:
         -
             message: "#^Call to an undefined method Shopware\\\\Core\\\\Content\\\\Media\\\\Message\\\\GenerateThumbnailsMessage\\:\\:setContext\\(\\)\\.$#"
@@ -44,7 +42,7 @@ parameters:
             path: src/DependencyInjection/GeneratorCompilerPass.php
 
         -
-            message: "#^Property Frosh\\\\ThumbnailProcessor\\\\Tests\\\\Integration\\\\MediaUrlTest(.*)does not accept object\\|null\\.$#"
+            message: "#^Property Frosh\\\\ThumbnailProcessor\\\\Tests\\\\Integration\\\\MediaUrlTest.*does not accept object.*#"
             path: tests/integration/MediaUrlTest.php
 
         -
