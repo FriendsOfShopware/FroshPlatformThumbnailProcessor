@@ -7,7 +7,7 @@ use Frosh\ThumbnailProcessor\Service\ConfigReader;
 use Frosh\ThumbnailProcessor\Service\SalesChannelIdDetector;
 use PHPUnit\Framework\TestCase;
 use Shopware\Core\Framework\Uuid\Uuid;
-use Shopware\Tests\Unit\Common\Stubs\SystemConfigService\StaticSystemConfigService;
+use Shopware\Core\Test\Stub\SystemConfigService\StaticSystemConfigService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 
