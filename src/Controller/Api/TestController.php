@@ -2,12 +2,13 @@
 
 namespace Frosh\ThumbnailProcessor\Controller\Api;
 
+use Frosh\ThumbnailProcessor\Core\Media\ExtendedUrlParams;
 use Shopware\Core\Content\Media\Aggregate\MediaThumbnail\MediaThumbnailEntity;
+use Shopware\Core\Content\Media\Core\Application\AbstractMediaUrlGenerator;
 use Shopware\Core\Content\Media\File\FileFetcher;
 use Shopware\Core\Content\Media\File\FileSaver;
 use Shopware\Core\Content\Media\MediaCollection;
 use Shopware\Core\Content\Media\MediaEntity;
-use Shopware\Core\Content\Media\Pathname\UrlGeneratorInterface;
 use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
@@ -25,7 +26,7 @@ class TestController
     public const TEST_FILE_PATH = __DIR__ . '/../../Resources/data/froshthumbnailprocessortestimage.jpg';
 
     public function __construct(
-        private readonly UrlGeneratorInterface $urlGenerator,
+        private readonly AbstractMediaUrlGenerator $urlGenerator,
         private readonly EntityRepository $mediaRepository,
         private readonly EntityRepository $mediaFolderRepository,
         private readonly FileSaver $fileSaver,
@@ -56,10 +57,15 @@ class TestController
         $media = $this->getSampleMedia($testFile);
 
         $thumbnail = new MediaThumbnailEntity();
+        $thumbnail->assign($media->getVars());
+        $thumbnail->setMediaId($media->getId());
         $thumbnail->setWidth(200);
         $thumbnail->setHeight(200);
+        $thumbnail->setTranslated(['mediaUrlParams' => ExtendedUrlParams::fromMedia($media)]);
 
-        return new JsonResponse(['url' => $this->urlGenerator->getAbsoluteThumbnailUrl($media, $thumbnail)]);
+        return new JsonResponse([
+            'url' => $this->urlGenerator->generate([ExtendedUrlParams::fromThumbnail($thumbnail)]),
+        ]);
     }
 
     private function getProductFolderId(Context $context): string

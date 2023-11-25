@@ -5,8 +5,9 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <service id="Frosh\ThumbnailProcessor\Core\Media\MediaUrlGenerator">
-            <argument type="service" id="Shopware\Core\Content\Media\Core\Application\AbstractMediaUrlGenerator"/>
+        <service id="Frosh\ThumbnailProcessor\Core\Media\MediaUrlGenerator"
+                 decorates="Shopware\Core\Content\Media\Core\Application\AbstractMediaUrlGenerator">
+            <argument type="service" id="Frosh\ThumbnailProcessor\Core\Media\MediaUrlGenerator.inner"/>
             <argument type="service" id="Frosh\ThumbnailProcessor\Service\ThumbnailUrlTemplateInterface"/>
             <argument type="service" id="shopware.filesystem.public"/>
             <argument type="service" id="Frosh\ThumbnailProcessor\Service\ConfigReader"/>
@@ -43,7 +44,7 @@
         </service>
 
         <service id="Frosh\ThumbnailProcessor\Controller\Api\TestController" public="true">
-            <argument type="service" id="Shopware\Core\Content\Media\Pathname\UrlGeneratorInterface"/>
+            <argument type="service" id="Shopware\Core\Content\Media\Core\Application\AbstractMediaUrlGenerator"/>
             <argument type="service" id="media.repository"/>
             <argument type="service" id="media_folder.repository"/>
             <argument type="service" id="Shopware\Core\Content\Media\File\FileSaver"/>

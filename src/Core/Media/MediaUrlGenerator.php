@@ -7,7 +7,7 @@ use Frosh\ThumbnailProcessor\Service\ThumbnailUrlTemplateInterface;
 use League\Flysystem\FilesystemOperator;
 use Shopware\Core\Content\Media\Core\Application\AbstractMediaUrlGenerator;
 
-class MediaUrlGenerator
+class MediaUrlGenerator extends AbstractMediaUrlGenerator
 {
     /**
      * @var array<string>|null
