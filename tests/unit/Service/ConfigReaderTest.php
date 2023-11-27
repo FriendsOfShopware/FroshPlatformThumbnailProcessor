@@ -131,7 +131,7 @@ class ConfigReaderTest extends TestCase
     /**
      * @return iterable<array{null|bool}>
      */
-    public function getActiveValues(): iterable
+    public static function getActiveValues(): iterable
     {
         yield [null];
         yield [true];

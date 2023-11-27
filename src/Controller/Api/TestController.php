@@ -64,7 +64,7 @@ class TestController
         $thumbnail->setTranslated(['mediaUrlParams' => ExtendedUrlParams::fromMedia($media)]);
 
         return new JsonResponse([
-            'url' => $this->urlGenerator->generate([ExtendedUrlParams::fromThumbnail($thumbnail)]),
+            'url' => current($this->urlGenerator->generate([ExtendedUrlParams::fromThumbnail($thumbnail)])),
         ]);
     }
 
