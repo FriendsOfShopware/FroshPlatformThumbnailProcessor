@@ -3,7 +3,6 @@
 namespace Frosh\ThumbnailProcessor\Core\Media;
 
 use Shopware\Core\Framework\DataAbstractionLayer\Entity;
-use Shopware\Core\Framework\Feature;
 
 class MediaUrlLoader
 {
@@ -17,11 +16,6 @@ class MediaUrlLoader
      */
     public function loaded(iterable $entities): void
     {
-        //TODO: remove check when Shopware 6.6.0 is required
-        if (!self::newBehavior()) {
-            return;
-        }
-
         $mapping = $this->map($entities);
 
         if (empty($mapping)) {
@@ -113,10 +107,5 @@ class MediaUrlLoader
         }
 
         return $mapped;
-    }
-
-    private static function newBehavior(): bool
-    {
-        return Feature::isActive('v6.6.0.0') || Feature::isActive('media_path');
     }
 }
