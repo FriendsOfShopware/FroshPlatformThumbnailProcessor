@@ -136,7 +136,7 @@ class TestController
     private function getMediaById(string $fileName, Context $context): ?MediaEntity
     {
         $criteria = new Criteria();
-        //we use the fileName filter to add backward compatibility
+        // we use the fileName filter to add backward compatibility
         $criteria->addFilter(new EqualsFilter('fileName', $fileName));
 
         /** @var MediaCollection $entities */

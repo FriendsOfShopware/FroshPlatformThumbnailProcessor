@@ -96,7 +96,7 @@ class MediaUrlLoader
                 }
 
                 if (!$thumbnail->has('width')) {
-                    //TODO: load it! it might be empty due to PartialDataLoading, maybe subscribe to partial.thumbnail.loaded
+                    // TODO: load it! it might be empty due to PartialDataLoading, maybe subscribe to partial.thumbnail.loaded
                     continue;
                 }
 
