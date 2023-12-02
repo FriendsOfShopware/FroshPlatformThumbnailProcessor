@@ -6,6 +6,7 @@ use Frosh\ThumbnailProcessor\Service\ConfigReader;
 use Frosh\ThumbnailProcessor\Service\ThumbnailUrlTemplateInterface;
 use League\Flysystem\FilesystemOperator;
 use Shopware\Core\Content\Media\Core\Application\AbstractMediaUrlGenerator;
+use Shopware\Core\Content\Media\Core\Params\UrlParams;
 
 class MediaUrlGenerator extends AbstractMediaUrlGenerator
 {
@@ -23,7 +24,7 @@ class MediaUrlGenerator extends AbstractMediaUrlGenerator
     }
 
     /**
-     * @param array<string|int, ExtendedUrlParams> $paths indexed by id, value contains the path
+     * @param array<string|int, UrlParams> $paths indexed by id, value contains the path
      *
      * @return array<string|int, string> indexed by id, value contains the absolute url (e.g. https://my.shop.de/media/0a/test.jpg)
      */
@@ -50,7 +51,7 @@ class MediaUrlGenerator extends AbstractMediaUrlGenerator
             $urls[$key] = $this->thumbnailUrlTemplate->getUrl(
                 $baseUrl,
                 $value->path,
-                $value->width ? (string) $value->width : $maxWidth
+                $this->getWidth($maxWidth, $value)
             );
         }
 
@@ -60,10 +61,7 @@ class MediaUrlGenerator extends AbstractMediaUrlGenerator
     private function canRun(string $path): bool
     {
         $fileExtension = \pathinfo($path, \PATHINFO_EXTENSION);
-
-        if (!\is_string($fileExtension)) {
-            return false;
-        }
+        \assert(\is_string($fileExtension));
 
         if (!$this->canProcessFileExtension($fileExtension)) {
             return false;
@@ -112,5 +110,16 @@ class MediaUrlGenerator extends AbstractMediaUrlGenerator
         }
 
         return $this->extensionsAllowList;
+    }
+
+    private function getWidth(string $maxWidth, UrlParams $value): string
+    {
+        $width = $maxWidth;
+
+        if ($value instanceof ExtendedUrlParams) {
+            return $value->width ? (string) $value->width : $maxWidth;
+        }
+
+        return $width;
     }
 }
