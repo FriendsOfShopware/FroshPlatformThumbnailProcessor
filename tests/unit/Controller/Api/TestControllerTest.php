@@ -275,7 +275,7 @@ class TestControllerTest extends TestCase
         $mediaRepository->expects($matcher)
             ->method('search')
             ->willReturnCallback(function () use ($mediaRepositoryResults, $matcher): EntitySearchResult {
-                return match ($matcher->getInvocationCount()) {
+                return match ($matcher->numberOfInvocations()) {
                     1 => $mediaRepositoryResults[0],
                     2 => $mediaRepositoryResults[1],
                     default => throw new \RuntimeException('Unexpected invocation count'),
@@ -359,7 +359,7 @@ class TestControllerTest extends TestCase
         $mediaRepository->expects($matcher)
             ->method('search')
             ->willReturnCallback(function () use ($mediaRepositoryResults, $matcher): EntitySearchResult {
-                return match ($matcher->getInvocationCount()) {
+                return match ($matcher->numberOfInvocations()) {
                     1 => $mediaRepositoryResults[0],
                     2 => $mediaRepositoryResults[1],
                     default => throw new \RuntimeException('Unexpected invocation count'),

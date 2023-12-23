@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.5/phpunit.xsd"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.5/phpunit.xsd"
          backupGlobals="false"
          colors="true"
          bootstrap="tests/TestBootstraper.php"
@@ -27,7 +27,7 @@
         </testsuite>
     </testsuites>
 
-    <coverage>
+    <source>
         <include>
             <directory suffix=".php">src</directory>
         </include>
@@ -35,5 +35,5 @@
             <file>src/DependencyInjection/FileSaver.php</file>
             <file>src/DependencyInjection/ThumbnailService.php</file>
         </exclude>
-    </coverage>
+    </source>
 </phpunit>

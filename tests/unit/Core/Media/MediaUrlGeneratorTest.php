@@ -280,7 +280,7 @@ class MediaUrlGeneratorTest extends TestCase
     /**
      * @return iterable<array{string}>
      */
-    public function provideAllowedExtensions(): iterable
+    public static function provideAllowedExtensions(): iterable
     {
         yield ['gif,png'];
         yield [''];

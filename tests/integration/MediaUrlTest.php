@@ -26,8 +26,6 @@ class MediaUrlTest extends TestCase
     use MediaFixtures;
     use QueueTestBehaviour;
 
-    private AbstractMediaUrlGenerator $urlGenerator;
-
     private EntityRepository $mediaRepository;
 
     private GenerateThumbnailsCommand $generateThumbnailsCommand;
@@ -41,8 +39,8 @@ class MediaUrlTest extends TestCase
         /** @var ContainerInterface $container */
         $container = $this->getContainer();
 
-        $this->urlGenerator = $container->get(AbstractMediaUrlGenerator::class);
-        \assert($this->urlGenerator instanceof AbstractMediaUrlGenerator);
+        $urlGenerator = $container->get(AbstractMediaUrlGenerator::class);
+        \assert($urlGenerator instanceof AbstractMediaUrlGenerator);
 
         $this->mediaRepository = $container->get('media.repository');
         \assert($this->mediaRepository instanceof EntityRepository);

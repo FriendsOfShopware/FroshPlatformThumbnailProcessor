@@ -254,7 +254,7 @@ class MediaUrlLoaderTest extends TestCase
     /**
      * @return iterable<array{mixed}>
      */
-    public function provideInvalidThumbnailData(): iterable
+    public static function provideInvalidThumbnailData(): iterable
     {
         yield [[]];
         yield [[null]];
