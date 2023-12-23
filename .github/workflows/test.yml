@@ -24,6 +24,7 @@ jobs:
       - name: Prepare
         run: |
           start-mysql
+          php /opt/shopware/bin/console -V
           mysql -V
           php -v
           cp -r "./" "/plugins/FroshPlatformThumbnailProcessor"
