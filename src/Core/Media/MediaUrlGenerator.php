@@ -42,7 +42,7 @@ class MediaUrlGenerator extends AbstractMediaUrlGenerator
 
         $urls = [];
         foreach ($paths as $key => $value) {
-            if ($this->canRun($value->path) === false) {
+            if ($this->canProcess($value->path) === false) {
                 $urls[$key] = $originalUrls[$key];
 
                 continue;
@@ -58,16 +58,12 @@ class MediaUrlGenerator extends AbstractMediaUrlGenerator
         return $urls;
     }
 
-    private function canRun(string $path): bool
+    private function canProcess(string $path): bool
     {
         $fileExtension = \pathinfo($path, \PATHINFO_EXTENSION);
         \assert(\is_string($fileExtension));
 
-        if (!$this->canProcessFileExtension($fileExtension)) {
-            return false;
-        }
-
-        return true;
+        return $this->canProcessFileExtension($fileExtension);
     }
 
     private function canProcessFileExtension(string $fileExtension): bool
@@ -114,12 +110,10 @@ class MediaUrlGenerator extends AbstractMediaUrlGenerator
 
     private function getWidth(string $maxWidth, UrlParams $value): string
     {
-        $width = $maxWidth;
-
-        if ($value instanceof ExtendedUrlParams) {
-            return $value->width ? (string) $value->width : $maxWidth;
+        if ($value instanceof ExtendedUrlParams && !empty($value->width)) {
+            return (string) $value->width;
         }
 
-        return $width;
+        return $maxWidth;
     }
 }
