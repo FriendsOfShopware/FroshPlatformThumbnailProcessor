@@ -78,8 +78,8 @@ class TestControllerTest extends TestCase
         \rename(TestController::TEST_FILE_PATH, TestController::TEST_FILE_PATH . '.bak');
         static::assertFileDoesNotExist(TestController::TEST_FILE_PATH);
 
-        static::expectException(\RuntimeException::class);
-        static::expectExceptionMessage(\sprintf('Test file at "%s" is missing or not readable', \realpath(TestController::TEST_FILE_PATH)));
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage(\sprintf('Test file at "%s" is missing or not readable', \realpath(TestController::TEST_FILE_PATH)));
         $controller->check($request, $dataBag);
     }
 
@@ -118,8 +118,8 @@ class TestControllerTest extends TestCase
         $dataBag = new RequestDataBag();
         $dataBag->add(['salesChannelId' => null]);
 
-        self::expectException(\RuntimeException::class);
-        self::expectExceptionMessage('Media has not been saved!');
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage('Media has not been saved!');
         $controller->check($request, $dataBag);
     }
 
@@ -158,8 +158,8 @@ class TestControllerTest extends TestCase
         $dataBag = new RequestDataBag();
         $dataBag->add(['salesChannelId' => null]);
 
-        self::expectException(\RuntimeException::class);
-        self::expectExceptionMessage('Media folder for product could not have been found!');
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage('Media folder for product could not have been found!');
         $controller->check($request, $dataBag);
     }
 
