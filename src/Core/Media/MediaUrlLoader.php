@@ -95,11 +95,6 @@ class MediaUrlLoader
                     continue;
                 }
 
-                if (!$thumbnail->has('width')) {
-                    // TODO: load it! it might be empty due to PartialDataLoading, maybe subscribe to partial.thumbnail.loaded
-                    continue;
-                }
-
                 $thumbnail->addTranslated('mediaUrlParams', $mapped[$entity->getUniqueIdentifier()]);
 
                 $mapped[$thumbnail->getUniqueIdentifier()] = ExtendedUrlParams::fromThumbnail($thumbnail);

@@ -43,9 +43,9 @@ class ExtendedUrlParams extends UrlParams
         }
 
         $mediaUrlParams = $entity->getTranslation('mediaUrlParams');
-        if (!($mediaUrlParams instanceof ExtendedUrlParams)) {
+        if (!($mediaUrlParams instanceof self)) {
             throw new \InvalidArgumentException(
-                \sprintf('"mediaUrlParams" within translations must be type of "%s"', ExtendedUrlParams::class)
+                \sprintf('"mediaUrlParams" within translations must be type of "%s"', __CLASS__)
             );
         }
 

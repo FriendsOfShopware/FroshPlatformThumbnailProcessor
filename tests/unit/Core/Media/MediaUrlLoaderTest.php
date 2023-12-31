@@ -146,13 +146,14 @@ class MediaUrlLoaderTest extends TestCase
         static::assertSame('https://example.com/a0/thumbnailimage.jpg?width=100', $thumbnails[0]->get('url'));
     }
 
-    public function testLoadedWithThumbnailHavingNoUrlsWithMissingWidth(): void
+    public function testLoadedWithThumbnailHavingMaxWidthWithMissingWidth(): void
     {
         $mediaUrlGenerator = $this->createMock(MediaUrlGenerator::class);
         $mediaUrlGenerator->expects(static::once())
             ->method('generate')
             ->willReturn([
                 '1' => 'https://example.com/a0/image.jpg?width=100',
+                '2' => 'https://example.com/a0/thumbnailimage.jpg?width=100',
             ]);
 
         $mediaUrlLoader = new MediaUrlLoader($mediaUrlGenerator);
@@ -181,7 +182,8 @@ class MediaUrlLoaderTest extends TestCase
 
         $thumbnails = $entity->get('thumbnails');
         static::assertIsArray($thumbnails);
-        static::assertFalse($thumbnails[0]->has('url'));
+        static::assertTrue($thumbnails[0]->has('url'));
+        static::assertSame('https://example.com/a0/thumbnailimage.jpg?width=100', $thumbnails[0]->get('url'));
     }
 
     public function testLoadedWithThumbnailHavingNoUrl(): void
