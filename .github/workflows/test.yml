@@ -11,51 +11,48 @@ on:
 
 jobs:
   test:
-    strategy:
-      fail-fast: false
-      matrix:
-        version: [
-          "trunk" #TODO: update to 6.6
-        ]
-    container: ghcr.io/friendsofshopware/platform-plugin-dev:${{ matrix.version }}
+    env:
+      PLUGIN_NAME: FroshPlatformThumbnailProcessor
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
+      - name: Setup Shopware
+        uses: shopware/setup-shopware@main
+        with:
+          shopware-version: 'v6.6.0.0-rc1'
+          php-version: 8.2
+          php-extensions: pcov
 
-      - name: Prepare
+      - name: Info
         run: |
-          start-mysql
-          php /opt/shopware/bin/console -V
+          php bin/console -V
           mysql -V
           php -v
-          cp -r "./" "/plugins/FroshPlatformThumbnailProcessor"
+          echo ${{ github.workspace }}
 
-      - name: Prepare FeatureTag Usage
-        run: |
-          cd /opt/shopware/
-          echo "MEDIA_PATH=1" >> .env
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          path: ${{ github.workspace }}/custom/plugins/${{ env.PLUGIN_NAME }}
 
-      - name: PHPUnit
+      - name: Run Tests
+        working-directory: ${{ github.workspace }}/custom/plugins/${{ env.PLUGIN_NAME }}
         run: |
-          cd /plugins/FroshPlatformThumbnailProcessor
-          php -d pcov.enabled=1 /opt/shopware/vendor/bin/phpunit  --coverage-clover clover.xml --testsuite Unit
+          php -d pcov.enabled=1 ${{ github.workspace }}/vendor/bin/phpunit --coverage-clover clover.xml --testsuite Unit
 
       - uses: codecov/codecov-action@v3
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
         with:
           files: ./clover.xml
-          root_dir: /plugins/FroshPlatformThumbnailProcessor
-          working-directory: /plugins/FroshPlatformThumbnailProcessor
+          root_dir: ${{ github.workspace }}/custom/plugins/${{ env.PLUGIN_NAME }}
+          working-directory: ${{ github.workspace }}/custom/plugins/${{ env.PLUGIN_NAME }}
 
       - name: PHPUnit Integration
+        working-directory: ${{ github.workspace }}/custom/plugins/${{ env.PLUGIN_NAME }}
         run: |
-          cd /plugins/FroshPlatformThumbnailProcessor
-          php /opt/shopware/vendor/bin/phpunit --testsuite Integration
+          php ${{ github.workspace }}/vendor/bin/phpunit --testsuite Integration
 
       # we call this after PHPUnit to make sure that the generated files are available
       - name: PHPStan
         run: |
-          cd /opt/shopware/
-          vendor/bin/phpstan analyse -c /opt/shopware/custom/plugins/FroshPlatformThumbnailProcessor/phpstan.neon
+          ${{ github.workspace }}/vendor/bin/phpstan analyse -c ${{ github.workspace }}/custom/plugins/${{ env.PLUGIN_NAME }}/phpstan.neon
