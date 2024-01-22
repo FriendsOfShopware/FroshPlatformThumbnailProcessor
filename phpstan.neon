@@ -44,7 +44,7 @@ parameters:
             path: src/DependencyInjection/GeneratorCompilerPass.php
 
         -
-            message: "#^Property Frosh\\\\ThumbnailProcessor\\\\Tests\\\\Integration\\\\MediaUrlTest(.*)does not accept object\\|null\\.$#"
+            message: "#^Property Frosh\\\\ThumbnailProcessor\\\\Tests\\\\Integration\\\\MediaUrlTest.*does not accept object.*#"
             path: tests/integration/MediaUrlTest.php
 
         -

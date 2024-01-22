@@ -6,8 +6,8 @@ use Frosh\ThumbnailProcessor\Controller\Api\TestController;
 use PHPUnit\Framework\TestCase;
 use Shopware\Core\Content\Media\Aggregate\MediaThumbnail\MediaThumbnailCollection;
 use Shopware\Core\Content\Media\Commands\GenerateThumbnailsCommand;
+use Shopware\Core\Content\Media\Core\Application\AbstractMediaUrlGenerator;
 use Shopware\Core\Content\Media\MediaEntity;
-use Shopware\Core\Content\Media\Pathname\UrlGeneratorInterface;
 use Shopware\Core\Content\Test\Media\MediaFixtures;
 use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
@@ -26,8 +26,6 @@ class MediaUrlTest extends TestCase
     use MediaFixtures;
     use QueueTestBehaviour;
 
-    private UrlGeneratorInterface $urlGenerator;
-
     private EntityRepository $mediaRepository;
 
     private GenerateThumbnailsCommand $generateThumbnailsCommand;
@@ -41,8 +39,8 @@ class MediaUrlTest extends TestCase
         /** @var ContainerInterface $container */
         $container = $this->getContainer();
 
-        $this->urlGenerator = $container->get(UrlGeneratorInterface::class);
-        \assert($this->urlGenerator instanceof UrlGeneratorInterface);
+        $urlGenerator = $container->get(AbstractMediaUrlGenerator::class);
+        \assert($urlGenerator instanceof AbstractMediaUrlGenerator);
 
         $this->mediaRepository = $container->get('media.repository');
         \assert($this->mediaRepository instanceof EntityRepository);
@@ -56,12 +54,12 @@ class MediaUrlTest extends TestCase
         $this->context = Context::createDefaultContext();
     }
 
-    public function testMediaUrlWithInactiveConfig(): void
+    public function testMediaUrlWithInactiveConfigResultsInOriginalMedia(): void
     {
         $fixture = $this->mediaFixtures['NamedMimePngEtxPngWithFolder'];
         $media = $this->getPngWithFolder();
 
-        static::assertStringEndsWith('pngFileWithExtensionAndFolder.png', $media->getUrl());
+        static::assertMatchesRegularExpression('/http:\/\/localhost:8000\/.*pngFileWithExtensionAndFolder\.png\?\d.*/', $media->getUrl());
 
         $folderName = null;
         if (\is_array($fixture['mediaFolder']) && !empty($fixture['mediaFolder']['name'])) {
@@ -73,7 +71,7 @@ class MediaUrlTest extends TestCase
         $resource = fopen(TestController::TEST_FILE_PATH, 'rb');
         \assert($resource !== false);
 
-        $filePath = $this->urlGenerator->getRelativeMediaUrl($media);
+        $filePath = $media->getPath();
         $fileSystem = $this->getPublicFilesystem();
         $fileSystem->writeStream($filePath, $resource);
 
@@ -101,13 +99,11 @@ class MediaUrlTest extends TestCase
         static::assertEquals(2, $thumbnails->count());
 
         foreach ($thumbnails as $thumbnail) {
-            $thumbnailUrl = $this->urlGenerator->getAbsoluteThumbnailUrl(
-                $media,
-                $thumbnail
-            );
+            $thumbnailUrl = $thumbnail->getUrl();
 
-            static::assertStringStartsWith('http://127.0.0.1', $thumbnailUrl);
+            static::assertStringStartsWith('http://localhost:8000', $thumbnailUrl);
             static::assertStringNotContainsString('thumbnail/', $thumbnailUrl);
+            static::assertSame($media->getUrl(), $thumbnailUrl);
             static::assertFalse($fileSystem->has(\str_replace('media/', 'thumbnail/', $filePath)));
             static::assertFalse($fileSystem->has($thumbnailUrl));
         }
@@ -132,7 +128,7 @@ class MediaUrlTest extends TestCase
         $resource = fopen(TestController::TEST_FILE_PATH, 'rb');
         \assert($resource !== false);
 
-        $filePath = $this->urlGenerator->getRelativeMediaUrl($media);
+        $filePath = $media->getPath();
         $fileSystem = $this->getPublicFilesystem();
         $fileSystem->writeStream($filePath, $resource);
 
@@ -160,12 +156,9 @@ class MediaUrlTest extends TestCase
         static::assertEquals(2, $thumbnails->count());
 
         foreach ($thumbnails as $thumbnail) {
-            $thumbnailUrl = $this->urlGenerator->getRelativeThumbnailUrl(
-                $media,
-                $thumbnail
-            );
+            $thumbnailUrl = $thumbnail->getUrl();
 
-            static::assertStringStartsWith('http://127.0.0.1', $thumbnailUrl);
+            static::assertStringStartsWith('http://localhost:8000', $thumbnailUrl);
             static::assertStringEndsWith('pngFileWithExtensionAndFolder.png?width=' . $thumbnail->getWidth(), $thumbnailUrl);
             static::assertStringNotContainsString('thumbnail/', $thumbnailUrl);
 

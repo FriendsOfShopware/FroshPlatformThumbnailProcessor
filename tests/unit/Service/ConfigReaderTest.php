@@ -7,7 +7,7 @@ use Frosh\ThumbnailProcessor\Service\ConfigReader;
 use Frosh\ThumbnailProcessor\Service\SalesChannelIdDetector;
 use PHPUnit\Framework\TestCase;
 use Shopware\Core\Framework\Uuid\Uuid;
-use Shopware\Tests\Unit\Common\Stubs\SystemConfigService\StaticSystemConfigService;
+use Shopware\Core\Test\Stub\SystemConfigService\StaticSystemConfigService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 
@@ -40,7 +40,7 @@ class ConfigReaderTest extends TestCase
     /**
      * @dataProvider getWidths
      */
-    public function testGetConfigProcessOriginalImageMaxWidthAlwaysString(mixed $width): void
+    public function testGetConfigProcessOriginalImageMaxWidthAlwaysString(int|string|float $width): void
     {
         $systemConfigService = new StaticSystemConfigService();
         $systemConfigService->set('FroshPlatformThumbnailProcessor.config.ProcessOriginalImageMaxWidth', $width);
@@ -75,7 +75,7 @@ class ConfigReaderTest extends TestCase
     /**
      * @dataProvider getActiveValues
      */
-    public function testGetConfigActive(mixed $value): void
+    public function testGetConfigActive(null|bool $value): void
     {
         $systemConfigService = new StaticSystemConfigService();
         $systemConfigService->set('FroshPlatformThumbnailProcessor.config.Active', $value);
@@ -131,7 +131,7 @@ class ConfigReaderTest extends TestCase
     /**
      * @return iterable<array{null|bool}>
      */
-    public function getActiveValues(): iterable
+    public static function getActiveValues(): iterable
     {
         yield [null];
         yield [true];

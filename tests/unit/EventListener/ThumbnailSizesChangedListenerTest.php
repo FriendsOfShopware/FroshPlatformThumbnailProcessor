@@ -13,7 +13,7 @@ use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityWriteResult;
 use Shopware\Core\Framework\DataAbstractionLayer\Event\EntityWrittenEvent;
-use Shopware\Tests\Unit\Common\Stubs\DataAbstractionLayer\StaticEntityRepository;
+use Shopware\Core\Test\Stub\DataAbstractionLayer\StaticEntityRepository;
 use Symfony\Component\Messenger\MessageBus;
 
 class ThumbnailSizesChangedListenerTest extends TestCase

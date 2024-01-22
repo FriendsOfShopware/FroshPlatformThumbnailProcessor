@@ -21,7 +21,7 @@
         }
     ],
     "require": {
-        "shopware/core": "~6.5.0",
+        "shopware/core": "~6.6.0",
         "nikic/php-parser": "^4.13.0"
     },
     "suggest": {

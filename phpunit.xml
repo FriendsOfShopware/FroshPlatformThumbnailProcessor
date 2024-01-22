@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.5/phpunit.xsd"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.5/phpunit.xsd"
          backupGlobals="false"
          colors="true"
          bootstrap="tests/TestBootstraper.php"
@@ -12,7 +12,7 @@
         <server name="KERNEL_CLASS" value="Shopware\Core\Kernel"/>
         <server name="APP_ENV" value="test" force="true"/>
         <env name="APP_DEBUG" value="1"/>
-        <env name="APP_URL" value="http://127.0.0.1"/>
+        <env name="APP_URL" value="http://localhost:8000"/>
         <env name="APP_SECRET" value="s$cretf0rt3st"/>
         <env name="SHELL_VERBOSITY" value="-1"/>
         <env name="SYMFONY_DEPRECATIONS_HELPER" value="disabled" />
@@ -27,7 +27,7 @@
         </testsuite>
     </testsuites>
 
-    <coverage processUncoveredFiles="true">
+    <source>
         <include>
             <directory suffix=".php">src</directory>
         </include>
@@ -35,5 +35,5 @@
             <file>src/DependencyInjection/FileSaver.php</file>
             <file>src/DependencyInjection/ThumbnailService.php</file>
         </exclude>
-    </coverage>
+    </source>
 </phpunit>

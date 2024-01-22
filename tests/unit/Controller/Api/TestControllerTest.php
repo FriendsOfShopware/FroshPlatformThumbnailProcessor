@@ -4,11 +4,11 @@ namespace Frosh\ThumbnailProcessor\Tests\Unit\Controller\Api;
 
 use Frosh\ThumbnailProcessor\Controller\Api\TestController;
 use PHPUnit\Framework\TestCase;
+use Shopware\Core\Content\Media\Core\Application\AbstractMediaUrlGenerator;
 use Shopware\Core\Content\Media\File\FileFetcher;
 use Shopware\Core\Content\Media\File\FileSaver;
 use Shopware\Core\Content\Media\MediaEntity;
 use Shopware\Core\Content\Media\MediaType\ImageType;
-use Shopware\Core\Content\Media\Pathname\UrlGeneratorInterface;
 use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityCollection;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
@@ -33,7 +33,7 @@ class TestControllerTest extends TestCase
 
     public function testCheckWithoutSalesChannel(): void
     {
-        $urlGenerator = $this->createMock(UrlGeneratorInterface::class);
+        $urlGenerator = $this->createMock(AbstractMediaUrlGenerator::class);
         $mediaRepository = $this->createMock(EntityRepository::class);
         $mediaFolderRepository = $this->createMock(EntityRepository::class);
         $fileSaver = $this->createMock(FileSaver::class);
@@ -56,7 +56,7 @@ class TestControllerTest extends TestCase
 
     public function testCheckFailsWithoutFile(): void
     {
-        $urlGenerator = $this->createMock(UrlGeneratorInterface::class);
+        $urlGenerator = $this->createMock(AbstractMediaUrlGenerator::class);
         $mediaRepository = $this->createMock(EntityRepository::class);
         $mediaFolderRepository = $this->createMock(EntityRepository::class);
         $fileSaver = $this->createMock(FileSaver::class);
@@ -78,16 +78,16 @@ class TestControllerTest extends TestCase
         \rename(TestController::TEST_FILE_PATH, TestController::TEST_FILE_PATH . '.bak');
         static::assertFileDoesNotExist(TestController::TEST_FILE_PATH);
 
-        static::expectException(\RuntimeException::class);
-        static::expectExceptionMessage(\sprintf('Test file at "%s" is missing or not readable', \realpath(TestController::TEST_FILE_PATH)));
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage(\sprintf('Test file at "%s" is missing or not readable', \realpath(TestController::TEST_FILE_PATH)));
         $controller->check($request, $dataBag);
     }
 
     public function testCheckFailsMediaSaving(): void
     {
-        $urlGenerator = $this->createMock(UrlGeneratorInterface::class);
+        $urlGenerator = $this->createMock(AbstractMediaUrlGenerator::class);
         $urlGenerator->expects(static::never())
-            ->method('getAbsoluteThumbnailUrl');
+            ->method('generate');
 
         $mediaRepository = $this->createMock(EntityRepository::class);
 
@@ -118,16 +118,16 @@ class TestControllerTest extends TestCase
         $dataBag = new RequestDataBag();
         $dataBag->add(['salesChannelId' => null]);
 
-        self::expectException(\RuntimeException::class);
-        self::expectExceptionMessage('Media has not been saved!');
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage('Media has not been saved!');
         $controller->check($request, $dataBag);
     }
 
     public function testCheckFailsProductMediaId(): void
     {
-        $urlGenerator = $this->createMock(UrlGeneratorInterface::class);
+        $urlGenerator = $this->createMock(AbstractMediaUrlGenerator::class);
         $urlGenerator->expects(static::never())
-            ->method('getAbsoluteThumbnailUrl');
+            ->method('generate');
 
         $mediaRepository = $this->createMock(EntityRepository::class);
 
@@ -158,17 +158,17 @@ class TestControllerTest extends TestCase
         $dataBag = new RequestDataBag();
         $dataBag->add(['salesChannelId' => null]);
 
-        self::expectException(\RuntimeException::class);
-        self::expectExceptionMessage('Media folder for product could not have been found!');
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage('Media folder for product could not have been found!');
         $controller->check($request, $dataBag);
     }
 
     public function testCheckWithExistingMedia(): void
     {
-        $urlGenerator = $this->createMock(UrlGeneratorInterface::class);
+        $urlGenerator = $this->createMock(AbstractMediaUrlGenerator::class);
         $urlGenerator->expects(static::once())
-            ->method('getAbsoluteThumbnailUrl')
-            ->willReturn('http://localhost/thumbnail.jpg?width=200');
+            ->method('generate')
+            ->willReturn(['test' => 'http://localhost/thumbnail.jpg?width=200']);
 
         $mediaRepository = $this->createMock(EntityRepository::class);
         $mediaRepository->expects(static::once())
@@ -180,6 +180,7 @@ class TestControllerTest extends TestCase
                 $media->setFileExtension('jpg');
                 $media->setFileName('test.jpg');
                 $media->setMimeType('image/jpg');
+                $media->setPath('thumbnail.jpg');
                 $media->setFileSize(100);
                 $media->setCreatedAt(new \DateTime());
                 $media->setUpdatedAt(new \DateTime());
@@ -230,10 +231,10 @@ class TestControllerTest extends TestCase
 
     public function testCheck(): void
     {
-        $urlGenerator = $this->createMock(UrlGeneratorInterface::class);
+        $urlGenerator = $this->createMock(AbstractMediaUrlGenerator::class);
         $urlGenerator->expects(static::once())
-            ->method('getAbsoluteThumbnailUrl')
-            ->willReturn('http://localhost/thumbnail.jpg?width=200');
+            ->method('generate')
+            ->willReturn(['test' => 'http://localhost/thumbnail.jpg?width=200']);
 
         $mediaRepositoryResults = [];
         $mediaRepositoryResults[] = new EntitySearchResult(
@@ -248,6 +249,7 @@ class TestControllerTest extends TestCase
         $collection = new EntityCollection();
         $media = new MediaEntity();
         $media->setId('test');
+        $media->setPath('thumbnail.jpg');
         $media->setFileExtension('jpg');
         $media->setFileName('test.jpg');
         $media->setMimeType('image/jpg');
@@ -273,7 +275,7 @@ class TestControllerTest extends TestCase
         $mediaRepository->expects($matcher)
             ->method('search')
             ->willReturnCallback(function () use ($mediaRepositoryResults, $matcher): EntitySearchResult {
-                return match ($matcher->getInvocationCount()) {
+                return match ($matcher->numberOfInvocations()) {
                     1 => $mediaRepositoryResults[0],
                     2 => $mediaRepositoryResults[1],
                     default => throw new \RuntimeException('Unexpected invocation count'),
@@ -313,10 +315,10 @@ class TestControllerTest extends TestCase
 
     public function testCheckWithSalesChannel(): void
     {
-        $urlGenerator = $this->createMock(UrlGeneratorInterface::class);
+        $urlGenerator = $this->createMock(AbstractMediaUrlGenerator::class);
         $urlGenerator->expects(static::once())
-            ->method('getAbsoluteThumbnailUrl')
-            ->willReturn('http://localhost/thumbnail.jpg?width=200');
+            ->method('generate')
+            ->willReturn(['test' => 'http://localhost/thumbnail.jpg?width=200']);
 
         $mediaRepositoryResults = [];
         $mediaRepositoryResults[] = new EntitySearchResult(
@@ -332,6 +334,7 @@ class TestControllerTest extends TestCase
         $media = new MediaEntity();
         $media->setId('test');
         $media->setFileExtension('jpg');
+        $media->setPath('thumbnail.jpg');
         $media->setFileName('test.jpg');
         $media->setMimeType('image/jpg');
         $media->setFileSize(100);
@@ -356,7 +359,7 @@ class TestControllerTest extends TestCase
         $mediaRepository->expects($matcher)
             ->method('search')
             ->willReturnCallback(function () use ($mediaRepositoryResults, $matcher): EntitySearchResult {
-                return match ($matcher->getInvocationCount()) {
+                return match ($matcher->numberOfInvocations()) {
                     1 => $mediaRepositoryResults[0],
                     2 => $mediaRepositoryResults[1],
                     default => throw new \RuntimeException('Unexpected invocation count'),
