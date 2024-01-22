@@ -1,5 +1,5 @@
-# 4.0.2
-* Added placeholder classes for generated files to support classmap-authoritative
+# 5.0.0
+* Add support for Shopware 6.6
 
 # 4.0.1
 * Add support for Shopware 6.5.6 with changed private methods
