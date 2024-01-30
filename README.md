@@ -2,7 +2,7 @@
 
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md) [![Shopware Store](https://img.shields.io/badge/shopware-store-blue.svg?style=flat-square)](https://store.shopware.com/en/frosh69611263569f/thumbnailprocessor-plugin.html)
 
-This plugin allows you to use variable thumbnails, if your filesystem (or storage-adapter) supports it.
+This plugin allows you to use variable thumbnails, if your filesystem (or storage-adapter) supports it. So you [don't need modern file formats](https://blog.tinect.de/posts/you-might-not-need-thumbnails-or-modern-image-format/).
 You can use this, if you don't want thumbnails to be created on you development-system, too.  
 It will add parameters to original image paths.  
 So you are able to save storage and add new thumbnails on the fly.
