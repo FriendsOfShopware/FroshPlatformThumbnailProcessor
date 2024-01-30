@@ -7,12 +7,14 @@ You can use this, if you don't want thumbnails to be created on you development-
 It will add parameters to original image paths.  
 So you are able to save storage and add new thumbnails on the fly.
 
-| Version 	            | Requirements      |
-|----------------------|-------------------|
-| 1.0.0 - 1.0.5     	  | Min. Shopware 6.0 |
-| 1.0.6 - 1.0.15     	 | Min. Shopware 6.3 |
-| 1.0.16 - [2.*](https://github.com/FriendsOfShopware/FroshPlatformThumbnailProcessor/tree/v2)       	 | Min. Shopware 6.4 |
-| >=3.0.0              | Min. Shopware 6.5 |
+| Plugin version 	     | Shopware version  | Branch            |
+|----------------------|-------------------|-------------------|
+| 5.*                  | Min. 6.6          | [main](https://github.com/FriendsOfShopware/FroshPlatformThumbnailProcessor)                 |
+| 4.* - 3.0.0          | Min. 6.5          | [v4](https://github.com/FriendsOfShopware/FroshPlatformThumbnailProcessor/tree/v4)                 |
+| 2.* - 1.0.16       	 | Min. 6.4          | [v2](https://github.com/FriendsOfShopware/FroshPlatformThumbnailProcessor/tree/v2)                 |
+| 1.0.15 - 1.0.6     	 | Min. 6.3          |                   |
+| 1.0.5 - 1.0.0     	  | Min. 6.0          |                   |
+
 
 ## Install
 
