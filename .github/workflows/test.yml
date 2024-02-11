@@ -27,6 +27,7 @@ jobs:
           php bin/console -V
           mysql -V
           php -v
+          composer -V
           echo ${{ github.workspace }}
 
       - name: Checkout
