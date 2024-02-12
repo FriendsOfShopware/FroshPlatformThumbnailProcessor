@@ -56,5 +56,11 @@
             "Frosh\\ThumbnailProcessor\\Tests\\Unit\\": "tests/unit",
             "Frosh\\ThumbnailProcessor\\Tests\\Integration\\": "tests/integration"
         }
+    },
+    "scripts": {
+        "create-placeholders": [
+            "echo \"<?php\n\ndeclare (strict_types=1);\n\nnamespace Frosh\\ThumbnailProcessor\\DependencyInjection;\n\nclass FileSaver extends \\Shopware\\Core\\Content\\Media\\File\\FileSaver\n{\n}\n\" > src/DependencyInjection/FileSaver.php",
+            "echo \"<?php\n\ndeclare (strict_types=1);\n\nnamespace Frosh\\ThumbnailProcessor\\DependencyInjection;\n\nclass ThumbnailService extends \\Shopware\\Core\\Content\\Media\\Thumbnail\\ThumbnailService\n{\n}\n\" > src/DependencyInjection/ThumbnailService.php"
+        ]
     }
 }
