@@ -65,8 +65,16 @@ class GeneratorCompilerPass implements CompilerPassInterface
         /** @var Class_ $class */
         $class = $nodeFinder->findFirstInstanceOf($ast, Class_::class);
         $class->extends = new Name('\\' . $this->class);
+
+        $doc = '/**' . \PHP_EOL . 'THIS CLASS HAS BEEN GENERATED AUTOMATICALLY' . \PHP_EOL . '*/';
+
+        $existingDocs = $class->getDocComment()?->getText() ?? '';
+        if (!empty($existingDocs)) {
+            $doc .= \PHP_EOL . $existingDocs;
+        }
+
         $class->setDocComment(new Doc(
-            '/**' . \PHP_EOL . 'THIS CLASS HAS BEEN GENERATED AUTOMATICALLY' . \PHP_EOL . '*/'
+            $doc
         ));
 
         match ($this->class) {
