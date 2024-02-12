@@ -49,6 +49,7 @@ jobs:
       - name: PHPUnit
         working-directory: ${{ github.workspace }}/custom/plugins/${{ env.PLUGIN_NAME }}
         run: |
+          composer create-placeholders
           php -d pcov.enabled=1 ${{ github.workspace }}/vendor/bin/phpunit  --coverage-clover clover.xml
 
       - uses: codecov/codecov-action@v3
