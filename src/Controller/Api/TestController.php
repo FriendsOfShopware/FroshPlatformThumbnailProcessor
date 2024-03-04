@@ -2,6 +2,7 @@
 
 namespace Frosh\ThumbnailProcessor\Controller\Api;
 
+use Frosh\ThumbnailProcessor\Core\Media\ExtendedUrlParam;
 use Frosh\ThumbnailProcessor\Core\Media\ExtendedUrlParams;
 use Shopware\Core\Content\Media\Aggregate\MediaThumbnail\MediaThumbnailEntity;
 use Shopware\Core\Content\Media\Core\Application\AbstractMediaUrlGenerator;
@@ -61,7 +62,10 @@ class TestController
         $thumbnail->setMediaId($media->getId());
         $thumbnail->setWidth(200);
         $thumbnail->setHeight(200);
-        $thumbnail->setTranslated(['mediaUrlParams' => ExtendedUrlParams::fromMedia($media)]);
+
+        $urlParam = ExtendedUrlParams::fromMedia($media);
+
+        $thumbnail->setTranslated(['mediaUrlParam' => ExtendedUrlParam::fromUrlParams($urlParam)]);
 
         return new JsonResponse([
             'url' => current($this->urlGenerator->generate([ExtendedUrlParams::fromThumbnail($thumbnail)])),

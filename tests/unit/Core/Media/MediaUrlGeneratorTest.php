@@ -2,6 +2,7 @@
 
 namespace Frosh\ThumbnailProcessor\Tests\Unit\Core\Media;
 
+use Frosh\ThumbnailProcessor\Core\Media\ExtendedUrlParam;
 use Frosh\ThumbnailProcessor\Core\Media\ExtendedUrlParams;
 use Frosh\ThumbnailProcessor\Core\Media\MediaUrlGenerator;
 use Frosh\ThumbnailProcessor\Service\ConfigReader;
@@ -101,7 +102,10 @@ class MediaUrlGeneratorTest extends TestCase
             'path' => 'media/123.jpg',
             'width' => 100,
         ]);
-        $entity->setTranslated(['mediaUrlParams' => ExtendedUrlParams::fromMedia($entity)]);
+
+        $urlParam = ExtendedUrlParams::fromMedia($entity);
+
+        $entity->setTranslated(['mediaUrlParam' => ExtendedUrlParam::fromUrlParams($urlParam)]);
 
         $urlParam = ExtendedUrlParams::fromThumbnail($entity);
 
@@ -256,7 +260,10 @@ class MediaUrlGeneratorTest extends TestCase
             'path' => 'media/123.jpg',
             'width' => 100,
         ]);
-        $entity->setTranslated(['mediaUrlParams' => ExtendedUrlParams::fromMedia($entity)]);
+
+        $urlParam = ExtendedUrlParams::fromMedia($entity);
+
+        $entity->setTranslated(['mediaUrlParam' => ExtendedUrlParam::fromUrlParams($urlParam)]);
 
         $urlParam = ExtendedUrlParams::fromThumbnail($entity);
 
@@ -266,7 +273,8 @@ class MediaUrlGeneratorTest extends TestCase
             'path' => 'media/1232.jpg',
             'width' => 100,
         ]);
-        $entity2->setTranslated(['mediaUrlParams' => ExtendedUrlParams::fromMedia($entity)]);
+
+        $entity2->setTranslated(['mediaUrlParam' => ExtendedUrlParam::fromUrlParams($urlParam)]);
 
         $urlParam2 = ExtendedUrlParams::fromThumbnail($entity);
 

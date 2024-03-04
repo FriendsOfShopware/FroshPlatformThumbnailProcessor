@@ -2,6 +2,7 @@
 
 namespace Frosh\ThumbnailProcessor\Tests\Unit\Core\Media;
 
+use Frosh\ThumbnailProcessor\Core\Media\ExtendedUrlParam;
 use Frosh\ThumbnailProcessor\Core\Media\ExtendedUrlParams;
 use PHPUnit\Framework\TestCase;
 use Shopware\Core\Framework\DataAbstractionLayer\Entity;
@@ -75,7 +76,10 @@ class ExtendedUrlParamsTest extends TestCase
             'path' => 'test.txt',
             'width' => 100,
         ]);
-        $entity->setTranslated(['mediaUrlParams' => ExtendedUrlParams::fromMedia($entity)]);
+
+        $urlParam = ExtendedUrlParams::fromMedia($entity);
+
+        $entity->setTranslated(['mediaUrlParam' => ExtendedUrlParam::fromUrlParams($urlParam)]);
 
         $result = ExtendedUrlParams::fromThumbnail($entity);
         static::assertNull($result->updatedAt);
@@ -90,13 +94,16 @@ class ExtendedUrlParamsTest extends TestCase
             'width' => 100,
             'updatedAt' => '2021-09-01 12:00:00',
         ]);
-        $entity->setTranslated(['mediaUrlParams' => ExtendedUrlParams::fromMedia($entity)]);
+
+        $urlParam = ExtendedUrlParams::fromMedia($entity);
+
+        $entity->setTranslated(['mediaUrlParam' => ExtendedUrlParam::fromUrlParams($urlParam)]);
 
         $result = ExtendedUrlParams::fromThumbnail($entity);
         static::assertNull($result->updatedAt);
     }
 
-    public function testFromThumbnailWithoutMediaUrlParamsThrowsException(): void
+    public function testFromThumbnailWithoutMediaUrlParamThrowsException(): void
     {
         $entity = new Entity();
         $entity->assign([
@@ -107,7 +114,7 @@ class ExtendedUrlParamsTest extends TestCase
         ]);
 
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage(\sprintf('"mediaUrlParams" within translations must be type of "%s"', ExtendedUrlParams::class));
+        $this->expectExceptionMessage(\sprintf('"mediaUrlParam" within translations must be type of "%s"', ExtendedUrlParams::class));
         ExtendedUrlParams::fromThumbnail($entity);
     }
 
@@ -120,7 +127,10 @@ class ExtendedUrlParamsTest extends TestCase
             'width' => 'invalid',
             'updatedAt' => '2021-09-01 12:00:00',
         ]);
-        $entity->setTranslated(['mediaUrlParams' => ExtendedUrlParams::fromMedia($entity)]);
+
+        $urlParam = ExtendedUrlParams::fromMedia($entity);
+
+        $entity->setTranslated(['mediaUrlParam' => ExtendedUrlParam::fromUrlParams($urlParam)]);
 
         $result = ExtendedUrlParams::fromThumbnail($entity);
         static::assertNull($result->width);
@@ -135,7 +145,10 @@ class ExtendedUrlParamsTest extends TestCase
             'width' => 100,
             'updatedAt' => new \DateTime(),
         ]);
-        $entity->setTranslated(['mediaUrlParams' => ExtendedUrlParams::fromMedia($entity)]);
+
+        $urlParam = ExtendedUrlParams::fromMedia($entity);
+
+        $entity->setTranslated(['mediaUrlParam' => ExtendedUrlParam::fromUrlParams($urlParam)]);
 
         $result = ExtendedUrlParams::fromThumbnail($entity);
         static::assertInstanceOf(\DateTimeInterface::class, $result->updatedAt);

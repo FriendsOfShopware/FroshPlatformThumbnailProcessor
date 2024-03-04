@@ -95,7 +95,7 @@ class MediaUrlLoader
                     continue;
                 }
 
-                $thumbnail->addTranslated('mediaUrlParams', $mapped[$entity->getUniqueIdentifier()]);
+                $thumbnail->addTranslated('mediaUrlParam', ExtendedUrlParam::fromUrlParams($mapped[$entity->getUniqueIdentifier()]));
 
                 $mapped[$thumbnail->getUniqueIdentifier()] = ExtendedUrlParams::fromThumbnail($thumbnail);
             }
