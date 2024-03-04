@@ -1,3 +1,6 @@
+# 2.1.1
+* Fixed exception in ThumbnailSizesChangedListener to support old MediaFolderRepositoryDecorator for Shopware 6.4
+
 # 2.1.0
 * Adjust wordings and remove typos
 * Add configuration within the plugin to activate its function explicit

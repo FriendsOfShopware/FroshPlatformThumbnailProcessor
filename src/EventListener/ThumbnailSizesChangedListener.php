@@ -5,7 +5,7 @@ namespace Frosh\ThumbnailProcessor\EventListener;
 use Shopware\Core\Content\Media\Aggregate\MediaFolder\MediaFolderEntity;
 use Shopware\Core\Content\Media\Aggregate\MediaFolderConfigurationMediaThumbnailSize\MediaFolderConfigurationMediaThumbnailSizeDefinition;
 use Shopware\Core\Content\Media\Commands\GenerateThumbnailsCommand;
-use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
+use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
 use Shopware\Core\Framework\DataAbstractionLayer\Event\EntityWrittenEvent;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsAnyFilter;
@@ -17,11 +17,11 @@ class ThumbnailSizesChangedListener implements EventSubscriberInterface
 {
     private GenerateThumbnailsCommand $generateThumbnailsCommand;
 
-    private EntityRepository $mediaFolderRepository;
+    private EntityRepositoryInterface $mediaFolderRepository;
 
     public function __construct(
         GenerateThumbnailsCommand $generateThumbnailsCommand,
-        EntityRepository $mediaFolderRepository
+        EntityRepositoryInterface $mediaFolderRepository
     ) {
         $this->mediaFolderRepository = $mediaFolderRepository;
         $this->generateThumbnailsCommand = $generateThumbnailsCommand;
