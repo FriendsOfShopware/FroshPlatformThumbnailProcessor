@@ -1,3 +1,6 @@
+# 5.0.1
+* Fix support for cloning product entity
+
 # 5.0.0
 * Add support for Shopware 6.6
 
