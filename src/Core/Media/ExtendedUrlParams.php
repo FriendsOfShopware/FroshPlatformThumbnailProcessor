@@ -42,10 +42,10 @@ class ExtendedUrlParams extends UrlParams
             $updatedAt = null;
         }
 
-        $mediaUrlParams = $entity->getTranslation('mediaUrlParams');
-        if (!($mediaUrlParams instanceof self)) {
+        $mediaUrlParam = $entity->getTranslation('mediaUrlParam');
+        if (!($mediaUrlParam instanceof ExtendedUrlParam)) {
             throw new \InvalidArgumentException(
-                \sprintf('"mediaUrlParams" within translations must be type of "%s"', __CLASS__)
+                \sprintf('"mediaUrlParam" within translations must be type of "%s"', __CLASS__)
             );
         }
 
@@ -57,8 +57,8 @@ class ExtendedUrlParams extends UrlParams
         $result = new self(
             id: $entity->getUniqueIdentifier(),
             source: UrlParamsSource::THUMBNAIL,
-            path: $mediaUrlParams->path,
-            updatedAt: $mediaUrlParams->updatedAt
+            path: $mediaUrlParam->path,
+            updatedAt: $mediaUrlParam->updatedAt
         );
 
         $result->width = $width;
