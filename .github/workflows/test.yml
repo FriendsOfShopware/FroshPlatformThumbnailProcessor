@@ -18,7 +18,7 @@ jobs:
       - name: Setup Shopware
         uses: shopware/setup-shopware@main
         with:
-          shopware-version: 'v6.6.0.0-rc3'
+          shopware-version: 'v6.6.0.0-rc6'
           php-version: 8.2
           php-extensions: pcov
 
