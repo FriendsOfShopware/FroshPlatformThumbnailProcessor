@@ -10,35 +10,45 @@ on:
 
 jobs:
   test:
+    env:
+      PLUGIN_NAME: FroshPlatformThumbnailProcessor
     strategy:
       fail-fast: false
       matrix:
-        version: [ "v6.5.0", "v6.5.1", "v6.5.2", "v6.5.3", "v6.5.4", "v6.5.5", "v6.5.6", "v6.5.7", "6.5.x" ]
-    container: ghcr.io/friendsofshopware/platform-plugin-dev:${{ matrix.version }}
+        version: [ "v6.5.0.0", "v6.5.1.1", "v6.5.2.1", "v6.5.3", "v6.5.4.1", "v6.5.5.2", "v6.5.6.1", "v6.5.7.4", "v6.5.8.7", "6.5.x" ]
     runs-on: ubuntu-latest
     steps:
+      - name: Setup Shopware
+        uses: shopware/setup-shopware@main
+        with:
+          shopware-version: ${{ matrix.version }}
+          php-version: 8.2
+          php-extensions: pcov
+
+      - name: Info
+        run: |
+          php bin/console -V
+          mysql -V
+          php -v
+          composer -V
+          echo ${{ github.workspace }}
+
       - name: Checkout v4
-        if: github.event_name != 'pull_request'
+        if: github.event_name == 'workflow_call'
         uses: actions/checkout@v4
         with:
           ref: v4
+          path: ${{ github.workspace }}/custom/plugins/${{ env.PLUGIN_NAME }}
 
       - name: Checkout Pull Request
-        if: github.event_name == 'pull_request'
+        if: github.event_name != 'workflow_call'
         uses: actions/checkout@v4
-
-      - name: Prepare
-        run: |
-          start-mysql
-          php /opt/shopware/bin/console -V
-          mysql -V
-          php -v
-          cp -r "./" "/plugins/FroshPlatformThumbnailProcessor"
-          cd /plugins/FroshPlatformThumbnailProcessor
+        with:
+          path: ${{ github.workspace }}/custom/plugins/${{ env.PLUGIN_NAME }}
 
       - name: PHPUnit
+        working-directory: ${{ github.workspace }}/custom/plugins/${{ env.PLUGIN_NAME }}
         run: |
-          cd /plugins/FroshPlatformThumbnailProcessor
           php -d pcov.enabled=1 /opt/shopware/vendor/bin/phpunit  --coverage-clover clover.xml
 
       - uses: codecov/codecov-action@v3
@@ -46,16 +56,15 @@ jobs:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
         with:
           files: ./clover.xml
-          root_dir: /plugins/FroshPlatformThumbnailProcessor
-          working-directory: /plugins/FroshPlatformThumbnailProcessor
+          root_dir: ${{ github.workspace }}/custom/plugins/${{ env.PLUGIN_NAME }}
+          working-directory: ${{ github.workspace }}/custom/plugins/${{ env.PLUGIN_NAME }}
 
       - name: Install specific dependencies for PHPStan at v6.5.0
         if: matrix.version == 'v6.5.0'
         run: |
-          composer require tomasvotruba/type-coverage --dev --no-scripts -d /opt/shopware/
+          composer require tomasvotruba/type-coverage --dev --no-scripts -d ${{ github.workspace }}
 
       # we call this after PHPUnit to make sure that the generated files are available
       - name: PHPStan
         run: |
-          cd /plugins/FroshPlatformThumbnailProcessor
-          /opt/shopware/vendor/bin/phpstan analyse -c phpstan.neon
+          ${{ github.workspace }}/vendor/bin/phpstan analyse -c ${{ github.workspace }}/custom/plugins/${{ env.PLUGIN_NAME }}/phpstan.neon
