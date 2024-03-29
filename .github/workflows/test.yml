@@ -15,7 +15,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        version: [ "v6.5.0.0", "v6.5.1.1", "v6.5.2.1", "v6.5.3.3", "v6.5.4.1", "v6.5.5.2", "v6.5.6.1", "v6.5.7.4", "v6.5.8.7", "6.5.x" ]
+        version: [ "v6.5.1.1", "v6.5.2.1", "v6.5.3.3", "v6.5.4.1", "v6.5.5.2", "v6.5.6.1", "v6.5.7.4", "v6.5.8.7", "6.5.x" ]
     runs-on: ubuntu-latest
     steps:
       - name: Setup Shopware
@@ -58,11 +58,6 @@ jobs:
           files: ./clover.xml
           root_dir: ${{ github.workspace }}/custom/plugins/${{ env.PLUGIN_NAME }}
           working-directory: ${{ github.workspace }}/custom/plugins/${{ env.PLUGIN_NAME }}
-
-      - name: Install specific dependencies for PHPStan at v6.5.0
-        if: matrix.version == 'v6.5.0'
-        run: |
-          composer require tomasvotruba/type-coverage --dev --no-scripts -d ${{ github.workspace }}
 
       # we call this after PHPUnit to make sure that the generated files are available
       - name: PHPStan
