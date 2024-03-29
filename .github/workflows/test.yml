@@ -18,7 +18,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        if: github.event_name != 'pull_request'
+        uses: actions/checkout@v4
+        with:
+          path: v4
+
+      - name: Checkout
+        if: github.event_name == 'pull_request'
+        uses: actions/checkout@v4
 
       - name: Prepare
         run: |
