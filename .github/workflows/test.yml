@@ -17,13 +17,13 @@ jobs:
     container: ghcr.io/friendsofshopware/platform-plugin-dev:${{ matrix.version }}
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout v4
         if: github.event_name != 'pull_request'
         uses: actions/checkout@v4
         with:
-          path: v4
+          ref: v4
 
-      - name: Checkout
+      - name: Checkout Pull Request
         if: github.event_name == 'pull_request'
         uses: actions/checkout@v4
 
