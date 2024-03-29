@@ -1,0 +1,9 @@
+name: Test branches
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "5 15 * * *"
+
+jobs:
+  main:
+    uses: FriendsOfShopware/FroshPlatformThumbnailProcessor/.github/workflows/test.yml@main
