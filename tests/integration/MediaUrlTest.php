@@ -106,7 +106,7 @@ class MediaUrlTest extends TestCase
                 $thumbnail
             );
 
-            static::assertStringStartsWith('http://127.0.0.1', $thumbnailUrl);
+            static::assertStringStartsWith('http://localhost:8000', $thumbnailUrl);
             static::assertStringNotContainsString('thumbnail/', $thumbnailUrl);
             static::assertFalse($fileSystem->has(\str_replace('media/', 'thumbnail/', $filePath)));
             static::assertFalse($fileSystem->has($thumbnailUrl));
@@ -165,7 +165,7 @@ class MediaUrlTest extends TestCase
                 $thumbnail
             );
 
-            static::assertStringStartsWith('http://127.0.0.1', $thumbnailUrl);
+            static::assertStringStartsWith('http://localhost:8000', $thumbnailUrl);
             static::assertStringEndsWith('pngFileWithExtensionAndFolder.png?width=' . $thumbnail->getWidth(), $thumbnailUrl);
             static::assertStringNotContainsString('thumbnail/', $thumbnailUrl);
 
