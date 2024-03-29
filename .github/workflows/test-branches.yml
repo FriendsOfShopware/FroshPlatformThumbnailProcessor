@@ -7,3 +7,5 @@ on:
 jobs:
   main:
     uses: FriendsOfShopware/FroshPlatformThumbnailProcessor/.github/workflows/test.yml@main
+  v4:
+    uses: FriendsOfShopware/FroshPlatformThumbnailProcessor/.github/workflows/test.yml@v4
