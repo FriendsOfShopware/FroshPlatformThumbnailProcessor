@@ -34,14 +34,14 @@ jobs:
           echo ${{ github.workspace }}
 
       - name: Checkout v4
-        if: github.event_name == 'workflow_call'
+        if: github.event_name != 'pull_request'
         uses: actions/checkout@v4
         with:
           ref: v4
           path: ${{ github.workspace }}/custom/plugins/${{ env.PLUGIN_NAME }}
 
       - name: Checkout Pull Request
-        if: github.event_name != 'workflow_call'
+        if: github.event_name == 'pull_request'
         uses: actions/checkout@v4
         with:
           path: ${{ github.workspace }}/custom/plugins/${{ env.PLUGIN_NAME }}
