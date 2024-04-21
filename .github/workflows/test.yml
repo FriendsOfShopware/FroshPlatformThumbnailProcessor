@@ -12,12 +12,16 @@ jobs:
   test:
     env:
       PLUGIN_NAME: FroshPlatformThumbnailProcessor
+    strategy:
+      fail-fast: false
+      matrix:
+        version: [ "v6.6.1.1", "v6.6.0.3", "trunk" ]
     runs-on: ubuntu-latest
     steps:
       - name: Setup Shopware
         uses: shopware/setup-shopware@main
         with:
-          shopware-version: 'v6.6.0.0-rc6'
+          shopware-version: ${{ matrix.version }}
           php-version: 8.2
           php-extensions: pcov
 
