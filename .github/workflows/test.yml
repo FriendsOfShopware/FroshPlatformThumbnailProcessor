@@ -16,13 +16,14 @@ jobs:
       fail-fast: false
       matrix:
         version: [ "v6.6.1.1", "v6.6.0.3", "trunk" ]
+        php-version: [ "8.2" ]
     runs-on: ubuntu-latest
     steps:
       - name: Setup Shopware
         uses: shopware/setup-shopware@main
         with:
           shopware-version: ${{ matrix.version }}
-          php-version: 8.2
+          php-version: ${{ matrix.php-version }}
           php-extensions: pcov
 
       - name: Info
@@ -52,10 +53,15 @@ jobs:
           root_dir: ${{ github.workspace }}/custom/plugins/${{ env.PLUGIN_NAME }}
           working-directory: ${{ github.workspace }}/custom/plugins/${{ env.PLUGIN_NAME }}
 
+      - name: Setup Shopware for Integration
+        uses: shopware/setup-shopware@main
+        with:
+          shopware-version: ${{ matrix.version }}
+          php-version: ${{ matrix.php-version }}
+
       - name: PHPUnit Integration
         working-directory: ${{ github.workspace }}/custom/plugins/${{ env.PLUGIN_NAME }}
         run: |
-          composer remove frosh/platform-thumbnail-processor --working-dir=${{ github.workspace }}
           php ${{ github.workspace }}/vendor/bin/phpunit --testsuite Integration
 
       # we call this after PHPUnit to make sure that the generated files are available
