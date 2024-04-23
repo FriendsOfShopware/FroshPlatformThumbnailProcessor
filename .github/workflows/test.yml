@@ -9,7 +9,7 @@ on:
   workflow_call:
 
 jobs:
-  test:
+  Test:
     env:
       PLUGIN_NAME: FroshPlatformThumbnailProcessor
     strategy:
@@ -39,7 +39,7 @@ jobs:
         with:
           path: ${{ github.workspace }}/custom/plugins/${{ env.PLUGIN_NAME }}
 
-      - name: Run Tests
+      - name: Run UnitTests
         working-directory: ${{ github.workspace }}/custom/plugins/${{ env.PLUGIN_NAME }}
         run: |
           composer create-placeholders
@@ -53,18 +53,51 @@ jobs:
           root_dir: ${{ github.workspace }}/custom/plugins/${{ env.PLUGIN_NAME }}
           working-directory: ${{ github.workspace }}/custom/plugins/${{ env.PLUGIN_NAME }}
 
-      - name: Setup Shopware for Integration
+      # we call this after PHPUnit to make sure that the generated files are available
+      - name: PHPStan
+        run: |
+          ${{ github.workspace }}/vendor/bin/phpstan analyse -c ${{ github.workspace }}/custom/plugins/${{ env.PLUGIN_NAME }}/phpstan.neon
+
+  IntegrationTest:
+    env:
+      PLUGIN_NAME: FroshPlatformThumbnailProcessor
+    strategy:
+      fail-fast: false
+      matrix:
+        version: [ "v6.6.1.1", "v6.6.0.3", "trunk" ]
+        php-version: [ "8.2" ]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Shopware
         uses: shopware/setup-shopware@main
         with:
           shopware-version: ${{ matrix.version }}
           php-version: ${{ matrix.php-version }}
 
+      - name: Info
+        run: |
+          php bin/console -V
+          mysql -V
+          php -v
+          composer -V
+          echo ${{ github.workspace }}
+
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          path: ${{ github.workspace }}/custom/plugins/${{ env.PLUGIN_NAME }}
+
       - name: PHPUnit Integration
         working-directory: ${{ github.workspace }}/custom/plugins/${{ env.PLUGIN_NAME }}
         run: |
-          php ${{ github.workspace }}/vendor/bin/phpunit --testsuite Integration
+          composer create-placeholders
+          php -d pcov.enabled=1 ${{ github.workspace }}/vendor/bin/phpunit --testsuite Integration
 
-      # we call this after PHPUnit to make sure that the generated files are available
-      - name: PHPStan
-        run: |
-          ${{ github.workspace }}/vendor/bin/phpstan analyse -c ${{ github.workspace }}/custom/plugins/${{ env.PLUGIN_NAME }}/phpstan.neon
+      - uses: codecov/codecov-action@v3
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+        with:
+          files: ./clover.xml
+          root_dir: ${{ github.workspace }}/custom/plugins/${{ env.PLUGIN_NAME }}
+          working-directory: ${{ github.workspace }}/custom/plugins/${{ env.PLUGIN_NAME }}
+
