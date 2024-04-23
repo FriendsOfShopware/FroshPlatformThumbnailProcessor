@@ -55,6 +55,7 @@ jobs:
       - name: PHPUnit Integration
         working-directory: ${{ github.workspace }}/custom/plugins/${{ env.PLUGIN_NAME }}
         run: |
+          composer remove frosh/platform-thumbnail-processor
           php ${{ github.workspace }}/vendor/bin/phpunit --testsuite Integration
 
       # we call this after PHPUnit to make sure that the generated files are available
