@@ -25,7 +25,6 @@ jobs:
           shopware-version: ${{ matrix.version }}
           php-version: ${{ matrix.php-version }}
           php-extensions: pcov
-          install: true
 
       - name: Info
         run: |
@@ -74,7 +73,6 @@ jobs:
           shopware-version: ${{ matrix.version }}
           php-version: ${{ matrix.php-version }}
           php-extensions: pcov
-          install: true
 
       - name: Info
         run: |
