@@ -11,11 +11,11 @@ class ThumbnailUrlTemplate implements ThumbnailUrlTemplateInterface
     ) {
     }
 
-    public function getUrl(string $mediaUrl, string $mediaPath, string $width): string
+    public function getUrl(string $mediaUrl, string $mediaPath, string $width, ?\DateTimeInterface $mediaUpdatedAt): string
     {
         return str_replace(
-            ['{mediaUrl}', '{mediaPath}', '{width}'],
-            [$mediaUrl, $mediaPath, $width],
+            ['{mediaUrl}', '{mediaPath}', '{width}', '{mediaUpdatedAt}'],
+            [$mediaUrl, $mediaPath, $width, $mediaUpdatedAt?->getTimestamp() ?: '0'],
             $this->getPattern()
         );
     }

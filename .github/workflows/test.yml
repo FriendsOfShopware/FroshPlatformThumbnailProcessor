@@ -32,7 +32,6 @@ jobs:
           mysql -V
           php -v
           composer -V
-          echo ${{ github.workspace }}
 
       - name: Checkout
         uses: actions/checkout@v3
@@ -73,6 +72,7 @@ jobs:
         with:
           shopware-version: ${{ matrix.version }}
           php-version: ${{ matrix.php-version }}
+          php-extensions: pcov
 
       - name: Info
         run: |
@@ -80,7 +80,6 @@ jobs:
           mysql -V
           php -v
           composer -V
-          echo ${{ github.workspace }}
 
       - name: Checkout
         uses: actions/checkout@v3

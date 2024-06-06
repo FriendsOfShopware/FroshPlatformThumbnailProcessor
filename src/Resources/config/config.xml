@@ -20,7 +20,8 @@
             <helpText><![CDATA[available variables:<br>
                 {mediaUrl}: https://cdn.test.de/<br>
                 {mediaPath}: media/image/5b/6d/16/tea.png<br>
-                {width}: 800
+                {width}: 800<br>
+                {mediaUpdatedAt}: 1716882050 (unix timestamp) or 0
             ]]></helpText>
         </input-field>
 

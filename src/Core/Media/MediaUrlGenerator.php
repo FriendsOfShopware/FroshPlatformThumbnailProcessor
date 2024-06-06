@@ -51,7 +51,8 @@ class MediaUrlGenerator extends AbstractMediaUrlGenerator
             $urls[$key] = $this->thumbnailUrlTemplate->getUrl(
                 $baseUrl,
                 $value->path,
-                $this->getWidth($maxWidth, $value)
+                $this->getWidth($maxWidth, $value),
+                $value->updatedAt
             );
         }
 
