@@ -1,3 +1,6 @@
+# 5.1.0
+* Add variable mediaUpdatedAt for paths to prevent caching
+
 # 5.0.1
 * Fix support for cloning product entity
 
