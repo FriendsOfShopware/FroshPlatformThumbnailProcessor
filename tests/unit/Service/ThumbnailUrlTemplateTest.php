@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Frosh\ThumbnailProcessor\TestsUnit\Service;
+namespace Frosh\ThumbnailProcessor\Tests\Unit\Service;
 
 use Frosh\ThumbnailProcessor\Service\ConfigReader;
 use Frosh\ThumbnailProcessor\Service\ThumbnailUrlTemplate;
@@ -22,7 +22,7 @@ class ThumbnailUrlTemplateTest extends TestCase
 
         $url = $class->getUrl($mediaUrl, $mediaPath, $width, $date);
 
-        static::assertSame(\sprintf('%s/%s?width=%s&updatedAt=%s&uff', $mediaUrl, $mediaPath, $width, $date?->getTimestamp() ?? 'null'), $url);
+        static::assertSame(\sprintf('%s/%s?width=%s&updatedAt=%s&uff', $mediaUrl, $mediaPath, $width, $date?->getTimestamp() ?: '0'), $url);
     }
 
     /**
@@ -38,7 +38,7 @@ class ThumbnailUrlTemplateTest extends TestCase
 
         $url = $class->getUrl($mediaUrl, $mediaPath, $width, $date);
 
-        static::assertSame(\sprintf('%s/%s?width=%s&updatedAt=%s', $mediaUrl, $mediaPath, $width, $date?->getTimestamp() ?? 'null'), $url);
+        static::assertSame(\sprintf('%s/%s?width=%s&updatedAt=%s', $mediaUrl, $mediaPath, $width, $date?->getTimestamp() ?: '0'), $url);
     }
 
     /**
@@ -56,7 +56,7 @@ class ThumbnailUrlTemplateTest extends TestCase
 
         $url = $class->getUrl($mediaUrl, $mediaPath, $width, $date);
 
-        static::assertSame(\sprintf('%s/%s?width=%s&updatedAt=%s', $mediaUrl, $mediaPath, $width, $date?->getTimestamp() ?? 'null'), $url);
+        static::assertSame(\sprintf('%s/%s?width=%s&updatedAt=%s', $mediaUrl, $mediaPath, $width, $date?->getTimestamp() ?: '0'), $url);
     }
 
     /**

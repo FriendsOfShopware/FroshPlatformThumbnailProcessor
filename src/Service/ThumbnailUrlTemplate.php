@@ -15,7 +15,7 @@ class ThumbnailUrlTemplate implements ThumbnailUrlTemplateInterface
     {
         return str_replace(
             ['{mediaUrl}', '{mediaPath}', '{width}', '{mediaUpdatedAt}'],
-            [$mediaUrl, $mediaPath, $width, $mediaUpdatedAt?->getTimestamp() ?: 'null'],
+            [$mediaUrl, $mediaPath, $width, $mediaUpdatedAt?->getTimestamp() ?: '0'],
             $this->getPattern()
         );
     }

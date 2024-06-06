@@ -48,7 +48,7 @@ Available variables with examples:
 * {mediaUrl}: https://www.example.com/
 * {mediaPath}: media/01/82/69/sasse.png
 * {width}: 800
-* {mediaUpdatedAt}: 1716882050 (unix timestamp) or null
+* {mediaUpdatedAt}: 1716882050 (unix timestamp) or 0
 
 Feel free to decorate `ThumbnailUrlTemplateInterface` to add more individual functions like [signed imgproxy](https://github.com/FriendsOfShopware/FroshPlatformThumbnailProcessorImgProxy)
 
