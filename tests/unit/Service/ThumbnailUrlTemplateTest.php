@@ -9,7 +9,7 @@ use Shopware\Core\Framework\Uuid\Uuid;
 
 class ThumbnailUrlTemplateTest extends TestCase
 {
-	/**
+    /**
      * @dataProvider getSalesChannelIds
      */
     public function testGetUrl(?string $salesChannelId, string $mediaUrl, string $mediaPath, string $width, ?\DateTimeInterface $date): void
@@ -60,7 +60,7 @@ class ThumbnailUrlTemplateTest extends TestCase
     }
 
     /**
-     * @return iterable<array{string|null, string, string, string}>
+     * @return iterable<array{string|null, string, string, string, \DateTimeImmutable|null}>
      */
     public static function getSalesChannelIds(): iterable
     {
