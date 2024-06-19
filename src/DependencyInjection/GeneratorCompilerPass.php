@@ -20,10 +20,10 @@ use Shopware\Core\Content\Media\Thumbnail\ThumbnailService as OriginalThumbnailS
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
-class GeneratorCompilerPass implements CompilerPassInterface
+readonly class GeneratorCompilerPass implements CompilerPassInterface
 {
     public function __construct(
-        private readonly string $class
+        private string $class
     ) {
     }
 
@@ -139,16 +139,15 @@ class GeneratorCompilerPass implements CompilerPassInterface
      */
     private function getClassMethod(NodeFinder $nodeFinder, string $name, array $ast): ClassMethod
     {
-        /** @var ?ClassMethod $node */
         $node = $nodeFinder->findFirst($ast, function ($node) use ($name) {
             return $node instanceof ClassMethod && $node->name->toString() === $name;
         });
 
-        if (empty($node)) {
-            throw new \RuntimeException(\sprintf('Method %s in class %s is missing', $name, $this->class));
+        if ($node instanceof ClassMethod) {
+            return $node;
         }
 
-        return $node;
+        throw new \RuntimeException(\sprintf('Method %s in class %s is missing', $name, $this->class));
     }
 
     /**
