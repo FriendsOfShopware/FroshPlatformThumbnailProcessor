@@ -59,7 +59,7 @@ class MediaUrlTest extends TestCase
         $fixture = $this->mediaFixtures['NamedMimePngEtxPngWithFolder'];
         $media = $this->getPngWithFolder();
 
-        static::assertMatchesRegularExpression('/http:\/\/localhost:8000\/.*pngFileWithExtensionAndFolder\.png\?\d.*/', $media->getUrl());
+        static::assertMatchesRegularExpression('/http:\/\/localhost:8000\/media\/_test\/pngFileWithExtensionAndFolder\.png\?(\d+|ts=\d+)/', $media->getUrl());
 
         $folderName = null;
         if (\is_array($fixture['mediaFolder']) && !empty($fixture['mediaFolder']['name'])) {
