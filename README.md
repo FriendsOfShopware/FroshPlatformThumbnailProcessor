@@ -2,8 +2,6 @@
 
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md) [![Shopware Store](https://img.shields.io/badge/shopware-store-blue.svg?style=flat-square)](https://store.shopware.com/en/frosh69611263569f/thumbnailprocessor-plugin.html)
 
-> :warning: the function of this plugin will be in core with release of [this commit](https://github.com/shopware/shopware/commit/7c170d3fb0754ce9671bb00a0fd949a80fc74d96). Therefore, we will discontinue this plugin soon.
-
 This plugin allows you to use variable thumbnails, if your filesystem (or storage-adapter) supports it.
 So you [don't need modern file formats](https://blog.tinect.de/posts/you-might-not-need-thumbnails-or-modern-image-format/).  
 Besides the benefits for using it in live shops, you can use this also in development-systems, if you don't want thumbnails to be created.  
