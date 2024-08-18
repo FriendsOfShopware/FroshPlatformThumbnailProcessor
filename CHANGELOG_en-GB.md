@@ -1,3 +1,6 @@
+# 5.2.0
+* Decorate sw_thumbnail_url to support imgproxy v3
+
 # 5.1.0
 * Add variable mediaUpdatedAt for paths to prevent caching
 
