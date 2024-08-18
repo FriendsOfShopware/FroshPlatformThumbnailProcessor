@@ -63,6 +63,7 @@ class MediaUrlGeneratorTest extends TestCase
         static::assertCount(1, $generatedPaths);
         static::assertEquals('https://localhost/media/123.jpg?width=3000', current($generatedPaths));
     }
+
     public function testGenerateWithExtendedUrlParam(): void
     {
         $decoratedMediaUrlGenerator = $this->createMock(AbstractMediaUrlGenerator::class);

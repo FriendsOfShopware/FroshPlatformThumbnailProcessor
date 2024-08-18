@@ -18,7 +18,7 @@ class MediaUrlGenerator extends AbstractMediaUrlGenerator
     public function __construct(
         private readonly AbstractMediaUrlGenerator $mediaUrlGenerator,
         private readonly ThumbnailUrlTemplateInterface $thumbnailUrlTemplate,
-        private readonly FilesystemOperator $filesystem,
+        private readonly FilesystemOperator $publicFilesystem,
         private readonly ConfigReader $configReader
     ) {
     }
@@ -80,7 +80,7 @@ class MediaUrlGenerator extends AbstractMediaUrlGenerator
 
     private function getBaseUrl(): string
     {
-        return \rtrim($this->filesystem->publicUrl(''), '/');
+        return \rtrim($this->publicFilesystem->publicUrl(''), '/');
     }
 
     /**
