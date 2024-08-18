@@ -50,5 +50,9 @@
             <argument type="service" id="Shopware\Core\Content\Media\File\FileSaver"/>
             <argument type="service" id="Shopware\Core\Content\Media\File\FileFetcher"/>
         </service>
+
+        <service id="Frosh\ThumbnailProcessor\Storefront\Framework\Twig\Extension\UrlEncodingTwigFilter"
+                 decorates="Shopware\Storefront\Framework\Twig\Extension\UrlEncodingTwigFilter">
+        </service>
     </services>
 </container>

@@ -107,7 +107,7 @@ class ConfigReaderTest extends TestCase
     }
 
     /**
-     * @return iterable<array{null|string}>
+     * @return iterable<array{string|null}>
      */
     public static function getSalesChannelIds(): iterable
     {
@@ -129,7 +129,7 @@ class ConfigReaderTest extends TestCase
     }
 
     /**
-     * @return iterable<array{null|bool}>
+     * @return iterable<array{bool|null}>
      */
     public static function getActiveValues(): iterable
     {

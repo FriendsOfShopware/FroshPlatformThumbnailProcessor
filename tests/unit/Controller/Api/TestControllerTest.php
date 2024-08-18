@@ -18,6 +18,7 @@ use Shopware\Core\Framework\DataAbstractionLayer\Search\IdSearchResult;
 use Shopware\Core\Framework\Validation\DataBag\RequestDataBag;
 use Shopware\Core\PlatformRequest;
 use Symfony\Component\HttpFoundation\Request;
+
 use function PHPUnit\Framework\assertSame;
 
 class TestControllerTest extends TestCase

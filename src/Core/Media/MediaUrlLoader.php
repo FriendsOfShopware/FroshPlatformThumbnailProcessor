@@ -4,10 +4,10 @@ namespace Frosh\ThumbnailProcessor\Core\Media;
 
 use Shopware\Core\Framework\DataAbstractionLayer\Entity;
 
-class MediaUrlLoader
+readonly class MediaUrlLoader
 {
     public function __construct(
-        private readonly MediaUrlGenerator $generator
+        private MediaUrlGenerator $generator
     ) {
     }
 
