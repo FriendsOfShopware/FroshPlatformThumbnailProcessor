@@ -5,8 +5,10 @@ parameters:
         - tests
     type_coverage:
         param_type: 95
-        constant_type: 0
     ignoreErrors:
+        -
+            message: "#possible constant types, only#"
+            reportUnmatched: false
         -
             message: "#^Call to an undefined method Shopware\\\\Core\\\\Content\\\\Media\\\\Message\\\\GenerateThumbnailsMessage\\:\\:setContext\\(\\)\\.$#"
             count: 1
