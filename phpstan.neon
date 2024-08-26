@@ -7,6 +7,10 @@ parameters:
         param_type: 95
     ignoreErrors:
         -
+            message: "#tag\\:v6\\.7\\.0 - reason:exception-change Thrown exception will change from InternalFieldAccessNotAllowedException to DataAbstractionLayerException#"
+            reportUnmatched: false
+
+        -
             message: "#possible constant types, only#"
             reportUnmatched: false
         -
