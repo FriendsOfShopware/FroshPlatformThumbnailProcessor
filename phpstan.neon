@@ -7,6 +7,12 @@ parameters:
         param_type: 95
     ignoreErrors:
         -
+            message: "#tag\\:v6\\.7\\.0 - reason:becomes-internal#"
+            count: 1
+            path: tests/integration/MediaUrlTest.php
+            reportUnmatched: false
+
+        -
             message: "#tag\\:v6\\.7\\.0 - reason:exception-change Thrown exception will change from InternalFieldAccessNotAllowedException to DataAbstractionLayerException#"
             reportUnmatched: false
 
