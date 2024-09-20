@@ -13,7 +13,7 @@ class RemoveMediaUrlLoaderLoadedEventListenerCompilerPass implements CompilerPas
     {
         RemoveEventListener::remove($container, MediaUrlLoader::class, [
             ['media.loaded', 'loaded'],
-            ['partial.media.loaded', 'loaded'],
+            ['media.partial_loaded', 'loaded'],
         ]);
     }
 }

@@ -1,3 +1,6 @@
+# 5.2.1
+* Changed subscribed event for partial media loading
+
 # 5.2.0
 * Decorate sw_thumbnail_url to support imgproxy v3
 

@@ -40,7 +40,7 @@
 
             <!-- trigger "new" media path handling and url generation -->
             <tag name="kernel.event_listener" event="media.loaded" method="loaded" priority="20" />
-            <tag name="kernel.event_listener" event="partial.media.loaded" method="loaded" priority="19" />
+            <tag name="kernel.event_listener" event="media.partial_loaded" method="loaded" priority="19" />
         </service>
 
         <service id="Frosh\ThumbnailProcessor\Controller\Api\TestController" public="true">
