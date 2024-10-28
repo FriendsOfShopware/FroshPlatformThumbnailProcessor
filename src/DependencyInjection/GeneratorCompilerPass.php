@@ -2,6 +2,8 @@
 
 namespace Frosh\ThumbnailProcessor\DependencyInjection;
 
+use PhpParser\Node\Stmt\UseUse;
+use PhpParser\Node\Stmt\Use_;
 use PhpParser\Comment\Doc;
 use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\ConstFetch;
@@ -175,14 +177,14 @@ readonly class GeneratorCompilerPass implements CompilerPassInterface
                 continue;
             }
 
-            $uses[] = new Stmt\UseUse(new Name($class));
+            $uses[] = new UseUse(new Name($class));
         }
 
         if (empty($uses)) {
             return;
         }
 
-        array_unshift($stmts, new Stmt\Use_($uses));
+        array_unshift($stmts, new Use_($uses));
     }
 
     private function getFileContent(): ?string
