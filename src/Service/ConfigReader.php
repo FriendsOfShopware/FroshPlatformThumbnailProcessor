@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
 
 class ConfigReader
 {
-    private ?string $salesChannelId;
+    private ?string $salesChannelId = null;
 
     private bool $salesChannelIdDetected = false;
 
