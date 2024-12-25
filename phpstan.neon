@@ -9,6 +9,11 @@ parameters:
             count: 1
             path: tests/integration/MediaUrlTest.php
             reportUnmatched: false
+        -
+            message: "#tag\\:v6\\.7\\.0 - Will be natively typed#"
+            count: 2
+            path: tests/integration/MediaUrlTest.php
+            reportUnmatched: false
 
         -
             message: "#tag\\:v6\\.7\\.0 - reason:exception-change Thrown exception will change from InternalFieldAccessNotAllowedException to DataAbstractionLayerException#"
