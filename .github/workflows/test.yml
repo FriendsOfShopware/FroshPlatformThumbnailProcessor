@@ -9,22 +9,38 @@ on:
   workflow_call:
 
 jobs:
+  get-matrix:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.matrix.outputs.matrix }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Get Shopware Matrix
+        uses: tinect/github-shopware-matrix-generator@main
+        id: matrix
+        with:
+          versionConstraint: '~6.6.0'
+          allowEol: false
+          justMinMaxShopware: false
+          allowShopwareNext: true
+          allowShopwareRC: false
+
   Test:
     env:
       PLUGIN_NAME: FroshPlatformThumbnailProcessor
+    needs: get-matrix
     strategy:
       fail-fast: false
-      matrix:
-        # don't forget to update the matrix for integration tests
-        version: [ "v6.6.4.0", "v6.6.3.1", "v6.6.2.0", "v6.6.1.1", "v6.6.0.3", "trunk" ]
-        php-version: [ "8.2", "8.3" ]
+      matrix: ${{ fromJson(needs.get-matrix.outputs.matrix) }}
     runs-on: ubuntu-latest
     steps:
       - name: Setup Shopware
         uses: shopware/setup-shopware@main
         with:
-          shopware-version: ${{ matrix.version }}
-          php-version: ${{ matrix.php-version }}
+          shopware-version: ${{ matrix.shopware }}
+          php-version: ${{ matrix.php }}
           php-extensions: pcov
 
       - name: Info
@@ -61,18 +77,17 @@ jobs:
   IntegrationTest:
     env:
       PLUGIN_NAME: FroshPlatformThumbnailProcessor
+    needs: get-matrix
     strategy:
       fail-fast: false
-      matrix:
-        version: [ "v6.6.4.0", "v6.6.3.1", "v6.6.2.0", "v6.6.1.1", "v6.6.0.3", "trunk" ]
-        php-version: [ "8.2", "8.3" ]
+      matrix: ${{ fromJson(needs.get-matrix.outputs.matrix) }}
     runs-on: ubuntu-latest
     steps:
       - name: Setup Shopware
         uses: shopware/setup-shopware@main
         with:
-          shopware-version: ${{ matrix.version }}
-          php-version: ${{ matrix.php-version }}
+          shopware-version: ${{ matrix.shopware }}
+          php-version: ${{ matrix.php }}
           php-extensions: pcov
 
       - name: Info
