@@ -9,20 +9,42 @@ on:
   workflow_call:
 
 jobs:
+  get-matrix:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.matrix.outputs.matrix }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Get Shopware Version
+        id: shopware-constraint
+        run: echo "shopware_constraint=$(cat composer.json | jq -r '.require."shopware/core"')" >> $GITHUB_OUTPUT
+
+      - name: Get Shopware Matrix
+        uses: tinect/github-shopware-matrix-generator@main
+        id: matrix
+        with:
+          versionConstraint: ${{ steps.shopware-constraint.outputs.shopware_constraint }}
+          allowEol: false
+          justMinMaxShopware: false
+          allowShopwareNext: true
+          allowShopwareRC: false
+
   test:
     env:
       PLUGIN_NAME: FroshPlatformThumbnailProcessor
+    needs: get-matrix
     strategy:
       fail-fast: false
-      matrix:
-        version: [ "v6.5.1.1", "v6.5.2.1", "v6.5.3.3", "v6.5.4.1", "v6.5.5.2", "v6.5.6.1", "v6.5.7.4", "v6.5.8.7", "6.5.x" ]
+      matrix: ${{ fromJson(needs.get-matrix.outputs.matrix) }}
     runs-on: ubuntu-latest
     steps:
       - name: Setup Shopware
         uses: shopware/setup-shopware@main
         with:
-          shopware-version: ${{ matrix.version }}
-          php-version: 8.2
+          shopware-version: ${{ matrix.shopware }}
+          php-version: ${{ matrix.php }}
           php-extensions: pcov
 
       - name: Info
