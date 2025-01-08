@@ -16,7 +16,7 @@ parameters:
             reportUnmatched: false
 
         -
-            message: "#tag\\:v6\\.7\\.0 - reason:exception-change Thrown exception will change from InternalFieldAccessNotAllowedException to DataAbstractionLayerException#"
+            message: "#tag\\:v6\\.7\\.0 - reason\\:exception-change Thrown exception will change from InternalFieldAccessNotAllowedException to DataAbstractionLayerException#"
             reportUnmatched: false
 
         -
@@ -38,6 +38,11 @@ parameters:
 
         -
             message: "#^Anonymous function should return array but returns mixed.#"
+            path: src/DependencyInjection/ThumbnailService.php
+            reportUnmatched: false
+
+        -
+            message: "#tag\\:v6\\.7\\.0 - reason\\:return-type-change - Return type will be native#"
             path: src/DependencyInjection/ThumbnailService.php
             reportUnmatched: false
 
