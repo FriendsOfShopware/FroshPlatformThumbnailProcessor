@@ -15,6 +15,7 @@ use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Expression;
 use PhpParser\Node\Stmt\Namespace_;
 use PhpParser\NodeFinder;
+use PhpParser\Parser;
 use PhpParser\ParserFactory;
 use PhpParser\PrettyPrinter\Standard;
 use Shopware\Core\Content\Media\File\FileSaver as OriginalFileSaver;
@@ -39,8 +40,7 @@ readonly class GeneratorCompilerPass implements CompilerPassInterface
             return;
         }
 
-        $phpParser = (new ParserFactory())->create(ParserFactory::ONLY_PHP7);
-        $ast = $phpParser->parse($fileContents);
+        $ast = $this->getPhpParser()->parse($fileContents);
 
         if ($ast === null) {
             $this->removeReflectionClass();
@@ -93,6 +93,15 @@ readonly class GeneratorCompilerPass implements CompilerPassInterface
             ->setClass(__NAMESPACE__ . '\\' . $this->getClassName());
     }
 
+    private function getPhpParser(): Parser
+    {
+        if (\method_exists(ParserFactory::class, 'createForHostVersion')) {
+            return (new ParserFactory())->createForHostVersion();
+        }
+
+        return (new ParserFactory())->create(ParserFactory::ONLY_PHP7);
+    }
+
     /**
      * @param array<Stmt> $ast
      */
@@ -132,8 +141,7 @@ readonly class GeneratorCompilerPass implements CompilerPassInterface
     private function handleFileSaver(NodeFinder $nodeFinder, array $ast): void
     {
         $renameThumbnailNode = $this->getClassMethod($nodeFinder, 'renameThumbnail', $ast);
-        $renameThumbnailNode->stmts = (new ParserFactory())->create(ParserFactory::PREFER_PHP7)
-            ->parse('<?php return [];');
+        $renameThumbnailNode->stmts = $this->getPhpParser()->parse('<?php return [];');
     }
 
     /**
@@ -233,7 +241,7 @@ readonly class GeneratorCompilerPass implements CompilerPassInterface
     private function handleCreateThumbnailsForSizes(ClassMethod $createThumbnailsForSizesNode): void
     {
         // we don't need to generate the files, so we just return the array
-        $createThumbnailsForSizesNode->stmts = (new ParserFactory())->create(ParserFactory::PREFER_PHP7)
+        $createThumbnailsForSizesNode->stmts = $this->getPhpParser()
             ->parse('<?php if ($thumbnailSizes === null) {
                                 return [];
                             }
@@ -258,7 +266,7 @@ readonly class GeneratorCompilerPass implements CompilerPassInterface
     private function handleGenerateAndSaveNode(ClassMethod $generateAndSaveNode): void
     {
         // we don't need to generate the files, so we just return the array
-        $generateAndSaveNode->stmts = (new ParserFactory())->create(ParserFactory::PREFER_PHP7)
+        $generateAndSaveNode->stmts = $this->getPhpParser()
             ->parse('<?php if ($sizes === null || $sizes->count() === 0) {
                                     return [];
                                 }
