@@ -22,7 +22,7 @@
     ],
     "require": {
         "shopware/core": "~6.6.0",
-        "nikic/php-parser": "^4.13.0"
+        "nikic/php-parser": "^4.13.0|^5.0.0"
     },
     "suggest": {
         "frosh/lazy-sizes": "*"
