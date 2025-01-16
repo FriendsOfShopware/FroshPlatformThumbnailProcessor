@@ -1,3 +1,6 @@
+# 5.3.0
+* Added support for newer dev tools by upgrading support of php-parser v5
+
 # 5.2.1
 * Changed subscribed event for partial media loading
 
