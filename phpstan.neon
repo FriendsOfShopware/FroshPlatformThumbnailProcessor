@@ -5,6 +5,18 @@ parameters:
         - tests
     ignoreErrors:
         -
+            message: "#^Result of && is always false\\.$#"
+            count: 1
+            path: src/DependencyInjection/ThumbnailService.php
+            reportUnmatched: false
+
+        -
+            message: "#^Strict comparison using \\=\\=\\= between false and true will always evaluate to false\\.$#"
+            count: 1
+            path: src/DependencyInjection/ThumbnailService.php
+            reportUnmatched: false
+
+        -
             message: "#tag\\:v6\\.7\\.0 - reason:becomes-internal#"
             count: 1
             path: tests/integration/MediaUrlTest.php
