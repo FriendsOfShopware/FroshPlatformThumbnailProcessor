@@ -21,11 +21,11 @@ class MediaUrlGeneratorTest extends TestCase
     {
         $decoratedMediaUrlGenerator = $this->createMock(AbstractMediaUrlGenerator::class);
         $thumbnailUrlTemplate = $this->createMock(ThumbnailUrlTemplateInterface::class);
-        $thumbnailUrlTemplate->expects(static::once())
+        $thumbnailUrlTemplate->expects($this->once())
             ->method('getUrl')
             ->willReturn('https://localhost/media/123.jpg?width=3000');
         $filesystem = $this->createMock(PrefixFilesystem::class);
-        $filesystem->expects(static::once())
+        $filesystem->expects($this->once())
             ->method('publicUrl')
             ->willReturn('https://localhost');
 
@@ -37,7 +37,7 @@ class MediaUrlGeneratorTest extends TestCase
             'ExtensionsAllowList' => 'jpg',
             'ThumbnailPattern' => '{mediaUrl}/{mediaPath}?width={width}',
         ];
-        $configReader->expects(static::any())
+        $configReader->expects($this->any())
             ->method('getConfig')
             ->willReturnCallback(function ($key) use ($defaultPluginConfig) {
                 return $defaultPluginConfig[$key] ?? null;
@@ -68,11 +68,11 @@ class MediaUrlGeneratorTest extends TestCase
     {
         $decoratedMediaUrlGenerator = $this->createMock(AbstractMediaUrlGenerator::class);
         $thumbnailUrlTemplate = $this->createMock(ThumbnailUrlTemplateInterface::class);
-        $thumbnailUrlTemplate->expects(static::once())
+        $thumbnailUrlTemplate->expects($this->once())
             ->method('getUrl')
             ->willReturn('https://localhost/media/123.jpg?width=100');
         $filesystem = $this->createMock(PrefixFilesystem::class);
-        $filesystem->expects(static::once())
+        $filesystem->expects($this->once())
             ->method('publicUrl')
             ->willReturn('https://localhost');
 
@@ -84,7 +84,7 @@ class MediaUrlGeneratorTest extends TestCase
             'ExtensionsAllowList' => 'jpg',
             'ThumbnailPattern' => '{mediaUrl}/{mediaPath}?width={width}',
         ];
-        $configReader->expects(static::any())
+        $configReader->expects($this->any())
             ->method('getConfig')
             ->willReturnCallback(function ($key) use ($defaultPluginConfig) {
                 return $defaultPluginConfig[$key] ?? null;
@@ -120,16 +120,16 @@ class MediaUrlGeneratorTest extends TestCase
     public function testGenerateWithInactiveConfig(): void
     {
         $decoratedMediaUrlGenerator = $this->createMock(AbstractMediaUrlGenerator::class);
-        $decoratedMediaUrlGenerator->expects(static::once())
+        $decoratedMediaUrlGenerator->expects($this->once())
             ->method('generate')
             ->willReturn(['https://localhost/media/123.jpg']);
 
         $thumbnailUrlTemplate = $this->createMock(ThumbnailUrlTemplateInterface::class);
-        $thumbnailUrlTemplate->expects(static::never())
+        $thumbnailUrlTemplate->expects($this->never())
             ->method('getUrl')
             ->willReturn('https://localhost/media/123.jpg?width=3000');
         $filesystem = $this->createMock(PrefixFilesystem::class);
-        $filesystem->expects(static::never())
+        $filesystem->expects($this->never())
             ->method('publicUrl')
             ->willReturn('https://localhost');
 
@@ -141,7 +141,7 @@ class MediaUrlGeneratorTest extends TestCase
             'ExtensionsAllowList' => 'jpg',
             'ThumbnailPattern' => '{mediaUrl}/{mediaPath}?width={width}',
         ];
-        $configReader->expects(static::any())
+        $configReader->expects($this->any())
             ->method('getConfig')
             ->willReturnCallback(function ($key) use ($defaultPluginConfig) {
                 return $defaultPluginConfig[$key] ?? null;
@@ -174,16 +174,16 @@ class MediaUrlGeneratorTest extends TestCase
     public function testGenerateWithNotAllowedExtensionResultsInOriginal(string $allowList): void
     {
         $decoratedMediaUrlGenerator = $this->createMock(AbstractMediaUrlGenerator::class);
-        $decoratedMediaUrlGenerator->expects(static::once())
+        $decoratedMediaUrlGenerator->expects($this->once())
             ->method('generate')
             ->willReturn(['https://localhost/media/123.jpg']);
 
         $thumbnailUrlTemplate = $this->createMock(ThumbnailUrlTemplateInterface::class);
-        $thumbnailUrlTemplate->expects(static::never())
+        $thumbnailUrlTemplate->expects($this->never())
             ->method('getUrl')
             ->willReturn('https://localhost/media/123.jpg?width=3000');
         $filesystem = $this->createMock(PrefixFilesystem::class);
-        $filesystem->expects(static::once())
+        $filesystem->expects($this->once())
             ->method('publicUrl')
             ->willReturn('https://localhost');
 
@@ -195,7 +195,7 @@ class MediaUrlGeneratorTest extends TestCase
             'ExtensionsAllowList' => $allowList,
             'ThumbnailPattern' => '{mediaUrl}/{mediaPath}?width={width}',
         ];
-        $configReader->expects(static::any())
+        $configReader->expects($this->any())
             ->method('getConfig')
             ->willReturnCallback(function ($key) use ($defaultPluginConfig) {
                 return $defaultPluginConfig[$key] ?? null;
@@ -226,11 +226,11 @@ class MediaUrlGeneratorTest extends TestCase
     {
         $decoratedMediaUrlGenerator = $this->createMock(AbstractMediaUrlGenerator::class);
         $thumbnailUrlTemplate = $this->createMock(ThumbnailUrlTemplateInterface::class);
-        $thumbnailUrlTemplate->expects(static::exactly(2))
+        $thumbnailUrlTemplate->expects($this->exactly(2))
             ->method('getUrl')
             ->willReturn('https://localhost/media/123.jpg?width=100');
         $filesystem = $this->createMock(PrefixFilesystem::class);
-        $filesystem->expects(static::once())
+        $filesystem->expects($this->once())
             ->method('publicUrl')
             ->willReturn('https://localhost');
 
@@ -242,7 +242,7 @@ class MediaUrlGeneratorTest extends TestCase
             'ExtensionsAllowList' => 'jpg',
             'ThumbnailPattern' => '{mediaUrl}/{mediaPath}?width={width}',
         ];
-        $configReader->expects(static::exactly(3))
+        $configReader->expects($this->exactly(3))
             ->method('getConfig')
             ->willReturnCallback(function ($key) use ($defaultPluginConfig) {
                 return $defaultPluginConfig[$key] ?? null;

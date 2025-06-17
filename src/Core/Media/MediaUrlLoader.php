@@ -18,7 +18,7 @@ readonly class MediaUrlLoader
     {
         $mapping = $this->map($entities);
 
-        if (empty($mapping)) {
+        if ($mapping === []) {
             return;
         }
 
@@ -65,12 +65,12 @@ readonly class MediaUrlLoader
         $mapped = [];
 
         foreach ($entities as $entity) {
-            if (!$entity->has('path') || empty($entity->get('path'))) {
+            if (!$entity->has('path') || $entity->get('path') === null || $entity->get('path') === '') {
                 continue;
             }
 
             // don't generate private urls
-            if (!$entity->has('private') || $entity->get('private')) {
+            if (!$entity->has('private') || $entity->get('private') === true) {
                 continue;
             }
 
@@ -91,7 +91,7 @@ readonly class MediaUrlLoader
                     continue;
                 }
 
-                if (!$thumbnail->has('path') || empty($thumbnail->get('path'))) {
+                if (!$thumbnail->has('path') || $thumbnail->get('path') === null || $thumbnail->get('path') === '') {
                     continue;
                 }
 

@@ -36,20 +36,15 @@ class MediaUrlTest extends TestCase
 
     protected function setUp(): void
     {
-        /** @var ContainerInterface $container */
-        $container = $this->getContainer();
+        $container = $this::getContainer();
 
         $urlGenerator = $container->get(AbstractMediaUrlGenerator::class);
-        \assert($urlGenerator instanceof AbstractMediaUrlGenerator);
 
         $this->mediaRepository = $container->get('media.repository');
-        \assert($this->mediaRepository instanceof EntityRepository);
 
         $this->generateThumbnailsCommand = $container->get(GenerateThumbnailsCommand::class);
-        \assert($this->generateThumbnailsCommand instanceof GenerateThumbnailsCommand);
 
         $this->systemConfigService = $container->get(SystemConfigService::class);
-        \assert($this->systemConfigService instanceof SystemConfigService);
 
         $this->context = Context::createDefaultContext();
     }
@@ -62,8 +57,12 @@ class MediaUrlTest extends TestCase
         static::assertMatchesRegularExpression('/http:\/\/localhost:8000\/media\/_test\/pngFileWithExtensionAndFolder\.png\?(\d+|ts=\d+)/', $media->getUrl());
 
         $folderName = null;
-        if (\is_array($fixture['mediaFolder']) && !empty($fixture['mediaFolder']['name'])) {
-            $folderName = $fixture['mediaFolder']['name'];
+
+        if (\is_array($fixture['mediaFolder'])) {
+            $name = $fixture['mediaFolder']['name'] ?? null;
+            if ($name !== null && $name !== '') {
+                $folderName = $name;
+            }
         }
 
         static::assertNotEmpty($folderName);
@@ -119,8 +118,11 @@ class MediaUrlTest extends TestCase
         static::assertStringEndsWith('pngFileWithExtensionAndFolder.png?width=3000', $media->getUrl());
 
         $folderName = null;
-        if (\is_array($fixture['mediaFolder']) && !empty($fixture['mediaFolder']['name'])) {
-            $folderName = $fixture['mediaFolder']['name'];
+        if (\is_array($fixture['mediaFolder'])) {
+            $name = $fixture['mediaFolder']['name'] ?? null;
+            if ($name !== null && $name !== '') {
+                $folderName = $name;
+            }
         }
 
         static::assertNotEmpty($folderName);

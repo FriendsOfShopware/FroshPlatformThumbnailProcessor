@@ -62,7 +62,6 @@ class MediaUrlGenerator extends AbstractMediaUrlGenerator
     private function canProcess(string $path): bool
     {
         $fileExtension = \pathinfo($path, \PATHINFO_EXTENSION);
-        \assert(\is_string($fileExtension));
 
         return $this->canProcessFileExtension($fileExtension);
     }
@@ -71,7 +70,7 @@ class MediaUrlGenerator extends AbstractMediaUrlGenerator
     {
         $extensionsAllowList = $this->getExtensionsAllowList();
 
-        if (empty($extensionsAllowList)) {
+        if ($extensionsAllowList === []) {
             return false;
         }
 
@@ -101,7 +100,8 @@ class MediaUrlGenerator extends AbstractMediaUrlGenerator
                     \explode(
                         ',',
                         (string) \preg_replace('/\s+/', '', \strtolower($extensionsAllowListConfig))
-                    )
+                    ),
+                    static fn($value) => $value !== ''
                 )
             );
         }
@@ -111,7 +111,7 @@ class MediaUrlGenerator extends AbstractMediaUrlGenerator
 
     private function getWidth(string $maxWidth, UrlParams $value): string
     {
-        if ($value instanceof ExtendedUrlParams && !empty($value->width)) {
+        if ($value instanceof ExtendedUrlParams && $value->width !== null && $value->width !== 0) {
             return (string) $value->width;
         }
 

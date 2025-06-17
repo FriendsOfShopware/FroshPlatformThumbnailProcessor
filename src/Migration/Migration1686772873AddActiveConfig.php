@@ -16,7 +16,7 @@ class Migration1686772873AddActiveConfig extends MigrationStep
     {
         $currentPluginVersion = $this->getPluginVersion($connection);
 
-        if (empty($currentPluginVersion)) {
+        if ($currentPluginVersion === null || $currentPluginVersion === '') {
             return;
         }
 

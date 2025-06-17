@@ -5,6 +5,7 @@ namespace Frosh\ThumbnailProcessor\Tests\Unit\Core\Media;
 use Frosh\ThumbnailProcessor\Core\Media\MediaUrlGenerator;
 use Frosh\ThumbnailProcessor\Core\Media\MediaUrlLoader;
 use PHPUnit\Framework\TestCase;
+use Shopware\Core\Framework\DataAbstractionLayer\Entity;
 use Shopware\Core\Framework\DataAbstractionLayer\PartialEntity;
 use Shopware\Core\Framework\Uuid\Uuid;
 
@@ -15,7 +16,7 @@ class MediaUrlLoaderTest extends TestCase
         $id = Uuid::randomHex();
 
         $mediaUrlGenerator = $this->createMock(MediaUrlGenerator::class);
-        $mediaUrlGenerator->expects(static::once())
+        $mediaUrlGenerator->expects($this->once())
             ->method('generate')
             ->willReturn([$id => 'https://example.com/a0/image.jpg']);
 
@@ -40,7 +41,7 @@ class MediaUrlLoaderTest extends TestCase
         $id = Uuid::randomHex();
 
         $mediaUrlGenerator = $this->createMock(MediaUrlGenerator::class);
-        $mediaUrlGenerator->expects(static::never())
+        $mediaUrlGenerator->expects($this->never())
             ->method('generate')
             ->willReturn([$id => 'https://example.com/a0/image.jpg']);
 
@@ -63,7 +64,7 @@ class MediaUrlLoaderTest extends TestCase
         $id = Uuid::randomHex();
 
         $mediaUrlGenerator = $this->createMock(MediaUrlGenerator::class);
-        $mediaUrlGenerator->expects(static::once())
+        $mediaUrlGenerator->expects($this->once())
             ->method('generate')
             ->willReturn([]);
 
@@ -87,7 +88,7 @@ class MediaUrlLoaderTest extends TestCase
         $id = Uuid::randomHex();
 
         $mediaUrlGenerator = $this->createMock(MediaUrlGenerator::class);
-        $mediaUrlGenerator->expects(static::never())
+        $mediaUrlGenerator->expects($this->never())
             ->method('generate');
 
         $mediaUrlLoader = new MediaUrlLoader($mediaUrlGenerator);
@@ -107,7 +108,7 @@ class MediaUrlLoaderTest extends TestCase
     public function testLoadedWithThumbnailHavingUrls(): void
     {
         $mediaUrlGenerator = $this->createMock(MediaUrlGenerator::class);
-        $mediaUrlGenerator->expects(static::once())
+        $mediaUrlGenerator->expects($this->once())
             ->method('generate')
             ->willReturn([
                 '1' => 'https://example.com/a0/image.jpg?width=100',
@@ -134,6 +135,7 @@ class MediaUrlLoaderTest extends TestCase
 
         $thumbnails = $entity->get('thumbnails');
         static::assertIsArray($thumbnails);
+        static::assertInstanceOf(Entity::class, $thumbnails[0]);
         static::assertFalse($thumbnails[0]->has('url'));
 
         $mediaUrlLoader->loaded([$entity]);
@@ -142,6 +144,7 @@ class MediaUrlLoaderTest extends TestCase
 
         $thumbnails = $entity->get('thumbnails');
         static::assertIsArray($thumbnails);
+        static::assertInstanceOf(Entity::class, $thumbnails[0]);
         static::assertTrue($thumbnails[0]->has('url'));
         static::assertSame('https://example.com/a0/thumbnailimage.jpg?width=100', $thumbnails[0]->get('url'));
     }
@@ -149,7 +152,7 @@ class MediaUrlLoaderTest extends TestCase
     public function testLoadedWithThumbnailHavingMaxWidthWithMissingWidth(): void
     {
         $mediaUrlGenerator = $this->createMock(MediaUrlGenerator::class);
-        $mediaUrlGenerator->expects(static::once())
+        $mediaUrlGenerator->expects($this->once())
             ->method('generate')
             ->willReturn([
                 '1' => 'https://example.com/a0/image.jpg?width=100',
@@ -174,6 +177,7 @@ class MediaUrlLoaderTest extends TestCase
 
         $thumbnails = $entity->get('thumbnails');
         static::assertIsArray($thumbnails);
+        static::assertInstanceOf(Entity::class, $thumbnails[0]);
         static::assertFalse($thumbnails[0]->has('url'));
 
         $mediaUrlLoader->loaded([$entity]);
@@ -182,6 +186,7 @@ class MediaUrlLoaderTest extends TestCase
 
         $thumbnails = $entity->get('thumbnails');
         static::assertIsArray($thumbnails);
+        static::assertInstanceOf(Entity::class, $thumbnails[0]);
         static::assertTrue($thumbnails[0]->has('url'));
         static::assertSame('https://example.com/a0/thumbnailimage.jpg?width=100', $thumbnails[0]->get('url'));
     }
@@ -189,7 +194,7 @@ class MediaUrlLoaderTest extends TestCase
     public function testLoadedWithThumbnailHavingNoUrl(): void
     {
         $mediaUrlGenerator = $this->createMock(MediaUrlGenerator::class);
-        $mediaUrlGenerator->expects(static::once())
+        $mediaUrlGenerator->expects($this->once())
             ->method('generate')
             ->willReturn([
                 '1' => 'https://example.com/a0/image.jpg',
@@ -213,6 +218,7 @@ class MediaUrlLoaderTest extends TestCase
 
         $thumbnails = $entity->get('thumbnails');
         static::assertIsArray($thumbnails);
+        static::assertInstanceOf(Entity::class, $thumbnails[0]);
         static::assertFalse($thumbnails[0]->has('url'));
 
         $mediaUrlLoader->loaded([$entity]);
@@ -221,6 +227,7 @@ class MediaUrlLoaderTest extends TestCase
 
         $thumbnails = $entity->get('thumbnails');
         static::assertIsArray($thumbnails);
+        static::assertInstanceOf(Entity::class, $thumbnails[0]);
         static::assertFalse($thumbnails[0]->has('url'));
     }
 
@@ -230,7 +237,7 @@ class MediaUrlLoaderTest extends TestCase
     public function testLoadedWithNotIterableThumbnail(mixed $thumbnail): void
     {
         $mediaUrlGenerator = $this->createMock(MediaUrlGenerator::class);
-        $mediaUrlGenerator->expects(static::once())
+        $mediaUrlGenerator->expects($this->once())
             ->method('generate')
             ->willReturn([
                 '1' => 'https://example.com/a0/image.jpg',
