@@ -1,0 +1,11 @@
+{
+  "main.js": {
+    "file": "js/frosh-platform-thumbnail-processor.js",
+    "name": "frosh-platform-thumbnail-processor",
+    "src": "main.js",
+    "isEntry": true,
+    "css": [
+      "css/frosh-platform-thumbnail-processor.css"
+    ]
+  }
+}
