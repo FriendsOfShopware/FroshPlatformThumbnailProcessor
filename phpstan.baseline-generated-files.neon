@@ -1,0 +1,98 @@
+parameters:
+    ignoreErrors:
+        -
+            message: "#^Result of && is always false\\.$#"
+            count: 1
+            path: src/DependencyInjection/ThumbnailService.php
+            reportUnmatched: false
+
+        -
+            message: "#^Strict comparison using \\=\\=\\= between false and true will always evaluate to false\\.$#"
+            count: 1
+            path: src/DependencyInjection/ThumbnailService.php
+            reportUnmatched: false
+        -
+            message: "#^Call to an undefined method Shopware\\\\Core\\\\Content\\\\Media\\\\Message\\\\GenerateThumbnailsMessage\\:\\:setContext\\(\\)\\.$#"
+            count: 1
+            path: src/DependencyInjection/FileSaver.php
+            reportUnmatched: false
+
+        -
+            message: '#^Call to deprecated method#'
+            path: src/DependencyInjection/FileSaver.php
+            reportUnmatched: false
+
+        -
+            message: "#^Method Frosh\\\\ThumbnailProcessor\\\\DependencyInjection\\\\ThumbnailService\\:\\:(.*)\\(\\) is unused\\.$#"
+            path: src/DependencyInjection/ThumbnailService.php
+            reportUnmatched: false
+
+        -
+            message: "#^Anonymous function should return array but returns mixed.#"
+            path: src/DependencyInjection/ThumbnailService.php
+            reportUnmatched: false
+
+        -
+            message: "#tag\\:v6\\.7\\.0 - reason\\:return-type-change - Return type will be native#"
+            path: src/DependencyInjection/ThumbnailService.php
+            reportUnmatched: false
+
+        -
+            message: "#^Frosh\\\\ThumbnailProcessor\\\\DependencyInjection\\\\FileSaver::__construct\\(\\) does not call parent constructor from Shopware\\\\Core\\\\Content\\\\Media\\\\File\\\\FileSaver\\.$#"
+            count: 1
+            path: src/DependencyInjection/FileSaver.php
+            reportUnmatched: false
+
+        -
+            message: "#^Only booleans are allowed in a negated boolean, string\\|null given\\.$#"
+            count: 1
+            path: src/DependencyInjection/FileSaver.php
+            reportUnmatched: false
+
+        -
+            message: "#^Call to function is_string\\(\\) with string will always evaluate to true\\.$#"
+            count: 1
+            path: src/DependencyInjection/FileSaver.php
+            reportUnmatched: false
+
+        -
+            message: "#^Construct empty\\(\\) is not allowed\\. Use more strict comparison\\.$#"
+            count: 1
+            path: src/DependencyInjection/FileSaver.php
+            reportUnmatched: false
+
+        -
+            message: "#^Casting to string something that's already string\\.$#"
+            count: 1
+            path: src/DependencyInjection/FileSaver.php
+            reportUnmatched: false
+
+        -
+            message: "#^Only booleans are allowed in a negated boolean, Shopware\\\\Core\\\\Content\\\\Media\\\\Aggregate\\\\MediaThumbnail\\\\MediaThumbnailCollection\\|null given\\.$#"
+            count: 1
+            path: src/DependencyInjection/FileSaver.php
+            reportUnmatched: false
+
+        -
+            message: "#^Frosh\\\\ThumbnailProcessor\\\\DependencyInjection\\\\ThumbnailService::__construct\\(\\) does not call parent constructor from Shopware\\\\Core\\\\Content\\\\Media\\\\Thumbnail\\\\ThumbnailService\\.$#"
+            count: 1
+            path: src/DependencyInjection/ThumbnailService.php
+            reportUnmatched: false
+
+        -
+            message: "#^Construct empty\\(\\) is not allowed\\. Use more strict comparison\\.$#"
+            count: 4
+            path: src/DependencyInjection/ThumbnailService.php
+            reportUnmatched: false
+
+        -
+            message: "#^Only booleans are allowed in a negated boolean, Shopware\\\\Core\\\\Content\\\\Media\\\\Aggregate\\\\MediaThumbnail\\\\MediaThumbnailCollection\\|null given\\.$#"
+            count: 1
+            path: src/DependencyInjection/ThumbnailService.php
+            reportUnmatched: false
+
+        -
+            message: "#^Parameter \\#4 \\$metadata of method Frosh\\\\ThumbnailProcessor\\\\DependencyInjection\\\\FileSaver::updateMediaEntity\\(\\) expects array<string, mixed>\\|null, array\\|null given\\.$#"
+            count: 1
+            path: src/DependencyInjection/FileSaver.php
+            reportUnmatched: false

@@ -66,7 +66,7 @@ class ConfigReader
             return true;
         }
 
-        return $this->isTestActive() || !empty($config);
+        return $this->isTestActive() || ($config !== false && $config !== '0' && $config !== 0);
     }
 
     private function isTestActive(): bool

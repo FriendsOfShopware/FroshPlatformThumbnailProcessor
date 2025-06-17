@@ -36,14 +36,14 @@ class ThumbnailSizesChangedListener implements EventSubscriberInterface
         foreach ($event->getWriteResults() as $writeResult) {
             $mediaFolderConfigurationId = $writeResult->getPayload()['mediaFolderConfigurationId'] ?? null;
 
-            if (!empty($mediaFolderConfigurationId) && \is_string($mediaFolderConfigurationId)) {
+            if ($mediaFolderConfigurationId !== '' && \is_string($mediaFolderConfigurationId)) {
                 $updatedMediaFolderConfigurationIds[] = $mediaFolderConfigurationId;
             }
         }
 
         $updatedMediaFolderConfigurationIds = \array_unique($updatedMediaFolderConfigurationIds);
 
-        if (empty($updatedMediaFolderConfigurationIds)) {
+        if ($updatedMediaFolderConfigurationIds === []) {
             return;
         }
 

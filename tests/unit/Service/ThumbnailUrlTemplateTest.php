@@ -15,14 +15,15 @@ class ThumbnailUrlTemplateTest extends TestCase
     public function testGetUrl(?string $salesChannelId, string $mediaUrl, string $mediaPath, string $width, ?\DateTimeInterface $date): void
     {
         $configReader = $this->createMock(ConfigReader::class);
-        $configReader->expects(static::once())
+        $configReader->expects($this->once())
             ->method('getConfig')->willReturn('{mediaUrl}/{mediaPath}?width={width}&updatedAt={mediaUpdatedAt}&uff');
 
         $class = new ThumbnailUrlTemplate($configReader);
 
         $url = $class->getUrl($mediaUrl, $mediaPath, $width, $date);
+        $timestamp = $date !== null ? $date->getTimestamp() : '0';
 
-        static::assertSame(\sprintf('%s/%s?width=%s&updatedAt=%s&uff', $mediaUrl, $mediaPath, $width, $date?->getTimestamp() ?: '0'), $url);
+        static::assertSame(\sprintf('%s/%s?width=%s&updatedAt=%s&uff', $mediaUrl, $mediaPath, $width, $timestamp), $url);
     }
 
     /**
@@ -31,14 +32,15 @@ class ThumbnailUrlTemplateTest extends TestCase
     public function testGetUrlWithoutSetConfig(?string $salesChannelId, string $mediaUrl, string $mediaPath, string $width, ?\DateTimeInterface $date): void
     {
         $configReader = $this->createMock(ConfigReader::class);
-        $configReader->expects(static::once())
+        $configReader->expects($this->once())
             ->method('getConfig')->willReturn('{mediaUrl}/{mediaPath}?width={width}&updatedAt={mediaUpdatedAt}');
 
         $class = new ThumbnailUrlTemplate($configReader);
 
         $url = $class->getUrl($mediaUrl, $mediaPath, $width, $date);
+        $timestamp = $date !== null ? $date->getTimestamp() : '0';
 
-        static::assertSame(\sprintf('%s/%s?width=%s&updatedAt=%s', $mediaUrl, $mediaPath, $width, $date?->getTimestamp() ?: '0'), $url);
+        static::assertSame(\sprintf('%s/%s?width=%s&updatedAt=%s', $mediaUrl, $mediaPath, $width, $timestamp), $url);
     }
 
     /**
@@ -47,7 +49,7 @@ class ThumbnailUrlTemplateTest extends TestCase
     public function testGetUrlGetPatternOnce(?string $salesChannelId, string $mediaUrl, string $mediaPath, string $width, ?\DateTimeInterface $date): void
     {
         $configReader = $this->createMock(ConfigReader::class);
-        $configReader->expects(static::once())
+        $configReader->expects($this->once())
             ->method('getConfig')->willReturn('{mediaUrl}/{mediaPath}?width={width}&updatedAt={mediaUpdatedAt}');
 
         $class = new ThumbnailUrlTemplate($configReader);
@@ -55,8 +57,9 @@ class ThumbnailUrlTemplateTest extends TestCase
         $class->getUrl($mediaUrl, $mediaPath, $width, $date);
 
         $url = $class->getUrl($mediaUrl, $mediaPath, $width, $date);
+        $timestamp = $date !== null ? $date->getTimestamp() : '0';
 
-        static::assertSame(\sprintf('%s/%s?width=%s&updatedAt=%s', $mediaUrl, $mediaPath, $width, $date?->getTimestamp() ?: '0'), $url);
+        static::assertSame(\sprintf('%s/%s?width=%s&updatedAt=%s', $mediaUrl, $mediaPath, $width, $timestamp), $url);
     }
 
     /**

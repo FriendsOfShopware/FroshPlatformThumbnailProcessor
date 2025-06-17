@@ -40,16 +40,12 @@ class MediaUrlTest extends TestCase
         $container = $this->getContainer();
 
         $urlGenerator = $container->get(AbstractMediaUrlGenerator::class);
-        \assert($urlGenerator instanceof AbstractMediaUrlGenerator);
 
         $this->mediaRepository = $container->get('media.repository');
-        \assert($this->mediaRepository instanceof EntityRepository);
 
         $this->generateThumbnailsCommand = $container->get(GenerateThumbnailsCommand::class);
-        \assert($this->generateThumbnailsCommand instanceof GenerateThumbnailsCommand);
 
         $this->systemConfigService = $container->get(SystemConfigService::class);
-        \assert($this->systemConfigService instanceof SystemConfigService);
 
         $this->context = Context::createDefaultContext();
     }

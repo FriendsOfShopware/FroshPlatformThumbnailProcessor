@@ -34,7 +34,7 @@ readonly class GeneratorCompilerPass implements CompilerPassInterface
     {
         $fileContents = $this->getFileContent();
 
-        if (empty($fileContents)) {
+        if ($fileContents === null || $fileContents === '') {
             $this->removeReflectionClass();
 
             return;
@@ -71,7 +71,7 @@ readonly class GeneratorCompilerPass implements CompilerPassInterface
         $doc = '/**' . \PHP_EOL . 'THIS CLASS HAS BEEN GENERATED AUTOMATICALLY' . \PHP_EOL . '*/';
 
         $existingDocs = $class->getDocComment()?->getText() ?? '';
-        if (!empty($existingDocs)) {
+        if ($existingDocs !== '') {
             $doc .= \PHP_EOL . $existingDocs;
         }
 
@@ -123,7 +123,7 @@ readonly class GeneratorCompilerPass implements CompilerPassInterface
         $updateThumbnailsNode = $this->getClassMethod($nodeFinder, 'updateThumbnails', $ast);
 
         $stmts = $updateThumbnailsNode->getStmts();
-        if (empty($stmts)) {
+        if ($stmts === null || $stmts === []) {
             throw new \RuntimeException(\sprintf('Method %s in class %s is empty', 'updateThumbnails', $this->class));
         }
 
@@ -174,7 +174,7 @@ readonly class GeneratorCompilerPass implements CompilerPassInterface
         $filePath = $this->getFileName();
         $files = glob(\dirname($filePath) . '/*.php');
 
-        if (empty($files)) {
+        if ($files === false || $files === []) {
             return;
         }
 
@@ -188,7 +188,7 @@ readonly class GeneratorCompilerPass implements CompilerPassInterface
             $uses[] = new UseUse(new Name($class));
         }
 
-        if (empty($uses)) {
+        if ($uses === []) {
             return;
         }
 
@@ -197,7 +197,13 @@ readonly class GeneratorCompilerPass implements CompilerPassInterface
 
     private function getFileContent(): ?string
     {
-        return file_get_contents($this->getFileName()) ?: null;
+        $content = file_get_contents($this->getFileName());
+
+        if (\is_string($content)) {
+            return $content;
+        }
+
+        return null;
     }
 
     private function getFileName(): string
@@ -206,7 +212,7 @@ readonly class GeneratorCompilerPass implements CompilerPassInterface
 
         $fileName = $reflectionClass->getFileName();
 
-        if (empty($fileName)) {
+        if ($fileName === false) {
             throw new \RuntimeException(\sprintf('Cannot get fileName of class %s', $this->class));
         }
 
@@ -231,7 +237,7 @@ readonly class GeneratorCompilerPass implements CompilerPassInterface
     {
         $lastOccur = strrchr($this->class, '\\');
 
-        if (empty($lastOccur)) {
+        if ($lastOccur === false || $lastOccur === '') {
             throw new \RuntimeException(\sprintf('Cannot determine className from %s', $this->class));
         }
 
