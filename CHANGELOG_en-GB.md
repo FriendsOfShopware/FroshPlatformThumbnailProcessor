@@ -1,3 +1,6 @@
+# 5.4.0
+* Added support for Shopware 6.7
+
 # 5.3.0
 * Added support for newer dev tools by upgrading support of php-parser v5
 
