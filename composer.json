@@ -23,7 +23,8 @@
     "minimum-stability": "RC",
     "require": {
         "shopware/core": "~6.6.0||~6.7.0",
-        "nikic/php-parser": "^4.13.0|^5.0.0"
+        "shopware/storefront": "*",
+        "nikic/php-parser": "^4.13.0||^5.0.0"
     },
     "suggest": {
         "frosh/lazy-sizes": "*"
