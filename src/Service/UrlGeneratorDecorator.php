@@ -82,7 +82,7 @@ class UrlGeneratorDecorator implements UrlGeneratorInterface, ResetInterface
 
     private function getBaseUrl(): string
     {
-        return $this->filesystem->publicUrl('');
+        return \rtrim($this->filesystem->publicUrl(''), '/');
     }
 
     private function canProcessFileExtension(?string $fileExtension): bool
