@@ -1,3 +1,6 @@
+# 4.0.3
+* Changed url to not add duplicated slashes after domain
+
 # 4.0.2
 * Added placeholder classes for generated files to support classmap-authoritative
 
