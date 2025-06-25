@@ -1,0 +1,25 @@
+{
+  "base": "/bundles/froshplatformthumbnailprocessor/administration/",
+  "entryPoints": {
+    "frosh-platform-thumbnail-processor": {
+      "css": [
+        "/bundles/froshplatformthumbnailprocessor/administration/css/frosh-platform-thumbnail-processor.css"
+      ],
+      "dynamic": [],
+      "js": [
+        "/bundles/froshplatformthumbnailprocessor/administration/js/frosh-platform-thumbnail-processor.js"
+      ],
+      "legacy": false,
+      "preload": []
+    }
+  },
+  "legacy": false,
+  "metadatas": {},
+  "version": [
+    "7.0.4",
+    7,
+    0,
+    4
+  ],
+  "viteServer": null
+}
