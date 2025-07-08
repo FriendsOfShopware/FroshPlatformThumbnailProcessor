@@ -68,7 +68,7 @@ You can find patterns in [GitHub Discussions in category Patterns](https://githu
 
 ## Uninstall
 
-After uninstalling plugin you have to run `bin/console media:generate-thumbnails -strict` to generate the thumbnails-files on disk.
+After uninstalling plugin you have to run `bin/console media:generate-thumbnails --strict` to generate the thumbnails-files on disk.
 
 ## License
 
