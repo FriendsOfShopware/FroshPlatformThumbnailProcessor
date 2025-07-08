@@ -79,12 +79,12 @@ class TestController
             ->addAssociation('defaultFolder')
             ->setLimit(1);
 
-        $ids = $this->mediaFolderRepository
+        $id = $this->mediaFolderRepository
             ->searchIds($criteria, $context)
-            ->getIds();
+            ->getIds()[0] ?? null;
 
-        if (!empty($ids[0]) && \is_string($ids[0])) {
-            return $ids[0];
+        if (\is_string($id)) {
+            return $id;
         }
 
         throw new \RuntimeException('Media folder for product could not have been found!');
@@ -100,7 +100,7 @@ class TestController
         $pathInfo = pathinfo($testFile);
 
         $existingMedia = $this->getMediaById($pathInfo['filename'], $context);
-        if ($existingMedia) {
+        if ($existingMedia !== null) {
             return $existingMedia;
         }
 
@@ -130,7 +130,7 @@ class TestController
         );
 
         $existingMedia = $this->getMediaById($pathInfo['filename'], $context);
-        if ($existingMedia) {
+        if ($existingMedia !== null) {
             return $existingMedia;
         }
 

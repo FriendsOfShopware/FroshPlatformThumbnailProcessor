@@ -13,21 +13,28 @@ class ThumbnailUrlTemplate implements ThumbnailUrlTemplateInterface
 
     public function getUrl(string $mediaUrl, string $mediaPath, string $width, ?\DateTimeInterface $mediaUpdatedAt): string
     {
+        $timestamp = $mediaUpdatedAt !== null ? (string) $mediaUpdatedAt->getTimestamp() : '0';
+
         return str_replace(
             ['{mediaUrl}', '{mediaPath}', '{width}', '{mediaUpdatedAt}'],
-            [$mediaUrl, $mediaPath, $width, $mediaUpdatedAt?->getTimestamp() ?: '0'],
+            [$mediaUrl, $mediaPath, $width, $timestamp],
             $this->getPattern()
         );
     }
 
     private function getPattern(): string
     {
-        if ($this->pattern) {
+        if (isset($this->pattern)) {
             return $this->pattern;
         }
 
+        $this->pattern = '{mediaUrl}/{mediaPath}?width={width}';
+
         $pattern = $this->configReader->getConfig('ThumbnailPattern');
-        $this->pattern = $pattern && \is_string($pattern) ? $pattern : '{mediaUrl}/{mediaPath}?width={width}';
+
+        if (\is_string($pattern) && $pattern !== '') {
+            $this->pattern = $pattern;
+        }
 
         return $this->pattern;
     }
