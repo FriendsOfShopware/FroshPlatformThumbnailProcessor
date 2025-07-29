@@ -1,19 +1,25 @@
+includes:
+    - phpstan.baseline-generated-files.neon
+
 parameters:
     level: max
     paths:
         - src
         - tests
     ignoreErrors:
+
         -
-            message: "#^Result of && is always false\\.$#"
-            count: 1
-            path: src/DependencyInjection/ThumbnailService.php
+            message: "#Call to static method PHPUnit\\\\Framework\\\\Assert::assertIsIterable\\(\\) with array<int\\|string, string> will always evaluate to true.#"
             reportUnmatched: false
 
         -
-            message: "#^Strict comparison using \\=\\=\\= between false and true will always evaluate to false\\.$#"
-            count: 1
-            path: src/DependencyInjection/ThumbnailService.php
+            message: "#staticMethod.alreadyNarrowedType#"
+            path: tests/unit/Core/Media/MediaUrlGeneratorTest.php
+            reportUnmatched: false
+
+        -
+            message: "#tag\\:v6\\.8\\.0 - reason:return-type-change - return type will be nullable#"
+            path: tests/integration/MediaUrlTest.php
             reportUnmatched: false
 
         -
@@ -37,30 +43,6 @@ parameters:
 
         -
             message: "#possible param types, only#"
-            reportUnmatched: false
-        -
-            message: "#^Call to an undefined method Shopware\\\\Core\\\\Content\\\\Media\\\\Message\\\\GenerateThumbnailsMessage\\:\\:setContext\\(\\)\\.$#"
-            count: 1
-            path: src/DependencyInjection/FileSaver.php
-            reportUnmatched: false
-
-        -
-            message: "#^Method Frosh\\\\ThumbnailProcessor\\\\DependencyInjection\\\\ThumbnailService\\:\\:(.*)\\(\\) is unused\\.$#"
-            path: src/DependencyInjection/ThumbnailService.php
-
-        -
-            message: "#^Anonymous function should return array but returns mixed.#"
-            path: src/DependencyInjection/ThumbnailService.php
-            reportUnmatched: false
-
-        -
-            message: "#tag\\:v6\\.7\\.0 - reason\\:return-type-change - Return type will be native#"
-            path: src/DependencyInjection/ThumbnailService.php
-            reportUnmatched: false
-
-        -
-            message: '#^Call to deprecated method#'
-            path: src/DependencyInjection/FileSaver.php
             reportUnmatched: false
 
         -
@@ -86,4 +68,40 @@ parameters:
 
         -
             message: "#Use AbstractMediaUrlGenerator instead#"
+            reportUnmatched: false
+
+        -
+            message: "#^Strict comparison using === between array<PhpParser\\\\Node\\\\Stmt> and null will always evaluate to false\\.$#"
+            count: 1
+            path: src/DependencyInjection/GeneratorCompilerPass.php
+            reportUnmatched: false
+
+        -
+            message: "#^Call to function method_exists\\(\\) with 'PhpParser\\\\\\\\ParserFactory' and 'createForHostVersion' will always evaluate to true\\.$#"
+            count: 1
+            path: src/DependencyInjection/GeneratorCompilerPass.php
+            reportUnmatched: false
+
+        -
+            message: "#^Access to undefined constant PhpParser\\\\ParserFactory::ONLY_PHP7\\.$#"
+            count: 1
+            path: src/DependencyInjection/GeneratorCompilerPass.php
+            reportUnmatched: false
+
+        -
+            message: "#^Call to an undefined method PhpParser\\\\ParserFactory::create\\(\\)\\.$#"
+            count: 1
+            path: src/DependencyInjection/GeneratorCompilerPass.php
+            reportUnmatched: false
+
+        -
+            message: "#^Method Frosh\\\\ThumbnailProcessor\\\\DependencyInjection\\\\GeneratorCompilerPass::getPhpParser\\(\\) should return PhpParser\\\\Parser but returns mixed\\.$#"
+            count: 1
+            path: src/DependencyInjection/GeneratorCompilerPass.php
+            reportUnmatched: false
+
+        -
+            message: "#^Property PhpParser\\\\Node\\\\Stmt\\\\Namespace_::\\$stmts \\(array<PhpParser\\\\Node\\\\Stmt>\\) does not accept array<PhpParser\\\\Node\\\\Stmt>\\|null\\.$#"
+            count: 1
+            path: src/DependencyInjection/GeneratorCompilerPass.php
             reportUnmatched: false
