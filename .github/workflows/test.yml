@@ -15,7 +15,7 @@ jobs:
       matrix: ${{ steps.matrix.outputs.matrix }}
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Get Shopware Version
         id: shopware-constraint
@@ -55,7 +55,7 @@ jobs:
           composer -V
 
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           path: ${{ github.workspace }}/custom/plugins/${{ env.PLUGIN_NAME }}
 
@@ -65,7 +65,7 @@ jobs:
           composer create-placeholders
           php -d pcov.enabled=1 ${{ github.workspace }}/vendor/bin/phpunit --coverage-clover clover.xml --testsuite Unit
 
-      - uses: codecov/codecov-action@v3
+      - uses: codecov/codecov-action@v5
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
         with:
@@ -102,7 +102,7 @@ jobs:
           composer -V
 
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           path: ${{ github.workspace }}/custom/plugins/${{ env.PLUGIN_NAME }}
 
@@ -112,7 +112,7 @@ jobs:
           composer create-placeholders
           php -d pcov.enabled=1 ${{ github.workspace }}/vendor/bin/phpunit --testsuite Integration
 
-      - uses: codecov/codecov-action@v3
+      - uses: codecov/codecov-action@v5
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
         with:

@@ -113,7 +113,19 @@ readonly class GeneratorCompilerPass implements CompilerPassInterface
         } catch (\RuntimeException $e) {
             if ($e->getMessage() === 'Method createThumbnailsForSizes in class Shopware\Core\Content\Media\Thumbnail\ThumbnailService is missing') {
                 $generateAndSaveNode = $this->getClassMethod($nodeFinder, 'generateAndSave', $ast);
-                $this->handleGenerateAndSaveNode($generateAndSaveNode);
+
+                // when the internal 'isSameDimension' method is no longer available, we need to add the 'mediaThumbnailSizeId' field
+                $addMediaThumbnailSizeId = true;
+                try {
+                    $this->getClassMethod($nodeFinder, 'isSameDimension', $ast);
+                    $addMediaThumbnailSizeId = false;
+                } catch (\RuntimeException $e) {
+                    if ($e->getMessage() !== 'Method isSameDimension in class Shopware\Core\Content\Media\Thumbnail\ThumbnailService is missing') {
+                        throw $e;
+                    }
+                }
+
+                $this->handleGenerateAndSaveNode($generateAndSaveNode, $addMediaThumbnailSizeId);
             } else {
                 throw $e;
             }
@@ -269,7 +281,7 @@ readonly class GeneratorCompilerPass implements CompilerPassInterface
                             return $savedThumbnails;');
     }
 
-    private function handleGenerateAndSaveNode(ClassMethod $generateAndSaveNode): void
+    private function handleGenerateAndSaveNode(ClassMethod $generateAndSaveNode, bool $addMediaThumbnailSizeId): void
     {
         // we don't need to generate the files, so we just return the array
         $generateAndSaveNode->stmts = $this->getPhpParser()
@@ -284,15 +296,13 @@ readonly class GeneratorCompilerPass implements CompilerPassInterface
                                     throw MediaException::mediaTypeNotLoaded($media->getId());
                                 }
 
-                                $mapped = [];
                                 foreach ($sizes as $size) {
                                     $id = Uuid::randomHex();
-
-                                    $mapped[$size->getId()] = $id;
 
                                     $records[] = [
                                         \'id\' => $id,
                                         \'mediaId\' => $media->getId(),
+                                        ' . ($addMediaThumbnailSizeId ? '\'mediaThumbnailSizeId\' => $size->getId(),' : '') . '
                                         \'width\' => $size->getWidth(),
                                         \'height\' => $size->getHeight(),
                                     ];

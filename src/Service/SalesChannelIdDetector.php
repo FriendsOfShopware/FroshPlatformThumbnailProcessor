@@ -10,9 +10,13 @@ use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 use Shopware\Core\PlatformRequest;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Shopware\Core\Content\ProductExport\ProductExportCollection;
 
 class SalesChannelIdDetector
 {
+    /**
+     * @param EntityRepository<ProductExportCollection> $productExportRepository
+     */
     public function __construct(
         private readonly RequestStack $requestStack,
         private readonly EntityRepository $productExportRepository
