@@ -48,6 +48,7 @@ class ThumbnailSizesChangedListenerTest extends TestCase
         $mediaFolderCollection = new MediaFolderCollection();
         $mediaFolderCollection->add($mediaFolderEntity);
 
+        /** @var StaticEntityRepository<MediaFolderCollection> */
         $mediaFolderRepository = new StaticEntityRepository([$mediaFolderCollection]);
 
         $thumbnailSizesChangedListener = new ThumbnailSizesChangedListener(
