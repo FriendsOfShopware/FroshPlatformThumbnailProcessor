@@ -11,6 +11,19 @@ parameters:
             count: 1
             path: src/DependencyInjection/ThumbnailService.php
             reportUnmatched: false
+
+        -
+            message: '#^Call to deprecated method#'
+            count: 3
+            path: src/DependencyInjection/ThumbnailService.php
+            reportUnmatched: false
+
+        -
+            message: '#^Only booleans are allowed in &&#'
+            count: 1
+            path: src/DependencyInjection/ThumbnailService.php
+            reportUnmatched: false
+
         -
             message: "#^Call to an undefined method Shopware\\\\Core\\\\Content\\\\Media\\\\Message\\\\GenerateThumbnailsMessage\\:\\:setContext\\(\\)\\.$#"
             count: 1

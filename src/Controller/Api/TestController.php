@@ -19,6 +19,7 @@ use Shopware\Core\PlatformRequest;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
+use Shopware\Core\Content\Media\Aggregate\MediaFolder\MediaFolderCollection;
 
 #[Route(defaults: ['_routeScope' => ['api']])]
 class TestController
@@ -26,6 +27,10 @@ class TestController
     public const REQUEST_ATTRIBUTE_TEST_ACTIVE = 'FroshPlatformThumbnailProcessorTestActive';
     public const TEST_FILE_PATH = __DIR__ . '/../../Resources/data/froshthumbnailprocessortestimage.jpg';
 
+    /**
+     * @param EntityRepository<MediaCollection> $mediaRepository
+     * @param EntityRepository<MediaFolderCollection> $mediaFolderRepository
+     */
     public function __construct(
         private readonly AbstractMediaUrlGenerator $urlGenerator,
         private readonly EntityRepository $mediaRepository,
@@ -143,7 +148,6 @@ class TestController
         // we use the fileName filter to add backward compatibility
         $criteria->addFilter(new EqualsFilter('fileName', $fileName));
 
-        /** @var MediaCollection $entities */
         $entities = $this->mediaRepository->search($criteria, $context)->getEntities();
 
         return $entities->first();

@@ -3,6 +3,7 @@
 namespace Frosh\ThumbnailProcessor\Tests\Unit\Service;
 
 use Frosh\ThumbnailProcessor\Service\SalesChannelIdDetector;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Shopware\Core\Content\ProductExport\ProductExportCollection;
 use Shopware\Core\Content\ProductExport\ProductExportEntity;
@@ -90,6 +91,7 @@ class SalesChannelIdDetectorTest extends TestCase
         $productExportCollection = new ProductExportCollection();
         $productExportCollection->add($productExportEntity);
 
+        /** @var StaticEntityRepository<ProductExportCollection> */
         $productExportRepository = new StaticEntityRepository([$productExportCollection]);
 
         $class = new SalesChannelIdDetector($requestStack, $productExportRepository);
@@ -106,6 +108,7 @@ class SalesChannelIdDetectorTest extends TestCase
             ],
         ));
 
+        /** @var StaticEntityRepository<ProductExportCollection>&MockObject */
         $productExportRepository = $this->createMock(StaticEntityRepository::class);
         $productExportRepository->expects(static::never())->method('search');
 

@@ -7,6 +7,7 @@ use PHPUnit\Framework\TestCase;
 use Shopware\Core\Content\Media\Aggregate\MediaThumbnail\MediaThumbnailCollection;
 use Shopware\Core\Content\Media\Commands\GenerateThumbnailsCommand;
 use Shopware\Core\Content\Media\Core\Application\AbstractMediaUrlGenerator;
+use Shopware\Core\Content\Media\MediaCollection;
 use Shopware\Core\Content\Media\MediaEntity;
 use Shopware\Core\Content\Test\Media\MediaFixtures;
 use Shopware\Core\Framework\Context;
@@ -18,7 +19,6 @@ use Shopware\Core\Framework\Test\TestCaseBase\QueueTestBehaviour;
 use Shopware\Core\System\SystemConfig\SystemConfigService;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Output\NullOutput;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class MediaUrlTest extends TestCase
 {
@@ -26,6 +26,9 @@ class MediaUrlTest extends TestCase
     use MediaFixtures;
     use QueueTestBehaviour;
 
+    /**
+     * @var EntityRepository<MediaCollection>
+     */
     private EntityRepository $mediaRepository;
 
     private GenerateThumbnailsCommand $generateThumbnailsCommand;
@@ -90,8 +93,8 @@ class MediaUrlTest extends TestCase
 
         $mediaResult = $this->mediaRepository->search($searchCriteria, $this->context);
 
-        /** @var MediaEntity $updatedMedia */
         $updatedMedia = $mediaResult->getEntities()->first();
+        static::assertInstanceOf(MediaEntity::class, $updatedMedia);
 
         $thumbnails = $updatedMedia->getThumbnails();
         static::assertInstanceOf(MediaThumbnailCollection::class, $thumbnails);
@@ -150,8 +153,8 @@ class MediaUrlTest extends TestCase
 
         $mediaResult = $this->mediaRepository->search($searchCriteria, $this->context);
 
-        /** @var MediaEntity $updatedMedia */
         $updatedMedia = $mediaResult->getEntities()->first();
+        static::assertInstanceOf(MediaEntity::class, $updatedMedia);
 
         $thumbnails = $updatedMedia->getThumbnails();
         static::assertInstanceOf(MediaThumbnailCollection::class, $thumbnails);
