@@ -17,6 +17,6 @@ class UrlEncodingTwigFilter extends ShopwareUrlEncodingTwigFilter
         }
 
         // this adds support for imgproxy with the procession options coming with version 3.0
-        return \str_replace('%3A', ':', $mediaUrl);
+        return str_ireplace(['%40', '%3A'], ['@', ':'], $mediaUrl);
     }
 }
