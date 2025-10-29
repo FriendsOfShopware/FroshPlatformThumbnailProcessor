@@ -37,9 +37,9 @@ class MediaUrlGeneratorTest extends TestCase
             'ExtensionsAllowList' => 'jpg',
             'ThumbnailPattern' => '{mediaUrl}/{mediaPath}?width={width}',
         ];
-        $configReader->expects($this->any())
+        $configReader
             ->method('getConfig')
-            ->willReturnCallback(function ($key) use ($defaultPluginConfig) {
+            ->willReturnCallback(function (string $key) use ($defaultPluginConfig) {
                 return $defaultPluginConfig[$key] ?? null;
             });
 
@@ -84,9 +84,9 @@ class MediaUrlGeneratorTest extends TestCase
             'ExtensionsAllowList' => 'jpg',
             'ThumbnailPattern' => '{mediaUrl}/{mediaPath}?width={width}',
         ];
-        $configReader->expects($this->any())
+        $configReader
             ->method('getConfig')
-            ->willReturnCallback(function ($key) use ($defaultPluginConfig) {
+            ->willReturnCallback(function (string $key) use ($defaultPluginConfig) {
                 return $defaultPluginConfig[$key] ?? null;
             });
 
@@ -141,9 +141,9 @@ class MediaUrlGeneratorTest extends TestCase
             'ExtensionsAllowList' => 'jpg',
             'ThumbnailPattern' => '{mediaUrl}/{mediaPath}?width={width}',
         ];
-        $configReader->expects($this->any())
+        $configReader
             ->method('getConfig')
-            ->willReturnCallback(function ($key) use ($defaultPluginConfig) {
+            ->willReturnCallback(function (string $key) use ($defaultPluginConfig) {
                 return $defaultPluginConfig[$key] ?? null;
             });
 
@@ -195,9 +195,9 @@ class MediaUrlGeneratorTest extends TestCase
             'ExtensionsAllowList' => $allowList,
             'ThumbnailPattern' => '{mediaUrl}/{mediaPath}?width={width}',
         ];
-        $configReader->expects($this->any())
+        $configReader
             ->method('getConfig')
-            ->willReturnCallback(function ($key) use ($defaultPluginConfig) {
+            ->willReturnCallback(function (string $key) use ($defaultPluginConfig) {
                 return $defaultPluginConfig[$key] ?? null;
             });
 
@@ -244,7 +244,7 @@ class MediaUrlGeneratorTest extends TestCase
         ];
         $configReader->expects($this->exactly(3))
             ->method('getConfig')
-            ->willReturnCallback(function ($key) use ($defaultPluginConfig) {
+            ->willReturnCallback(function (string $key) use ($defaultPluginConfig) {
                 return $defaultPluginConfig[$key] ?? null;
             });
 
