@@ -46,6 +46,7 @@ jobs:
           shopware-version: ${{ matrix.shopware }}
           php-version: ${{ matrix.php }}
           php-extensions: pcov
+          allow-insecure-versions: true
 
       - name: Info
         run: |
@@ -93,6 +94,7 @@ jobs:
           shopware-version: ${{ matrix.shopware }}
           php-version: ${{ matrix.php }}
           php-extensions: pcov
+          allow-insecure-versions: true
 
       - name: Info
         run: |
