@@ -105,3 +105,9 @@ parameters:
             count: 1
             path: src/DependencyInjection/GeneratorCompilerPass.php
             reportUnmatched: false
+
+        -
+            message: "#IdSearchResult constructor expects#"
+            count: 3
+            path: tests/unit/Controller/Api/TestControllerTest.php
+            reportUnmatched: false

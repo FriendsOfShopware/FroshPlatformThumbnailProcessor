@@ -93,7 +93,7 @@ class TestControllerTest extends TestCase
         $mediaRepository = $this->createMock(EntityRepository::class);
 
         $mediaFolderRepository = $this->createMock(EntityRepository::class);
-        $mediaFolderRepository->expects(static::once())
+        $mediaFolderRepository->expects($this->once())
             ->method('searchIds')
             ->willReturn(
                 new IdSearchResult(
@@ -200,16 +200,8 @@ class TestControllerTest extends TestCase
             });
 
         $mediaFolderRepository = $this->createMock(EntityRepository::class);
-        $mediaFolderRepository->expects(static::never())
-            ->method('searchIds')
-            ->willReturn(
-                new IdSearchResult(
-                    1,
-                    [['primaryKey' => 'folder-id', 'data' => []]],
-                    new Criteria(),
-                    Context::createDefaultContext(),
-                ),
-            );
+        $mediaFolderRepository->expects($this->never())
+            ->method('searchIds');
 
         $fileSaver = $this->createMock(FileSaver::class);
         $fileFetcher = $this->createMock(FileFetcher::class);
@@ -284,7 +276,7 @@ class TestControllerTest extends TestCase
             });
 
         $mediaFolderRepository = $this->createMock(EntityRepository::class);
-        $mediaFolderRepository->expects(static::once())
+        $mediaFolderRepository->expects($this->once())
             ->method('searchIds')
             ->willReturn(
                 new IdSearchResult(
@@ -368,7 +360,7 @@ class TestControllerTest extends TestCase
             });
 
         $mediaFolderRepository = $this->createMock(EntityRepository::class);
-        $mediaFolderRepository->expects(static::once())
+        $mediaFolderRepository->expects($this->once())
             ->method('searchIds')
             ->willReturn(
                 new IdSearchResult(
